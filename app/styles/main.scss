@@ -18,10 +18,14 @@ a {
   text-decoration: none;
 }
  
+li {
+	list-style-type: none;
+}
  
 /* utility classes */
  
 .container {
   margin: 0 auto;
   width: 940px;
+  position: relative;
 }

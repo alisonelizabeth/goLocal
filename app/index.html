@@ -6,25 +6,63 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>findLocal</title>
+        <title>goLocal</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
         <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="container">
+        <div class="container"> </div>
 
 
-        </div>
+        <!-- template for Add Place View -->
+        <script type="text/template" id="grid-template">
+            <div id="thumbnail">
+                <img id="photo" src="<%= place.get('photo')%>">
+            </div>
+            <div id="thumbnail-info">
+                <ul>
+                    <li><%= place.get('placeType')%></li>
+                    <li><%= place.get('email')%></a></li> 
+                    <li><a type="button" class="btn btn-default btn-xs" id="activate">More details</a><li>
+                </ul>
+            </div>
+        </script> 
+
+
+        <!-- template for Add Place View -->
+        <script type="text/template" id="add-template">
+            <h1>Share your local find</h1>
+            <ul>
+                <li>What did you find?</li>
+                    <select id="type"> 
+                        <option>Produce stand </option>
+                        <option>Farmers market </option>
+                        <option>Farm </option>
+                        <option>Grocery store/co-op </option>
+                    </select> 
+                <li>Name</li>
+                <input id="name" placeholder="Name of place">
+                <li>Upload a photo</li>
+                <input type="file" id="photo-upload" placeholder="Upload a photo">
+                <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
+            </ul>
+
+            <button id="save"> Save </button>
+
+      
+        </script>
 
 
       
@@ -54,7 +92,6 @@
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/coffee.js -->
-        <script src="scripts/hello.js"></script>
         <!-- endbuild -->
 </body>
 </html>
