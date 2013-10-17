@@ -28,14 +28,11 @@
 
         <!-- template for Add Place View -->
         <script type="text/template" id="grid-template">
-            <div id="thumbnail">
-                <img id="photo" src="<%= place.get('photo')%>">
-            </div>
             <div id="thumbnail-info">
                 <ul>
                     <li><%= place.get('placeType')%></li>
-                    <li><%= place.get('email')%></a></li> 
-                    <li><a type="button" class="btn btn-default btn-xs" id="activate">More details</a><li>
+                    <li><%= place.get('placeName')%></li> 
+                    <li><%= place.get('placePhoto')%></li> 
                 </ul>
             </div>
         </script> 
@@ -58,6 +55,7 @@
                 <input type="file" id="photo-upload" placeholder="Upload a photo">
                 <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
             </ul>
+            <button id="location">Get my location</button>
 
             <button id="save"> Save </button>
 

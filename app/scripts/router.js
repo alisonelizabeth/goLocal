@@ -3,7 +3,6 @@ AppRouter = Backbone.Router.extend({
 	initialize: function(){
 		console.log('new route created');
 		this.places = new PlaceCollection();
-		console.log(this.places)
 	},
 
 	routes: {
@@ -19,6 +18,20 @@ AppRouter = Backbone.Router.extend({
 		$('.container').text('Home page')
 	},
 
+	showPlaces: function() {
+		$('.container').empty();
+
+		this.places.fetch({
+			success: function(places) {
+				places.each(function(place){
+					new FullView({model: place});
+				});
+
+			}
+		})
+
+	},
+
 	addPlace: function() {
 		$('.container').empty();
 
@@ -26,9 +39,6 @@ AppRouter = Backbone.Router.extend({
 
 	},
 
-	showPlaces: function() {
-
-	}
 
 });
 

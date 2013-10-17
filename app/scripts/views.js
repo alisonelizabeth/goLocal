@@ -6,14 +6,14 @@ FullView = Backbone.View.extend({
 
 	initialize: function() {
 		$('.container').append(this.el);
+		this.render();
 	},
 
 	render: function() {
-
+		this.$el.append(this.gridTemplate({place: this.model}) );
 	}
 
 })
-
 
 // AddView: Add place to Parse database 
 AddView = Backbone.View.extend({
@@ -22,7 +22,8 @@ AddView = Backbone.View.extend({
 	className: 'add-view',
 
 	events: {
-		'click #save'	:'save' 
+		'click #save'		:'save',
+		'click #location' 	:'findLocation'
 	},
 
 	initialize: function() {
@@ -36,30 +37,32 @@ AddView = Backbone.View.extend({
 	},
 
 	save: function() {
-		var fileUploadControl = $('#photo-upload')[0];
-		if (fileUploadControl.files.length > 0) {
-			var file = fileUploadControl.files[0];
-			var name = 'photo.jpg';
-
-			var parseFile = new Parse.File(name, file);
-		}
-
-		parseFile.save().then(function(){
-			console.log('it saved')
-		}, function(error) {
-			console.log('error occured')
-		});
-
 		var place = new PlaceClass();
+
+		var fileUploadControl = $('#photo-upload')[0];
 
 		var type 		= $('#type').val();
 		var placeName 	= $('#name').val();
 		var comments	= $('#comments').val();
 
+		if (fileUploadControl.files.length > 0) {
+			var file = fileUploadControl.files[0];
+			var name = 'photo.jpg';
+
+			var parseFile = new Parse.File(name, file);
+
+			parseFile.save().then(function(){
+				console.log(parseFile.url());
+				place.set('placePhoto', parseFile)
+				place.save()
+			}); 
+		}	else {
+			console.log ('error')
+		}
+
 		place.set('placeType', type);
 		place.set('placeName', placeName);
 		place.set('comments', comments);
-		place.set('placePhoto', file);
 
 		collection = router.places
 		collection.add(place)
@@ -71,13 +74,29 @@ AddView = Backbone.View.extend({
 				$('input').val('');
 				$('textarea').val('');
 				$('select').val('');
-				// temporary 
 			},
 
 			error: function(results, error) {
 				console.log(error.description);
 			}
 		});
+
+
+	},
+
+	findLocation: function() {
+		var test = $('.container')
+		if (navigator.geolocation) {
+    		navigator.geolocation.getCurrentPosition(showPosition);
+    	} else {
+    		console.log("Geolocation is not supported by this browser.")
+    	}
+  		
+		function showPosition(position) {
+  			var latitude = position.coords.latitude
+  			var longitude = position.coords.longitude; 
+  			console.log(latitude + ' and ' + longitude)
+  		}
 	}
 });
 
