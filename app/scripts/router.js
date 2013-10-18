@@ -24,10 +24,10 @@ AppRouter = Backbone.Router.extend({
 		this.places.fetch({
 			success: function(places) {
 				places.each(function(place){
-					new FullView({model: place});
 					if (place.get('placePhoto')) {
-                		$('.container').append('<img src="'+place.get('placePhoto').url()+'" />');
+                		$('.container').append('<div class="thumbnail"><img src="'+place.get('placePhoto').url()+'" /></div>');
 					}
+					new FullView({model: place});
 				});
 			}
 		})
@@ -40,7 +40,33 @@ AppRouter = Backbone.Router.extend({
 		this.places.fetch({
 			success: function(){
 				placeToShow = that.places.get(id);
+
+				if (placeToShow.get('placePhoto')) {
+                		$('.container').append('<div class="main-image"><img src="'+placeToShow.get('placePhoto').url()+'" /></div>');
+					}
+
 				new IndividualView({model: placeToShow})
+				console.log('view')
+
+				var latitude = placeToShow.get('latitude')
+				var longitude = placeToShow.get('longitude')
+				var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1').setView([latitude, longitude], 15);    			
+
+				L.mapbox.markerLayer({
+				    type: 'Feature',
+				    geometry: {
+				        type: 'Point',
+				        coordinates: [longitude , latitude]
+				    },
+				    properties: {
+				        title: 'A Single Marker',
+				        description: 'Just one of me',
+				        // one can customize markers by adding simplestyle properties
+				        // http://mapbox.com/developers/simplestyle/
+				        'marker-size': 'large',
+				        'marker-color': '#f0a'
+				    }
+				}).addTo(map);
 			}
 		});
 	},
@@ -49,8 +75,6 @@ AppRouter = Backbone.Router.extend({
 		$('.container').empty();
 		new AddView();
 	},
-
-
 });
 
 var router = new AppRouter();

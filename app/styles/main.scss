@@ -1,3 +1,5 @@
+$heading-font: 'Mouse Memoirs', sans-serif;
+
 /* general stuff */
 body {
   padding: 0;
@@ -29,22 +31,91 @@ li {
   margin: 0 auto;
   width: 940px;
   position: relative;
+  background-color: white;
+  border-radius: 5px;
+  padding-bottom: 20px;
+  height: 300px;
 }
 
-.container img {
-	width: 50px;
+header .header-container {
+	margin: 0 auto;
+	width: 940px;
 }
 
-.map {
-	height: 180px;
+header {
+	margin: 10px 0;
+
+	span {
+		vertical-align: middle;
+		font-family: $heading-font;
+		font-size: 40px;
+		color: whiteSmoke;
+	}
+
+	.nav {
+		float: right;
+
+		li{
+			display: inline;
+			margin-right: 30px;
+			font-family: 'Archivo Narrow', sans-serif;
+			color: #6D7701;
+		}
+	}
 }
 
-/*footer {
-	background: #5b6332;
-	height: 100px;
-}*/
+#map { 
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	bottom: 45px;
+	right: 225px;
+}
 
-h1 {
-	font-family: 'Righteous', cursive;
-	color: white;
+/*full-view styles*/
+.full-view {
+	display: inline-block;
+	margin-top: 20px;
+	width: 760px;
+
+	ul {
+		margin: 0;
+		padding: 0;
+
+		li {
+			font-family: 'Archivo Narrow', sans-serif;
+			color: #353535;
+		}
+	}
+}
+
+.thumbnail {
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 80px;
+
+	img {
+		width: 75px;
+		height: 50px;
+	}
+}
+
+/*individual view styles*/
+.main-image {
+	padding-top: 15px;
+	margin-left: 20px;
+
+	img {
+		width: 200px;
+	}
+}
+
+.single-view {
+	padding-top: 15px;
+	margin-left: 20px;
+
+	h1 {
+		font-family: $heading-font;
+	}
 }

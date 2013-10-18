@@ -13,8 +13,8 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-        <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-
+        <link href='http://fonts.googleapis.com/css?family=Mouse+Memoirs' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
 
         <!-- endbuild -->
@@ -22,40 +22,56 @@
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
         <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
-
-
+       
         <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        
+        <header>
+            <div class="header-container">
+                <img style="width: 50px;" src="images/veggies.png">
+                <a href="#"><span>goLocal</span></a>
+
+                <div class="nav">
+                    <ul>
+                        <a href="#"><li>Home</li></a>
+                        <a href="#"><li>About</li></a>
+                        <a href="#"><li>Search</li></a>
+                    </ul>
+                </div>
+            </div>
+        </header>
         <div class="container"> </div>
+        <div id="map"></div>
+
+       <!--  <footer>
+            <div class="footer-container">
+                <span>&copy 2013 goLocal</span>
+                <span>Created by Alison Miller</span>
+            </div>
+        </footer> -->
        
        <!--  <footer></footer> -->
 
-       
+
 
         <!-- template for Full View -->
         <script type="text/template" id="grid-template">
-            <div id="thumbnail-info">
                 <ul>
                     <li><%= place.get('placeType')%></li>
                     <li><a id="activate"><%=place.get('placeName')%></a><li>     
                 </ul>
-            </div>
         </script> 
 
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
             <div class="left">
-                <span><%= place.get('placeType')%></span>
                 <h1><%= place.get('placeName')%></h1>
+                <span><%= place.get('placeType')%></span>
                 <p>Comments: <%= place.get('comments')%></p>
-            </div>
-
-            <div class="right">
-                 <div id="map"></div>
             </div>
         </script> 
 
@@ -82,20 +98,13 @@
             </ul>
 
             <button id="save"> Save </button>
-
-      
         </script>
-
-
-      
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
-                <script src="bower_components/backbone/backbone.js"></script>
-
         <!-- endbower -->
         <!-- endbuild -->
 
