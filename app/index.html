@@ -12,11 +12,18 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+        <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+
+
 
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
+        <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+
+
         <!-- endbuild -->
     </head>
     <body>
@@ -24,16 +31,31 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="container"> </div>
+       
+       <!--  <footer></footer> -->
 
+       
 
-        <!-- template for Add Place View -->
+        <!-- template for Full View -->
         <script type="text/template" id="grid-template">
             <div id="thumbnail-info">
                 <ul>
                     <li><%= place.get('placeType')%></li>
-                    <li><%= place.get('placeName')%></li> 
-                    <li><%= place.get('placePhoto')%></li> 
+                    <li><a id="activate"><%=place.get('placeName')%></a><li>     
                 </ul>
+            </div>
+        </script> 
+
+        <!-- template for Individual View -->
+        <script type="text/template" id="single-template">
+            <div class="left">
+                <span><%= place.get('placeType')%></span>
+                <h1><%= place.get('placeName')%></h1>
+                <p>Comments: <%= place.get('comments')%></p>
+            </div>
+
+            <div class="right">
+                 <div id="map"></div>
             </div>
         </script> 
 
@@ -53,9 +75,11 @@
                 <input id="name" placeholder="Name of place">
                 <li>Upload a photo</li>
                 <input type="file" id="photo-upload" placeholder="Upload a photo">
+                <li> Get my location</li>
+                <input type="checkbox" id="location">
+
                 <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
             </ul>
-            <button id="location">Get my location</button>
 
             <button id="save"> Save </button>
 
@@ -70,6 +94,8 @@
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
+                <script src="bower_components/backbone/backbone.js"></script>
+
         <!-- endbower -->
         <!-- endbuild -->
 

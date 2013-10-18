@@ -2,6 +2,7 @@
 body {
   padding: 0;
   margin: 0;
+  background: #aec458;
 }
  
 * {
@@ -28,4 +29,22 @@ li {
   margin: 0 auto;
   width: 940px;
   position: relative;
+}
+
+.container img {
+	width: 50px;
+}
+
+.map {
+	height: 180px;
+}
+
+/*footer {
+	background: #5b6332;
+	height: 100px;
+}*/
+
+h1 {
+	font-family: 'Righteous', cursive;
+	color: white;
 }

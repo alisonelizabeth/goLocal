@@ -4,6 +4,10 @@ FullView = Backbone.View.extend({
 
 	className: 'full-view',
 
+	events: {
+		'click #activate': 'activate'
+	},
+
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
@@ -11,6 +15,26 @@ FullView = Backbone.View.extend({
 
 	render: function() {
 		this.$el.append(this.gridTemplate({place: this.model}) );
+	},
+
+	activate: function(){
+		this.$el.find('#activate').attr('href', "#/places/" + this.model.id);
+	}
+});
+
+// IndividualView: Shows individual local place 
+IndividualView = Backbone.View.extend({
+	singleTemplate: _.template($('#single-template').text()),
+
+	className: 'single-view',
+
+	initialize: function(){
+		$('.container').append(this.el);
+		this.render();
+	},
+
+	render: function(){
+		this.$el.append(this.singleTemplate({place: this.model}) );
 	}
 
 })
@@ -23,7 +47,6 @@ AddView = Backbone.View.extend({
 
 	events: {
 		'click #save'		:'save',
-		'click #location' 	:'findLocation'
 	},
 
 	initialize: function() {
@@ -53,11 +76,28 @@ AddView = Backbone.View.extend({
 
 			parseFile.save().then(function(){
 				console.log(parseFile.url());
-				place.set('placePhoto', parseFile)
-				place.save()
+				place.set('placePhoto', parseFile);
+				place.save();
 			}); 
 		}	else {
-			console.log ('error')
+			console.log ('Error occured.')
+		}
+
+		if ($('#location:checked')) {
+			if (navigator.geolocation) {
+    			navigator.geolocation.getCurrentPosition(showPosition);
+    		} else {
+    			console.log("Geolocation is not supported by this browser.")
+    		}
+  		
+		function showPosition(position) {
+  			var latitude = position.coords.latitude
+  			var longitude = position.coords.longitude; 
+  			console.log(latitude + ' and ' + longitude)
+  			
+  			place.set('latitude', latitude)
+  			place.set('longitude', longitude)
+  			}
 		}
 
 		place.set('placeType', type);
@@ -80,24 +120,7 @@ AddView = Backbone.View.extend({
 				console.log(error.description);
 			}
 		});
-
-
 	},
-
-	findLocation: function() {
-		var test = $('.container')
-		if (navigator.geolocation) {
-    		navigator.geolocation.getCurrentPosition(showPosition);
-    	} else {
-    		console.log("Geolocation is not supported by this browser.")
-    	}
-  		
-		function showPosition(position) {
-  			var latitude = position.coords.latitude
-  			var longitude = position.coords.longitude; 
-  			console.log(latitude + ' and ' + longitude)
-  		}
-	}
 });
 
 
