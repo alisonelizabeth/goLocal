@@ -1,4 +1,5 @@
 $heading-font: 'Mouse Memoirs', sans-serif;
+$secondary-font: 'Archivo Narrow', sans-serif;
 
 /* general stuff */
 body {
@@ -34,12 +35,15 @@ li {
   background-color: white;
   border-radius: 5px;
   padding-bottom: 20px;
-  height: 300px;
 }
 
 header .header-container {
 	margin: 0 auto;
 	width: 940px;
+
+	img {
+		width: 50px;
+	}
 }
 
 header {
@@ -58,18 +62,19 @@ header {
 		li{
 			display: inline;
 			margin-right: 30px;
-			font-family: 'Archivo Narrow', sans-serif;
+			font-family: $secondary-font;
 			color: #6D7701;
 		}
 	}
 }
 
 #map { 
-	width: 250px;
-	height: 250px;
+	width: 350px;
+	height: 300px;
 	position: absolute;
-	bottom: 45px;
-	right: 225px;
+	top: 0;
+	right: 125px;
+	margin-top: 20px;
 }
 
 /*full-view styles*/
@@ -83,7 +88,7 @@ header {
 		padding: 0;
 
 		li {
-			font-family: 'Archivo Narrow', sans-serif;
+			font-family: $secondary-font;
 			color: #353535;
 		}
 	}
@@ -103,19 +108,46 @@ header {
 
 /*individual view styles*/
 .main-image {
-	padding-top: 15px;
-	margin-left: 20px;
+	padding-top: 20px;
+	margin-left: 50px;
 
 	img {
-		width: 200px;
+		width: 300px;
+		border: 1px solid black;
 	}
 }
 
 .single-view {
 	padding-top: 15px;
-	margin-left: 20px;
+	margin-left: 50px;
+	width: 325px;
 
 	h1 {
 		font-family: $heading-font;
 	}
+
+	h2 {
+		font-family: $heading-font;
+		border-bottom: 1px solid black;
+		padding-bottom: 5px;
+		margin-bottom: 10px;
+	}
+
+	p {
+		margin: 0;
+		font-family: $secondary-font;
+	}
 }
+
+.icon {
+	display: inline-block;
+
+	img {
+		width: 28px;
+	}
+}
+
+.text {
+	display: inline-block;
+}
+

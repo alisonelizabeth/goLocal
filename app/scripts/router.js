@@ -20,6 +20,7 @@ AppRouter = Backbone.Router.extend({
 
 	showPlaces: function() {
 		$('.container').empty();
+		$('#map').empty().css('background', 'white');
 
 		this.places.fetch({
 			success: function(places) {
@@ -48,9 +49,11 @@ AppRouter = Backbone.Router.extend({
 				new IndividualView({model: placeToShow})
 				console.log('view')
 
+				$('.container').append('<div id="map"> </div>')
 				var latitude = placeToShow.get('latitude')
 				var longitude = placeToShow.get('longitude')
-				var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1').setView([latitude, longitude], 15);    			
+				var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1')
+				.setView([latitude, longitude], 15);    			
 
 				L.mapbox.markerLayer({
 				    type: 'Feature',

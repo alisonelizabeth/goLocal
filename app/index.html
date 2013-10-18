@@ -32,7 +32,7 @@
         
         <header>
             <div class="header-container">
-                <img style="width: 50px;" src="images/veggies.png">
+                <img src="images/veggies.png">
                 <a href="#"><span>goLocal</span></a>
 
                 <div class="nav">
@@ -45,7 +45,6 @@
             </div>
         </header>
         <div class="container"> </div>
-        <div id="map"></div>
 
        <!--  <footer>
             <div class="footer-container">
@@ -68,11 +67,18 @@
 
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
-            <div class="left">
                 <h1><%= place.get('placeName')%></h1>
-                <span><%= place.get('placeType')%></span>
-                <p>Comments: <%= place.get('comments')%></p>
-            </div>
+                <div class="icon">
+                    <img src="images/produce.png">
+                </div>
+                <div class='text'>
+                    <p><b><%= place.get('placeType')%></b></p>
+                    <p>123 Main St., Greenville, S.C.</p>
+                </div>
+                <h2>Comments</h2>
+                <p><%= place.get('comments')%></p>
+
+
         </script> 
 
 
