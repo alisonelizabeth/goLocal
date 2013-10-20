@@ -45,6 +45,7 @@
             </div>
         </header>
         <div class="container"> </div>
+        <div class="comments"></div>
 
        <!--  <footer>
             <div class="footer-container">
@@ -67,7 +68,10 @@
 
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
+                <a href='#'> <span>Edit place</span></a> 
+
                 <h1><%= place.get('placeName')%></h1>
+
                 <div class="icon">
                     <img src="images/produce.png">
                 </div>
@@ -75,9 +79,12 @@
                     <p><b><%= place.get('placeType')%></b></p>
                     <p>123 Main St., Greenville, S.C.</p>
                 </div>
-                <h2>Comments</h2>
-                <p><%= place.get('comments')%></p>
 
+                <input id="new-comment" placeholder="Been here too? Add a comment...">
+                <button id="test"> Submit </button>
+                <h2>Comments</h2>
+                <span> <%= moment(place.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() %></span>
+                <p><%= place.get('comments')%></p>
 
         </script> 
 
@@ -111,6 +118,8 @@
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+
         <!-- endbower -->
         <!-- endbuild -->
 

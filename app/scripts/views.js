@@ -35,9 +35,8 @@ IndividualView = Backbone.View.extend({
 
 	render: function(){
 		this.$el.append(this.singleTemplate({place: this.model}) );
-	}
-
-})
+	},
+});
 
 // AddView: Add place to Parse database 
 AddView = Backbone.View.extend({
@@ -103,6 +102,14 @@ AddView = Backbone.View.extend({
 		place.set('placeType', type);
 		place.set('placeName', placeName);
 		place.set('comments', comments);
+
+		// $('#test').click(function(){
+		// 		var myComment = new Comment();
+		// 		var newComment = $('#new-comment').val();
+		// 		myComment.set('content', newComment);
+		// 		myComment.set('parent', placeToShow);
+		// 		myComment.save();
+		// 		});
 
 		collection = router.places
 		collection.add(place)

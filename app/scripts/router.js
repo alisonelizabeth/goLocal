@@ -3,6 +3,7 @@ AppRouter = Backbone.Router.extend({
 	initialize: function(){
 		console.log('new route created');
 		this.places = new PlaceCollection();
+		this.comments = new CommentCollection();
 	},
 
 	routes: {
@@ -20,7 +21,6 @@ AppRouter = Backbone.Router.extend({
 
 	showPlaces: function() {
 		$('.container').empty();
-		$('#map').empty().css('background', 'white');
 
 		this.places.fetch({
 			success: function(places) {
@@ -29,6 +29,7 @@ AppRouter = Backbone.Router.extend({
                 		$('.container').append('<div class="thumbnail"><img src="'+place.get('placePhoto').url()+'" /></div>');
 					}
 					new FullView({model: place});
+					console.log('full view')
 				});
 			}
 		})
@@ -41,6 +42,7 @@ AppRouter = Backbone.Router.extend({
 		this.places.fetch({
 			success: function(){
 				placeToShow = that.places.get(id);
+				console.log(placeToShow.id)
 
 				if (placeToShow.get('placePhoto')) {
                 		$('.container').append('<div class="main-image"><img src="'+placeToShow.get('placePhoto').url()+'" /></div>');
@@ -70,8 +72,45 @@ AppRouter = Backbone.Router.extend({
 				        'marker-color': '#f0a'
 				    }
 				}).addTo(map);
+			
+			$('#test').click(function(){
+				var moreComments = new Comment();
+				var newComment = $('#new-comment').val();
+				moreComments.set('content', newComment);
+				moreComments.set('parent', placeToShow);
+
+				that.comments.add(moreComments)
+
+				moreComments.save();
+				
+				});
+
+			var query = new Parse.Query(Comment);
+			console.log(query)
+
+			query.equalTo('parent', placeToShow)
+
+			query.find({
+				success: function(results) {
+					for (var i=0; i < results.length; i++) {
+						console.log(results[i].attributes.content)
+					}
+				},
+				error: function (results, error) {
+					console.log(error.description)
+				}
+			});
+
 			}
+
 		});
+
+		
+		
+
+
+
+		
 	},
 
 	addPlace: function() {
