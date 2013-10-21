@@ -7,15 +7,17 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	routes: {
-		""				: "home",
-		"places"		: "showPlaces",
-		"places/:id"	: "showPlace",
-		"addplace"		: "addPlace"
+		""					: "home",
+		"places"			: "showPlaces",
+		"places/:id"		: "showPlace",
+		"addplace"			: "addPlace",
+		"places/:id/edit"	: "editPlace",
 	},
 
 	home: function() {
 		$('.container').empty();
 
+		// this is temporary 
 		$('.container').text('Home page')
 	},
 
@@ -31,10 +33,10 @@ AppRouter = Backbone.Router.extend({
 						$('.container').append('<div class="thumbnail"><img src="images/placeholder.jpg"/></div>')
 					}
 					new FullView({model: place});
-					console.log('full view')
+					console.log('full view');
 				});
 			}
-		})
+		});
 	},
 
 	showPlace: function(id){
@@ -79,19 +81,23 @@ AppRouter = Backbone.Router.extend({
 				}).addTo(map);
 
 			var query = new Parse.Query(Comment);
-			console.log(query)
+			console.log(query);
 
-			query.equalTo('parent', placeToShow)
+			query.equalTo('parent', placeToShow);
+			// maybe limit comments and add option to view more comments? 
+			// query.limit(10); 
+			query.ascending('createdAt');
 
 			query.find({
 				success: function(results) {
+					console.log(results.length + 1)
+					$('#comment-header').append('<h2>' + (results.length + 1) + ' Comments' + '</h2>')
 					for (var i=0; i < results.length; i++) {
-						console.log(results[i].attributes.content)
-						// REWORK: need to display this data in the DOM 
+						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
 					}
 				},
 				error: function (results, error) {
-					console.log(error.description)
+					console.log(error.description);
 				}
 				});
 			}
@@ -101,6 +107,10 @@ AppRouter = Backbone.Router.extend({
 	addPlace: function() {
 		$('.container').empty();
 		new AddView();
+	},
+
+	editPlace: function(){
+		$('.container').text('testing... Edit page')
 	},
 });
 

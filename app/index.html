@@ -55,19 +55,18 @@
        
        <!--  <footer></footer> -->
 
-
-
         <!-- template for Full View -->
         <script type="text/template" id="grid-template">
-                <ul>
-                    <li><%= place.get('placeType')%></li>
-                    <li><a id="activate"><%=place.get('placeName')%></a><li>     
-                </ul>
+            <ul>
+                <li><%= place.get('placeType')%></li>
+                <li><a id="activate"><%=place.get('placeName')%></a><li>     
+            </ul>
         </script> 
 
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
-                <a href='#'> <span>Edit place</span></a> 
+            <div id='top-page'</div>
+                <a href='#'> <span id="edit">Suggest an edit</span></a> 
 
                 <h1><%= place.get('placeName')%></h1>
 
@@ -82,16 +81,26 @@
                     <img src="images/thumbs-up.png">
                     <span>Like it</span>
                 </div>
+                    <p><%= place.get('likes')%> people like this</p>
+            </div>
 
-                <input id="new-comment" placeholder="Been here too? Add a comment...">
+            <div id='break'> </div>
+
+            <div id='create-comment'>
+                <textarea id="new-comment" placeholder="Been here before? Add a comment..."></textarea>
                 <button id="submit-comment"> Submit </button>
-                <h2>Comments</h2>
-                <span> <%= moment(place.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() %></span>
-                <p><%= place.get('comments')%></p>
-                <p><%= place.get('likes')%></p>
+            </div>
 
+            <div id='break'> </div>
+
+            <div id="comment-header"> </div>
+            <div id='comments-box'>
+                <div id="individual-comment">
+                    <p><%= place.get('comments')%></p>
+                    <span> <%= moment(place.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() %></span>
+                </div>
+            </div>
         </script> 
-
 
         <!-- template for Add Place View -->
         <script type="text/template" id="add-template">

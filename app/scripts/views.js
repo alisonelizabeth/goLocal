@@ -52,11 +52,32 @@ IndividualView = Backbone.View.extend({
 		var moreComments = new Comment();
 		var newComment = $('#new-comment').val();
 		moreComments.set('content', newComment);
-		moreComments.set('parent', placeToShow);
+		moreComments.set('parent', this.model);
 
 		router.comments.add(moreComments)
-		moreComments.save();
-	}
+		// if (validateForm($('#new-comment')))
+		moreComments.save(null, {
+			success: function(results){
+				console.log(moreComments.createdAt);
+				$('#new-comment').val('');
+				$('#comments-box').append('<div id="individual-comment">' + '<p>' + moreComments.attributes.content + '</p>' + '<span>' +  moment(moreComments.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' +'</div>')
+			},
+			error: function(results, error){
+				console.log(error.description)
+			}
+		});
+	},
+
+	// validateForm: function(input) {
+	// 	var valid = true
+	// 	input.removeClass('warning')
+
+	// 	if (input.val() === '') {
+	// 		input.addClass('warning');
+	// 		valid = false
+	// 	}
+	// 	return valid
+	// },
 });
 
 // AddView: Add place to Parse database 
@@ -72,7 +93,7 @@ AddView = Backbone.View.extend({
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
-		console.log('new view')
+		console.log('new addView')
 	},
 
 	render: function() {
@@ -107,7 +128,7 @@ AddView = Backbone.View.extend({
 			if (navigator.geolocation) {
     			navigator.geolocation.getCurrentPosition(showPosition);
     		} else {
-    			console.log("Geolocation is not supported by this browser.")
+    			console.log('Geolocation is not supported by this browser.')
     		}
   		
 		function showPosition(position) {
@@ -143,5 +164,3 @@ AddView = Backbone.View.extend({
 		});
 	},
 });
-
-
