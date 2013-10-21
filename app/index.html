@@ -45,7 +45,6 @@
             </div>
         </header>
         <div class="container"> </div>
-        <div class="comments"></div>
 
        <!--  <footer>
             <div class="footer-container">
@@ -79,12 +78,17 @@
                     <p><b><%= place.get('placeType')%></b></p>
                     <p>123 Main St., Greenville, S.C.</p>
                 </div>
+                <div id='likes'>
+                    <img src="images/thumbs-up.png">
+                    <span>Like it</span>
+                </div>
 
                 <input id="new-comment" placeholder="Been here too? Add a comment...">
-                <button id="test"> Submit </button>
+                <button id="submit-comment"> Submit </button>
                 <h2>Comments</h2>
                 <span> <%= moment(place.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() %></span>
                 <p><%= place.get('comments')%></p>
+                <p><%= place.get('likes')%></p>
 
         </script> 
 
@@ -107,9 +111,8 @@
                 <li> Get my location</li>
                 <input type="checkbox" id="location">
 
-                <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
+                <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>               
             </ul>
-
             <button id="save"> Save </button>
         </script>
 

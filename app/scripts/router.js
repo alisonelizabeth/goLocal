@@ -27,6 +27,8 @@ AppRouter = Backbone.Router.extend({
 				places.each(function(place){
 					if (place.get('placePhoto')) {
                 		$('.container').append('<div class="thumbnail"><img src="'+place.get('placePhoto').url()+'" /></div>');
+					} else {
+						$('.container').append('<div class="thumbnail"><img src="images/placeholder.jpg"/></div>')
 					}
 					new FullView({model: place});
 					console.log('full view')
@@ -46,6 +48,9 @@ AppRouter = Backbone.Router.extend({
 
 				if (placeToShow.get('placePhoto')) {
                 		$('.container').append('<div class="main-image"><img src="'+placeToShow.get('placePhoto').url()+'" /></div>');
+					} else {
+						console.log('else')
+						$('.container').append('<div class="main-image"><img src="images/placeholder.jpg"/></div>')
 					}
 
 				new IndividualView({model: placeToShow})
@@ -72,18 +77,6 @@ AppRouter = Backbone.Router.extend({
 				        'marker-color': '#f0a'
 				    }
 				}).addTo(map);
-			
-			$('#test').click(function(){
-				var moreComments = new Comment();
-				var newComment = $('#new-comment').val();
-				moreComments.set('content', newComment);
-				moreComments.set('parent', placeToShow);
-
-				that.comments.add(moreComments)
-
-				moreComments.save();
-				
-				});
 
 			var query = new Parse.Query(Comment);
 			console.log(query)
@@ -94,23 +87,15 @@ AppRouter = Backbone.Router.extend({
 				success: function(results) {
 					for (var i=0; i < results.length; i++) {
 						console.log(results[i].attributes.content)
+						// REWORK: need to display this data in the DOM 
 					}
 				},
 				error: function (results, error) {
 					console.log(error.description)
 				}
-			});
-
+				});
 			}
-
-		});
-
-		
-		
-
-
-
-		
+		});		
 	},
 
 	addPlace: function() {

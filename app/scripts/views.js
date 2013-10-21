@@ -28,6 +28,11 @@ IndividualView = Backbone.View.extend({
 
 	className: 'single-view',
 
+	events: {
+		'click #likes'			: 'likeIt', 
+		'click #submit-comment'	: 'addComment',
+	},
+
 	initialize: function(){
 		$('.container').append(this.el);
 		this.render();
@@ -36,6 +41,22 @@ IndividualView = Backbone.View.extend({
 	render: function(){
 		this.$el.append(this.singleTemplate({place: this.model}) );
 	},
+
+	likeIt: function(){
+		this.model.increment('likes');
+		this.model.save();
+		console.log('liked it');
+	},
+
+	addComment: function(){
+		var moreComments = new Comment();
+		var newComment = $('#new-comment').val();
+		moreComments.set('content', newComment);
+		moreComments.set('parent', placeToShow);
+
+		router.comments.add(moreComments)
+		moreComments.save();
+	}
 });
 
 // AddView: Add place to Parse database 
@@ -102,14 +123,7 @@ AddView = Backbone.View.extend({
 		place.set('placeType', type);
 		place.set('placeName', placeName);
 		place.set('comments', comments);
-
-		// $('#test').click(function(){
-		// 		var myComment = new Comment();
-		// 		var newComment = $('#new-comment').val();
-		// 		myComment.set('content', newComment);
-		// 		myComment.set('parent', placeToShow);
-		// 		myComment.save();
-		// 		});
+		place.set('likes', null)
 
 		collection = router.places
 		collection.add(place)
