@@ -81,6 +81,7 @@ IndividualView = Backbone.View.extend({
 });
 
 // AddView: Add place to Parse database 
+var geocoder 
 AddView = Backbone.View.extend({
 	addTemplate: _.template($('#add-template').text()),
 
@@ -93,7 +94,9 @@ AddView = Backbone.View.extend({
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
-		console.log('new addView')
+		console.log('new addView');
+		geocoder = new google.maps.Geocoder();
+
 	},
 
 	render: function() {
@@ -132,29 +135,45 @@ AddView = Backbone.View.extend({
     			console.log('Geolocation is not supported by this browser.')
     		}
   		
-		function showPosition(position) {
-  			var latitude = position.coords.latitude
-  			var longitude = position.coords.longitude; 
-  			console.log(latitude + ' and ' + longitude)
-  			
-  			place.set('latitude', latitude)
-  			place.set('longitude', longitude)
-  			}
+			function showPosition(position) {
+	  			var latitude = parseFloat(position.coords.latitude);
+	  			var longitude = parseFloat(position.coords.longitude); 
+	  			console.log(latitude + ' and ' + longitude);
+	  			
+	  			place.set('latitude', latitude);
+	  			place.set('longitude', longitude);
+
+			  	var latlng = new google.maps.LatLng(latitude, longitude);
+			  	geocoder.geocode({'latLng': latlng}, function(results, status) {
+				    if (status == google.maps.GeocoderStatus.OK) {
+				      if (results[0]) {
+				        var fullAddress = results[0].formatted_address
+				        var address = (fullAddress.replace(', USA', ''))
+				        place.set('address', address)
+				      } else {
+				        alert('No results found');
+				      }
+				    } else {
+				      alert('Geocoder failed due to: ' + status);
+				    }
+			  	});
+	  		}
 		}
 
 		place.set('placeType', type);
 		place.set('placeName', placeName);
 		place.set('comments', comments);
-		place.set('likes', null)
-		place.set('products', products)
+		place.set('likes', null);
+		place.set('products', products);
 
-		collection = router.places
-		collection.add(place)
-		console.log(collection)
+		collection = router.places;
+		collection.add(place);
+		console.log(collection);
 
 		place.save(null, {
 			success: function(results) {
 				console.log(results);
+				// need to update this
 				$('input').val('');
 				$('textarea').val('');
 				$('select').val('');

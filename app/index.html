@@ -24,6 +24,7 @@
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
         <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
        
         <!-- endbuild -->
     </head>
@@ -77,13 +78,13 @@
                 </div>
                 <div class='text'>
                     <p><b><%= place.get('placeType')%></b></p>
-                    <p>123 Main St., Greenville, S.C.</p>
+                    <p><%= place.get('address')%></p>
                 </div>
                 <div id='likes'>
                     <img src="images/thumbs-up.png">
                     <span>Like it</span>
                 </div>
-                    <p><%= place.get('likes')%> people like this</p>
+                    <p><%=place.get('likes')%> people like this</p>
             </div>
 
             <div id='break'> </div>
@@ -125,7 +126,7 @@
                 <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>               
             </ul>
 
-            <select class="select" multiple> 
+            <select data-placeholder="Choose a product..." class="select" multiple> 
                 <option value="apples">Apples</option> 
                 <option value="apricots">Apricots</option> 
                 <option value="artichokes">Artichokes</option> 

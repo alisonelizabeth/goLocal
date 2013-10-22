@@ -71,8 +71,8 @@ AppRouter = Backbone.Router.extend({
 				        coordinates: [longitude , latitude]
 				    },
 				    properties: {
-				        title: 'A Single Marker',
-				        description: 'Just one of me',
+				        title: placeToShow.get('placeName'),
+				        description: placeToShow.get('address'),
 				        // one can customize markers by adding simplestyle properties
 				        // http://mapbox.com/developers/simplestyle/
 				        'marker-size': 'large',
