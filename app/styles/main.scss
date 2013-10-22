@@ -33,8 +33,7 @@ li {
   width: 940px;
   position: relative;
   background-color: white;
-/*  border-radius: 5px;
-*/}
+}
 
 header .header-container {
 	margin: 0 auto;
@@ -242,9 +241,7 @@ header {
 
 /*add view styles*/
 #likes {
-	margin-left: 35px;
-	margin-top: 5px;
-	width: 75px;
+	margin: 20px 0;
 
 	img {
 		width: 15px;
@@ -252,7 +249,11 @@ header {
 
 	span {
 		color: black;
-		margin-right: 15px;
+		margin-right: 5px;
+	}
+
+	p {
+		margin-top: 5px;
 	}
 }
 

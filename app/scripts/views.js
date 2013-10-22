@@ -44,8 +44,8 @@ IndividualView = Backbone.View.extend({
 
 	likeIt: function(){
 		this.model.increment('likes');
+        console.log(this.model)
 		this.model.save();
-		console.log('liked it');
 	},
 
 	addComment: function(){
@@ -55,6 +55,7 @@ IndividualView = Backbone.View.extend({
 		moreComments.set('parent', this.model);
 
 		router.comments.add(moreComments)
+		console.log(moreComments)
 		// if (validateForm($('#new-comment')))
 		moreComments.save(null, {
 			success: function(results){
@@ -163,7 +164,7 @@ AddView = Backbone.View.extend({
 		place.set('placeType', type);
 		place.set('placeName', placeName);
 		place.set('comments', comments);
-		place.set('likes', null);
+		place.set('likes', undefined);
 		place.set('products', products);
 
 		collection = router.places;

@@ -91,7 +91,7 @@ AppRouter = Backbone.Router.extend({
 			query.find({
 				success: function(results) {
 					console.log(results.length + 1)
-					$('#comment-header').append('<h2>' + (results.length + 1) + ' Comments' + '</h2>')
+					$('#comment-header').append('<h2>' + (results.length) + ' Comments' + '</h2>')
 					for (var i=0; i < results.length; i++) {
 						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
 					}
