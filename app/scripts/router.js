@@ -18,7 +18,7 @@ AppRouter = Backbone.Router.extend({
 		$('.container').empty();
 
 		// this is temporary 
-		$('.container').text('Home page')
+		$('.container').text('home');
 	},
 
 	showPlaces: function() {
@@ -55,10 +55,10 @@ AppRouter = Backbone.Router.extend({
 						$('.container').append('<div class="main-image"><img src="images/placeholder.jpg"/></div>')
 					}
 
-				new IndividualView({model: placeToShow})
-				console.log('view')
+				new IndividualView({model: placeToShow});
+				console.log('view');
 
-				$('.container').append('<div id="map"> </div>')
+				$('.container').append('<div id="map"> </div>');
 				var latitude = placeToShow.get('latitude')
 				var longitude = placeToShow.get('longitude')
 				var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1')
@@ -107,6 +107,7 @@ AppRouter = Backbone.Router.extend({
 	addPlace: function() {
 		$('.container').empty();
 		new AddView();
+        $('.select').chosen();
 	},
 
 	editPlace: function(){

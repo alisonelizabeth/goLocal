@@ -108,6 +108,7 @@ AddView = Backbone.View.extend({
 		var type 		= $('#type').val();
 		var placeName 	= $('#name').val();
 		var comments	= $('#comments').val();
+		var products 	= $('.select').val();
 
 		if (fileUploadControl.files.length > 0) {
 			var file = fileUploadControl.files[0];
@@ -145,6 +146,7 @@ AddView = Backbone.View.extend({
 		place.set('placeName', placeName);
 		place.set('comments', comments);
 		place.set('likes', null)
+		place.set('products', products)
 
 		collection = router.places
 		collection.add(place)
