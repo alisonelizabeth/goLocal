@@ -27,11 +27,6 @@ AppRouter = Backbone.Router.extend({
 		this.places.fetch({
 			success: function(places) {
 				places.each(function(place){
-					if (place.get('placePhoto')) {
-                		$('.container').append('<div class="thumbnail"><img src="'+place.get('placePhoto').url()+'" /></div>');
-					} else {
-						$('.container').append('<div class="thumbnail"><img src="images/placeholder.jpg"/></div>')
-					}
 					new FullView({model: place});
 					console.log('full view');
 				});
@@ -47,13 +42,6 @@ AppRouter = Backbone.Router.extend({
 			success: function(){
 				placeToShow = that.places.get(id);
 				console.log(placeToShow.id)
-
-				if (placeToShow.get('placePhoto')) {
-                		$('.container').append('<div class="main-image"><img src="'+placeToShow.get('placePhoto').url()+'" /></div>');
-					} else {
-						console.log('else')
-						$('.container').append('<div class="main-image"><img src="images/placeholder.jpg"/></div>')
-					}
 
 				new IndividualView({model: placeToShow});
 				console.log('view');
@@ -73,10 +61,8 @@ AppRouter = Backbone.Router.extend({
 				    properties: {
 				        title: placeToShow.get('placeName'),
 				        description: placeToShow.get('address'),
-				        // one can customize markers by adding simplestyle properties
-				        // http://mapbox.com/developers/simplestyle/
-				        'marker-size': 'large',
-				        'marker-color': '#f0a'
+				        'marker-size': 'medium',
+				        'marker-color': '#076469'
 				    }
 				}).addTo(map);
 
@@ -90,7 +76,7 @@ AppRouter = Backbone.Router.extend({
 
 			query.find({
 				success: function(results) {
-					console.log(results.length + 1)
+					console.log(results.length)
 					$('#comment-header').append('<h2>' + (results.length) + ' Comments' + '</h2>')
 					for (var i=0; i < results.length; i++) {
 						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
@@ -107,7 +93,7 @@ AppRouter = Backbone.Router.extend({
 	addPlace: function() {
 		$('.container').empty();
 		new AddView();
-        $('.select').chosen();
+        $('.select').chosen({max_selected_options: 9});
 	},
 
 	editPlace: function(){

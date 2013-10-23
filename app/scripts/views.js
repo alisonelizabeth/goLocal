@@ -44,7 +44,7 @@ IndividualView = Backbone.View.extend({
 
 	likeIt: function(){
 		this.model.increment('likes');
-        console.log(this.model)
+        console.log(this.model);
 		this.model.save();
 	},
 
@@ -54,8 +54,8 @@ IndividualView = Backbone.View.extend({
 		moreComments.set('content', newComment);
 		moreComments.set('parent', this.model);
 
-		router.comments.add(moreComments)
-		console.log(moreComments)
+		router.comments.add(moreComments);
+		console.log(moreComments);
 		// if (validateForm($('#new-comment')))
 		moreComments.save(null, {
 			success: function(results){
@@ -126,14 +126,14 @@ AddView = Backbone.View.extend({
 				place.save();
 			}); 
 		}	else {
-			console.log ('Error occured.')
+			console.log('Error occured.');
 		}
 
 		if ($('#location:checked')) {
 			if (navigator.geolocation) {
     			navigator.geolocation.getCurrentPosition(showPosition);
     		} else {
-    			console.log('Geolocation is not supported by this browser.')
+    			console.log('Geolocation is not supported by this browser.');
     		}
   		
 			function showPosition(position) {
@@ -174,10 +174,11 @@ AddView = Backbone.View.extend({
 		place.save(null, {
 			success: function(results) {
 				console.log(results);
-				// need to update this
-				$('input').val('');
-				$('textarea').val('');
-				$('select').val('');
+				$('#name').val('');
+				$('#comments').val('');
+				$('.select').val('').trigger('chosen:updated');
+				$('#location').attr('checked', false);
+				$('.file-input-textbox').val('No file selected');
 			},
 
 			error: function(results, error) {

@@ -35,7 +35,7 @@
         
         <header>
             <div class="header-container">
-                <img src="images/veggies.png">
+               <!--  <img src="images/veggies.png"> -->
                 <a href="#"><span>goLocal</span></a>
 
                 <div class="nav">
@@ -47,7 +47,12 @@
                 </div>
             </div>
         </header>
-        <div class="container"> </div>
+        <div class="container"> 
+
+
+
+
+        </div>
 
       <!--   <footer>
             <div class="footer-container">
@@ -59,6 +64,15 @@
 <!-- TEMPLATES begin -->
         <!-- template for Full View -->
         <script type="text/template" id="grid-template">
+             <% if (place.get('placePhoto')) { %>
+                        <div class="thumbnail">
+                            <img src="<%=place.get('placePhoto').url() %>"/>
+                        </div>
+                    <% } else { %> 
+                        <div class="thumbnail">
+                            <img src="images/placeholder.jpg"/>
+                        </div>
+                    <% } %>
             <ul>
                 <li><%= place.get('placeType')%></li>
                 <li><a id="activate"><%=place.get('placeName')%></a><li>     
@@ -68,24 +82,35 @@
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
             <div id='top-page'>
+                 <% if (placeToShow.get('placePhoto')) { %>
+                        <div class="main-image">
+                            <img src="<%=placeToShow.get('placePhoto').url() %>"/>
+                        </div>
+                    <% } else { %> 
+                        <div class="main-image">
+                            <img src="images/placeholder.jpg"/>
+                        </div>
+                    <% } %>
+
                 <a href='#'> <span id="edit">Suggest an edit</span></a> 
 
                 <h1><%= place.get('placeName')%></h1>
 
                 <div class='text'>
                     <p><%= place.get('address')%></p>
-                    <p><b>Description:</b> <%= place.get('comments')%></p>
-                    <p><b>What people have found:</b> <%= place.get('products')%></p>
-
-                    <div id='likes'>
-                        <img src="images/thumbs-up.png">
-                        <span>Like it</span>
-                        <img src="images/thumbs-down.png">
-                        <span>Dislike it</span>
-                        <% if (place.get('likes') !== undefined) { %>
-                            <p> <%= place.get('likes') %> people like this</p>
-                        <% } %>
-                    </div>
+                    <p id="description"><b>Description:</b> <%= place.get('comments')%></p>
+                    <p><b>What people have found:</b> <%= place.get('products')%></p>  
+                </div>
+                <div id='likes'> 
+                    <% if (place.get('likes') !== undefined) { %>
+                        <p> <%= place.get('likes') %> people like this</p>
+                    <% } else { %>
+                        <p> </p>
+                    <% } %>                         
+                    <img src="images/thumbs-up.png">
+                    <span>Like it</span>
+                    <img src="images/thumbs-down.png">
+                    <span>Dislike it</span>
                 </div>
             </div>
 
@@ -106,7 +131,6 @@
         <script type="text/template" id="add-template">
             <h1>Share your local find</h1>
             <div id="box-one">
-
                 <div id="number-one">1</div>
                 <div class='number-one-border'></div>
                 <h2>What did you find?</h2>
@@ -116,7 +140,7 @@
                     <input id="name" placeholder="Name of place">
                     <li>Write a short description</li>
                     <textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
-                    <li>What type of produce did you find?</li>
+                    <li id='chosen-select'>What type of produce did you find?</li>
                      <select data-placeholder="Choose a product..." class="select" multiple style="width:250px; height: 20px;"> 
                         <option value="apples">Apples</option> 
                         <option value="apricots">Apricots</option> 
@@ -203,22 +227,32 @@
                 <div class='number-two-border'></div>
                 
                 <div id="inside">
-                    <input type="file" id="photo-upload" placeholder="Upload a photo">
+
+                <input type="text" class="file-input-textbox" readonly="readonly" value='No file selected'>
+                <div class="file-input-div">
+                    <input type="button" value="Browse" class="file-input-button" />
+                    <input type="file" name="uploaded_file" id="photo-upload"/>
+                </div>
+                   
                 </div>
             </div>
 
             <div id="box-three">
-                <h2>Get my location</h2>
+                <h2>Mark the location</h2>
                 <div id="number-three">3</div>
                 <div class='number-three-border'></div>
                 <div id="inside">
-                    <span>Find me</span>
                     <input type="checkbox" id="location">
+                    <span>I am here now, find me!</span> <br>
+
                 </div>
             </div>
 
+            <div id="save-button">
+                <button id="save"> Save </button>
+            </div>
 
-            <button id="save"> Save </button>
+
         </script>
 
         <!-- build:js scripts/vendor.js -->

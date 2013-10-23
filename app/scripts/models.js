@@ -10,4 +10,15 @@ var PlaceCollection = Parse.Collection.extend({
 
 var CommentCollection = Parse.Collection.extend({
 	model: Comment
-})
+});
+
+
+$(document).ready(function() {
+  $('#photo-upload').change(function(){
+
+        var fileInputVal = $(this).val();
+        fileInputVal = fileInputVal.replace("C:\\fakepath\\", "");
+        $(this).parent().prev().val(fileInputVal);
+
+    });
+});

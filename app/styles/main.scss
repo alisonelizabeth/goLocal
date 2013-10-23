@@ -1,3 +1,4 @@
+/*font-family variables*/
 $heading-font: 'Mouse Memoirs', sans-serif;
 $secondary-font: 'Archivo Narrow', sans-serif;
 
@@ -32,7 +33,7 @@ li {
   margin: 0 auto;
   width: 940px;
   position: relative;
-  background-color: white;
+  background: #EEEEEE;
 }
 
 header .header-container {
@@ -70,12 +71,11 @@ header {
 }
 
 #map { 
-	width: 350px;
+	width: 340px;
 	height: 300px;
 	position: absolute;
-	top: 0;
-	right: 125px;
-	margin-top: 20px;
+	top: 25px;
+	right: 50px;
 }
 
 /*full-view styles*/
@@ -110,10 +110,9 @@ header {
 /*individual view styles*/
 .main-image {
 	padding-top: 20px;
-	margin-left: 50px;
 
 	img {
-		width: 300px;
+		width: 425px;
 		border-radius: 5px;
 		border: 1px solid rgb(97, 97, 97)
 	}
@@ -121,39 +120,49 @@ header {
 
 #top-page {
 	margin-left: 50px;
+	margin-bottom: 25px;
 }
 
 .single-view {
 
+	background: white;
+
 	h1 {
 		font-family: $heading-font;
-		margin-top: 5px;
 	}
 
 	h2 {
 		font-family: $heading-font;
 		border-bottom: 1px solid black;
 		padding-bottom: 5px;
-		margin: 10px 0;
 		padding-left: 20px;
+		padding-top: 10px;
+		margin: 0;
 	}
 
 	p {
 		margin: 0;
 		font-family: $secondary-font;
-	}
+/*		line-height: 20px;
+*/	}
 
 	span {
 		font-family: $secondary-font;
 		font-size: 15px;
 		color: #acacac;
 	}
+
+	#edit {
+		margin-top: 2px;
+		margin-left: 330px;
+	}
+
+	#description {
+		margin-top: 10px;
+		margin-bottom: 15px;
+	}
 }
 
-#edit {
-	margin-top: 2px;
-	margin-left: 215px;
-}
 
 .icon {
 	display: inline-block;
@@ -165,11 +174,15 @@ header {
 
 .text {
 	display: inline-block;
+	width: 425px;
 }
 
 #likes {
-	margin-top: 15px;
-	margin-bottom: 10px;
+	margin-left: 70px;
+	display: inline-block;
+	background: rgb(231, 170, 57);
+	padding: 30px;
+	border-radius: 10px;
 
 	img {
 		width: 20px;
@@ -202,9 +215,9 @@ header {
 	background: white;
 
 	#new-comment {
-		width: 300px;
+		width: 500px;
 		height: 25px;
-		margin: 15px 0 15px 15px;
+		margin: 15px 0 15px 50px;
 		resize: none;
 		outline: none;
 		border-radius: 5px;
@@ -251,12 +264,13 @@ header {
 	margin-left: -12px;
 }
 
-
 /*add view styles*/
 .add-view {
-	margin: 0 35px;
+	padding: 0 25px;
 	position:relative;
 	font-family: $secondary-font;
+	background: white;
+	padding-bottom: 50px;
 
 	h2 {
 		margin-bottom: 10px;
@@ -272,7 +286,6 @@ header {
 
 #inside {
 	background: #CCCCCC;
-	padding: 2px 0;
 	border-radius: 5px;
 
 	h2 {
@@ -281,56 +294,119 @@ header {
 }
 
 #box-one {
+	width: 850px;
+
+
 	h2 {
 		margin-top: 5px;
 	}
 
-	input {
+	#inside {
+		padding: 2px 0 5px 0;
+		height: 320px;
+	}
+
+	#name {
 		height: 25px;
-		width: 250px;
+		width: 300px;
 		border-radius: 5px;
 		box-shadow: none;
 		border: none;
+		margin-top: 2px;
+		margin-bottom: 10px;
 	}
 
-	li {
-		 margin-bottom: 3px;
-		 margin-top: 15px;
+	#chosen-select {
+		margin-bottom: 2px;
 	}
 
 	textarea {
 		border-radius: 5px;
 		border: none;
-		width: 300px;
+		width: 500px;
 		height: 90px;
+		margin-top: 2px;
+		margin-bottom: 10px;
+	}
+
+	ul {
+		padding-left: 25px;
 	}
 }
 
 #box-two {
-	h2 {
-		margin-top: 25px;
+	display: inline-block;
+
+	#inside {
+		padding: 15px 25px;
 	}
 
-	input {
-		padding: 10px 40px;
+	h2 {
+		margin-top: 47px;
+	}
+
+	.file-input-textbox {
+		height:23px; 
+		width:200px; 
+		float:left; 
+		border-radius: 5px 0 0 5px;
+		border: none;
+	}
+
+	.file-input-div {
+		position: relative; 
+		width:80px; 
+		height:26px; 
+		overflow: hidden; 
+	}
+
+	.file-input-button {
+		width: 80px; 
+		position:absolute; 
+		top:0px; 
+		border:none;
+		padding:2px 8px 2px 8px; 
+		font-weight:bold; 
+		height:25px; 
+		margin:0px; 
+		margin-right:5px; 
+		background-color: #4F4F50;
+		border-radius: 0 5px 5px 0;
+		color: white;
+	}
+
+	#photo-upload {
+		font-size:45px;
+		position:absolute;
+		right:0px;
+		top:0px;
+		cursor:pointer; 
+		opacity:0; 
+		filter:alpha(opacity=0); 
+		-ms-filter:"alpha(opacity=0)"; 
+		-khtml-opacity:0; 
+		-moz-opacity:0; 
 	}
 }
 
-
 #box-three {
+	display: inline-block;
+	margin-left: 70px;
+
 	h2 {
-		margin-top: 28px;
+		margin-top: 47px;
 	}
 
 	#inside {
-		padding: 15px 40px;
+		padding: 19px 40px;
+		width: 252px;
 	}
 }
 
 #number-one {
 	position: absolute;
 	top: 60px;
-	left: -47px;
+	left: -15px;
 	background: #076469;
 	color: white;
 	padding: 8px 12px;
@@ -345,14 +421,14 @@ header {
 	height: 45px;
 	background: white;
 	top: 53px;
-	left: -54px;
+	left: -21px;
 	border-radius: 50px;
 }
 
 #number-two {
 	position: absolute;
-	top: 431px;
-	left: -47px;
+	top: 470px;
+	left: -15px;
 	background: #076469;
 	color: white;
 	padding: 8px 12px;
@@ -366,15 +442,15 @@ header {
 	width: 45px;
 	height: 45px;
 	background: white;
-	top: 424px;
-	left: -54px;
+	top: 463px;
+	left: -21px;
 	border-radius: 50px;
 }
 
 #number-three {
 	position: absolute;
-	top: 542px;
-	left: -47px;
+	top: 473px;
+	left: 390px;
 	background: #076469;
 	color: white;
 	padding: 8px 12px;
@@ -383,17 +459,16 @@ header {
 	z-index: 1000;
 }
 
-.number-three-border {
-	position: absolute;
-	width: 45px;
-	height: 45px;
-	background: white;
-	top: 534px;
-	left: -54px;
-	border-radius: 50px;
+#save {
+	width: 150px;
+	height: 40px;
+	margin-top: 20px;
+	border-radius: 5px;
+	border: 1px solid rgb(7, 7, 146);
+	background: #076469;
+	font-size: 18px;
+	color: white;
+	cursor: pointer;
 }
 
-#save {
-	margin-left: 40px;
-	margin-top: 20px;
-}
+
