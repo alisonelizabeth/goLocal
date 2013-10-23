@@ -167,6 +167,19 @@ header {
 	display: inline-block;
 }
 
+#likes {
+	margin-top: 15px;
+	margin-bottom: 10px;
+
+	img {
+		width: 20px;
+	}
+
+	span {
+		color: black;
+	}
+}
+
 #break {
 	height: 20px;
 	background: #EEEEEE;
@@ -240,28 +253,147 @@ header {
 
 
 /*add view styles*/
-#likes {
-	margin: 20px 0;
+.add-view {
+	margin: 0 35px;
+	position:relative;
+	font-family: $secondary-font;
 
-	img {
-		width: 15px;
+	h2 {
+		margin-bottom: 10px;
+		font-family: $heading-font;
 	}
 
-	span {
-		color: black;
-		margin-right: 5px;
+	h1 {
+		padding-top: 20px;
+		text-align: center;
+		font-family: $heading-font;
 	}
+}
 
-	p {
+#inside {
+	background: #CCCCCC;
+	padding: 2px 0;
+	border-radius: 5px;
+
+	h2 {
+		margin-bottom: 5px;
+	}
+}
+
+#box-one {
+	h2 {
 		margin-top: 5px;
 	}
+
+	input {
+		height: 25px;
+		width: 250px;
+		border-radius: 5px;
+		box-shadow: none;
+		border: none;
+	}
+
+	li {
+		 margin-bottom: 3px;
+		 margin-top: 15px;
+	}
+
+	textarea {
+		border-radius: 5px;
+		border: none;
+		width: 300px;
+		height: 90px;
+	}
+}
+
+#box-two {
+	h2 {
+		margin-top: 25px;
+	}
+
+	input {
+		padding: 10px 40px;
+	}
+}
+
+
+#box-three {
+	h2 {
+		margin-top: 28px;
+	}
+
+	#inside {
+		padding: 15px 40px;
+	}
+}
+
+#number-one {
+	position: absolute;
+	top: 60px;
+	left: -47px;
+	background: #076469;
+	color: white;
+	padding: 8px 12px;
+	border-radius: 50px;
+	font-size: 12px;
+	z-index: 1000;
+}
+
+.number-one-border {
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background: white;
+	top: 53px;
+	left: -54px;
+	border-radius: 50px;
+}
+
+#number-two {
+	position: absolute;
+	top: 431px;
+	left: -47px;
+	background: #076469;
+	color: white;
+	padding: 8px 12px;
+	border-radius: 50px;
+	font-size: 12px;
+	z-index: 1000;
+}
+
+.number-two-border {
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background: white;
+	top: 424px;
+	left: -54px;
+	border-radius: 50px;
+}
+
+#number-three {
+	position: absolute;
+	top: 542px;
+	left: -47px;
+	background: #076469;
+	color: white;
+	padding: 8px 12px;
+	border-radius: 50px;
+	font-size: 12px;
+	z-index: 1000;
+}
+
+.number-three-border {
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background: white;
+	top: 534px;
+	left: -54px;
+	border-radius: 50px;
 }
 
 #save {
 	margin-left: 40px;
 	margin-top: 20px;
-}
-
-.warning{
-	background: red;
 }

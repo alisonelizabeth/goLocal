@@ -105,16 +105,19 @@
         <!-- template for Add Place View -->
         <script type="text/template" id="add-template">
             <h1>Share your local find</h1>
-
             <div id="box-one">
-                <h2>1. What did you find?</h2>
+
+                <div id="number-one">1</div>
+                <div class='number-one-border'></div>
+                <h2>What did you find?</h2>
+                <div id="inside">
                 <ul>
                     <li>Name of place</li>
                     <input id="name" placeholder="Name of place">
-                    <li>Short description</li>
+                    <li>Write a short description</li>
                     <textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
                     <li>What type of produce did you find?</li>
-                     <select data-placeholder="Choose a product..." class="select" multiple> 
+                     <select data-placeholder="Choose a product..." class="select" multiple style="width:250px; height: 20px;"> 
                         <option value="apples">Apples</option> 
                         <option value="apricots">Apricots</option> 
                         <option value="artichokes">Artichokes</option> 
@@ -189,17 +192,29 @@
                         <option value="watermelons">Watermelons</option>
                     </select>
                 </ul>
+                </div>
             </div>
 
+
             <div id="box-two">
-                <h2>2. Upload a photo</h2>
-                <input type="file" id="photo-upload" placeholder="Upload a photo">
+                <h2>Upload a photo</h2>
+
+                <div id="number-two">2</div>
+                <div class='number-two-border'></div>
+                
+                <div id="inside">
+                    <input type="file" id="photo-upload" placeholder="Upload a photo">
+                </div>
             </div>
 
             <div id="box-three">
-                <h2>3. Get my location</h2>
-                <span>Find me</span>
-                <input type="checkbox" id="location">
+                <h2>Get my location</h2>
+                <div id="number-three">3</div>
+                <div class='number-three-border'></div>
+                <div id="inside">
+                    <span>Find me</span>
+                    <input type="checkbox" id="location">
+                </div>
             </div>
 
 
