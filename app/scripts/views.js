@@ -129,7 +129,9 @@ AddView = Backbone.View.extend({
 			console.log('Error occured.');
 		}
 
-		if ($('#location:checked')) {
+		if ($('#location').is(':checked')) {
+			console.log('its checked')
+			
 			if (navigator.geolocation) {
     			navigator.geolocation.getCurrentPosition(showPosition);
     		} else {
@@ -159,6 +161,26 @@ AddView = Backbone.View.extend({
 				    }
 			  	});
 	  		}
+		}
+
+		if ($('#address-location').val() !== '' ) {
+			console.log(true)
+			var geo = new google.maps.Geocoder;
+			var address = $('#address-location').val();
+			place.set('address', address)
+
+			geo.geocode({'address':address},function(results, status){
+			    if (status == google.maps.GeocoderStatus.OK) {              
+			        var latitude = results[0].geometry.location.lb;
+			        var longitude = results[0].geometry.location.mb;
+			        console.log(latitude, longitude)
+			        place.set('latitude', latitude)
+			        place.set('longitude', longitude)
+
+			    } else {
+			        alert("Geocode was not successful for the following reason: " + status);
+			    }
+			});
 		}
 
 		place.set('placeType', type);
