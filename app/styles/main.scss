@@ -51,11 +51,14 @@ header .header-container {
 }
 
 header {
-	margin: 10px 0;
-	background: #9CCE00;
+	background: #ADDB1F;
 	margin: 0;
 	padding: 5px;
-
+	border-bottom: 1px solid rgb(105, 117, 80);
+	box-shadow:  0px 0px 5px #183C1E;
+	position: relative;
+	z-index: 1000;
+	
 	span {
 		vertical-align: middle;
 		font-family: $heading-font;
@@ -83,34 +86,90 @@ header {
 	right: 50px;
 }
 
+/* home-view styles */
+/*.home-view-layer {
+	position: absolute;
+	top: 0;
+	background: rgb(255, 255, 255);
+	opacity: 0.5;
+	height: 100%;
+	width: 940px;
+	z-index: 1;
+}
+*/
+.home-view {
+	background: url(/images/mural-2.jpg) no-repeat center center;
+	position: relative;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	height: 443px;
+
+/*  	#home-body {
+  		position: absolute;
+  		overflow: auto;
+  		height: 100%;
+  		background: #C3DEE4;
+  		opacity: 0.7;
+  		margin-left: 150px;
+		width: 940px;
+
+  	}*/
+}
+
+.container-home {
+	width: 940px;
+	margin: 0 auto;
+	padding-top: 75px;
+}
+
 /*full-view styles*/
 .full-view {
-	display: inline-block;
 	margin-top: 20px;
 	width: 760px;
 
-	ul {
-		margin: 0;
-		padding: 0;
+	.thumbnail {
+		margin-top: 20px;
+		width: 80px;
 
-		li {
-			font-family: $secondary-font;
-			color: #353535;
+		img {
+			width: 250px;
+			height: 160px;
+			border-radius: 5px;
+			border: 1px solid rgb(97, 97, 97);
 		}
 	}
-}
 
-.thumbnail {
-	display: inline-block;
-	margin-top: 20px;
-	margin-left: 20px;
-	width: 80px;
-
-	img {
-		width: 75px;
-		height: 50px;
+	#thumbnail-likes {
+		display: inline-block;
+		margin-top: 5px;
+		height: 12px;
+		width: 42px;
+		text-align: center;
+		background: #466AFA;
+		border-radius: 5px;
+		padding: 12px;
+		color: white;
 	}
+
+	#thumbnail-content{
+		display: inline-block;
+		margin-top: 5px;
+
+		ul {
+			margin: 0;
+			padding: 0;
+
+			li {
+				font-family: $secondary-font;
+				color: #353535;
+			}
+		}
+	}
+
 }
+
 
 /*individual view styles*/
 .main-image {
@@ -118,8 +177,9 @@ header {
 
 	img {
 		width: 425px;
+		height: 280px;
 		border-radius: 5px;
-		border: 1px solid rgb(97, 97, 97)
+		border: 1px solid rgb(97, 97, 97);
 	}
 }
 
@@ -185,8 +245,8 @@ header {
 #likes {
 	margin-left: 70px;
 	display: inline-block;
-	background: rgb(231, 170, 57);
-	padding: 30px;
+/*	background: rgb(231, 170, 57);
+*/	padding: 30px;
 	border-radius: 10px;
 
 	img {
@@ -218,6 +278,7 @@ header {
 #create-comment {
 	position: relative;
 	background: white;
+	height: 80px;
 
 	#new-comment {
 		width: 500px;
@@ -240,6 +301,11 @@ header {
 		height: 30px;
 		border-radius: 5px;
 		outline: none;
+	}
+
+	.popup-message {
+		margin-left: 50px;
+		margin-top: -12px;
 	}
 }
 
@@ -346,6 +412,7 @@ header {
 
 	#inside {
 		padding: 15px 25px;
+		height: 85px;
 	}
 
 	h2 {
@@ -447,7 +514,7 @@ header {
 
 #number-two {
 	position: absolute;
-	top: 470px;
+	top: 480px;
 	left: -15px;
 	background: #076469;
 	color: white;
@@ -462,14 +529,14 @@ header {
 	width: 45px;
 	height: 45px;
 	background: white;
-	top: 463px;
+	top: 472px;
 	left: -21px;
 	border-radius: 50px;
 }
 
 #number-three {
 	position: absolute;
-	top: 473px;
+	top: 480px;
 	left: 500px;
 	background: #076469;
 	color: white;
@@ -489,4 +556,8 @@ header {
 	font-size: 18px;
 	color: white;
 	cursor: pointer;
+}
+
+.warning {
+	background: red;
 }

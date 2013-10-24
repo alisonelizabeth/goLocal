@@ -1,3 +1,19 @@
+// HomeView: Home page view
+HomeView = Backbone.View.extend({
+	homeTemplate: _.template($('#home-template').text()),
+
+	className: 'home-view',
+
+	initialize: function(){
+		$('.full').append(this.el);
+		this.render();
+	},
+
+	render: function(){
+		this.$el.append(this.homeTemplate());
+	}
+})
+
 // FullView: Shows complete listing of local spots 
 FullView = Backbone.View.extend({
 	gridTemplate: _.template($('#grid-template').text()),
@@ -56,29 +72,31 @@ IndividualView = Backbone.View.extend({
 
 		router.comments.add(moreComments);
 		console.log(moreComments);
-		// if (validateForm($('#new-comment')))
-		moreComments.save(null, {
-			success: function(results){
-				console.log(moreComments.createdAt);
-				$('#new-comment').val('');
-				$('#comments-box').append('<div id="individual-comment">' + '<p>' + moreComments.attributes.content + '</p>' + '<span>' +  moment(moreComments.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' +'</div>')
-			},
-			error: function(results, error){
-				console.log(error.description)
-			}
-		});
+		if (this.validateForm($('#new-comment')))
+			moreComments.save(null, {
+				success: function(results){
+					console.log(moreComments.createdAt);
+					$('#new-comment').val('');
+					$('#comments-box').append('<div id="individual-comment">' + '<p>' + moreComments.attributes.content + '</p>' + '<span>' +  moment(moreComments.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' +'</div>')
+				},
+				error: function(results, error){
+					console.log(error.description)
+				}
+			});
 	},
 
-	// validateForm: function(input) {
-	// 	var valid = true
-	// 	input.removeClass('warning')
+	validateForm: function(input) {
+		var valid = true;
+		input.removeClass('warning');
+		$('#message').removeClass('popup-message')
 
-	// 	if (input.val() === '') {
-	// 		input.addClass('warning');
-	// 		valid = false
-	// 	}
-	// 	return valid
-	// },
+		if (input.val() === '') {
+			input.addClass('warning');
+			$('#message').addClass('popup-message').html('<span>Oops, please fill out the form.</span>')
+			valid = false;
+		}
+		return valid
+	},
 });
 
 // AddView: Add place to Parse database 
@@ -97,7 +115,6 @@ AddView = Backbone.View.extend({
 		this.render();
 		console.log('new addView');
 		geocoder = new google.maps.Geocoder();
-
 	},
 
 	render: function() {
@@ -131,7 +148,7 @@ AddView = Backbone.View.extend({
 
 		if ($('#location').is(':checked')) {
 			console.log('its checked')
-			
+
 			if (navigator.geolocation) {
     			navigator.geolocation.getCurrentPosition(showPosition);
     		} else {
@@ -164,7 +181,6 @@ AddView = Backbone.View.extend({
 		}
 
 		if ($('#address-location').val() !== '' ) {
-			console.log(true)
 			var geo = new google.maps.Geocoder;
 			var address = $('#address-location').val();
 			place.set('address', address)
@@ -173,9 +189,9 @@ AddView = Backbone.View.extend({
 			    if (status == google.maps.GeocoderStatus.OK) {              
 			        var latitude = results[0].geometry.location.lb;
 			        var longitude = results[0].geometry.location.mb;
-			        console.log(latitude, longitude)
-			        place.set('latitude', latitude)
-			        place.set('longitude', longitude)
+			        console.log(latitude, longitude);
+			        place.set('latitude', latitude);
+			        place.set('longitude', longitude);
 
 			    } else {
 			        alert("Geocode was not successful for the following reason: " + status);

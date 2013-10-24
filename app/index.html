@@ -47,6 +47,7 @@
                 </div>
             </div>
         </header>
+        <div class="full"></div>
         <div class="container"> 
 
 
@@ -62,6 +63,16 @@
         </footer> -->
        
 <!-- TEMPLATES begin -->
+        <!-- template for Home View -->
+        <script type="text/template" id="home-template">
+            
+            <div class="container-home">
+                <div class="home-view-layer"> </div>
+                <h1>Share your favorite spots for local produce</h1>
+            </div>
+
+        </script>
+
         <!-- template for Full View -->
         <script type="text/template" id="grid-template">
              <% if (place.get('placePhoto')) { %>
@@ -73,10 +84,16 @@
                             <img src="images/placeholder.jpg"/>
                         </div>
                     <% } %>
-            <ul>
-                <li><%= place.get('placeType')%></li>
-                <li><a id="activate"><%=place.get('placeName')%></a><li>     
-            </ul>
+            
+            <div id="thumbnail-likes">
+                <span><%=place.get('likes')%> likes</span>
+            </div>        
+            <div id="thumbnail-content">
+                <ul>
+                    <li><a id="activate"><%=place.get('placeName')%></a><li>     
+                    <li><a id="activate"><%=place.get('address')%></a><li>     
+                </ul>
+            </div>
         </script> 
 
         <!-- template for Individual View -->
@@ -119,6 +136,7 @@
             <div id='create-comment'>
                 <textarea id="new-comment" placeholder="Been here before? Add a comment..."></textarea>
                 <button id="submit-comment"> Submit </button>
+                <div id="message"> </div>
             </div>
 
             <div id='break'> </div>

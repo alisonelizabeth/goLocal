@@ -16,19 +16,41 @@ AppRouter = Backbone.Router.extend({
 
 	home: function() {
 		$('.container').empty();
-
-		// this is temporary 
-		$('.container').text('home');
+		$('.full').empty();
+		console.log('i am home')
+		new HomeView();
 	},
 
 	showPlaces: function() {
 		$('.container').empty();
+		$('.full').empty();
+		$('.container').append('<div> <span> search feature goes here</span> </div>')
+		$('.container').append('<div id="map"> </div>')
+
+		var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1');
 
 		this.places.fetch({
 			success: function(places) {
 				places.each(function(place){
 					new FullView({model: place});
-					console.log('full view');
+		
+					var latitude = place.get('latitude')
+					var longitude = place.get('longitude')
+		
+					L.mapbox.markerLayer({
+				    type: 'Feature',
+				    geometry: {
+				        type: 'Point',
+				        coordinates: [longitude , latitude]
+				    },
+				    properties: {
+				        title: place.get('placeName'),
+				        description: place.get('address'),
+				        'marker-size': 'medium',
+				        'marker-color': '#076469'
+				    }
+				}).addTo(map);
+
 				});
 			}
 		});
@@ -36,6 +58,7 @@ AppRouter = Backbone.Router.extend({
 
 	showPlace: function(id){
 		$('.container').empty();
+		$('.full').empty();
 
 		var that = this
 		this.places.fetch({
@@ -92,11 +115,13 @@ AppRouter = Backbone.Router.extend({
 
 	addPlace: function() {
 		$('.container').empty();
+		$('.full').empty();
 		new AddView();
         $('.select').chosen({max_selected_options: 9});
 	},
 
 	editPlace: function(){
+		$('.full').empty();
 		$('.container').text('testing... Edit page')
 	},
 });
