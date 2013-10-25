@@ -15,7 +15,8 @@
         <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
         <link href='http://fonts.googleapis.com/css?family=Mouse+Memoirs' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="bower_components/chosen/chosen.css">
+        <link rel="stylesheet" href="chosen/chosen.css">
+        <link rel="stylesheet" href="styles/isotope-styles.css">
 
 
 
@@ -52,8 +53,8 @@
 
 
 
-
         </div>
+
 
       <!--   <footer>
             <div class="footer-container">
@@ -73,6 +74,11 @@
 
         </script>
 
+        <!-- template for Home View -->
+        <script type="text/template" id="search-template">
+            <input id="search"> <button>Search</button> 
+        </script>
+
         <!-- template for Full View -->
         <script type="text/template" id="grid-template">
              <% if (place.get('placePhoto')) { %>
@@ -84,16 +90,15 @@
                             <img src="images/placeholder.jpg"/>
                         </div>
                     <% } %>
-            
-            <div id="thumbnail-likes">
-                <span><%=place.get('likes')%> likes</span>
-            </div>        
-            <div id="thumbnail-content">
-                <ul>
-                    <li><a id="activate"><%=place.get('placeName')%></a><li>     
-                    <li><a id="activate"><%=place.get('address')%></a><li>     
-                </ul>
-            </div>
+
+                        <div id="thumbnail-content">
+                            <ul>
+                                <li><a id="activate"><%=place.get('placeName')%></a><li>     
+                                <li><a id="activate"><%=place.get('address')%></a><li>     
+                            </ul>
+                        </div>
+
+          
         </script> 
 
         <!-- template for Individual View -->
@@ -283,7 +288,8 @@
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/moment/moment.js"></script>
-        <script src='bower_components/chosen/chosen.jquery.js'></script>
+        <script src='chosen/chosen.jquery.js'></script>
+        <script src='bower_components/isotope/jquery.isotope.min.js'></script>
 
 
         <!-- endbower -->

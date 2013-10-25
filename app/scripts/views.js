@@ -38,6 +38,29 @@ FullView = Backbone.View.extend({
 	}
 });
 
+SearchView = Backbone.View.extend({
+	searchTemplate: _.template($('#search-template').text()),
+
+	className: 'search-view',
+
+	events: {
+		'click #search': "search", 
+	},
+
+	initialize: function() {
+		$('.container').append(this.el);
+		this.render();
+	},
+
+	render: function() {
+		this.$el.append(this.searchTemplate() );
+	},
+
+	search: function(){
+		var city = $('#city-name').val();
+	}
+});
+
 // IndividualView: Shows individual local place 
 IndividualView = Backbone.View.extend({
 	singleTemplate: _.template($('#single-template').text()),
@@ -201,6 +224,7 @@ AddView = Backbone.View.extend({
 
 		place.set('placeType', type);
 		place.set('placeName', placeName);
+		// should change comments to description here
 		place.set('comments', comments);
 		place.set('likes', undefined);
 		place.set('products', products);
@@ -217,6 +241,7 @@ AddView = Backbone.View.extend({
 				$('.select').val('').trigger('chosen:updated');
 				$('#location').attr('checked', false);
 				$('.file-input-textbox').val('No file selected');
+				// after save, should take you back to Full view, or add modal popup
 			},
 
 			error: function(results, error) {

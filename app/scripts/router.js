@@ -24,36 +24,42 @@ AppRouter = Backbone.Router.extend({
 	showPlaces: function() {
 		$('.container').empty();
 		$('.full').empty();
-		$('.container').append('<div> <span> search feature goes here</span> </div>')
+		new SearchView();
 		$('.container').append('<div id="map"> </div>')
 
-		var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1');
+		// var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1');
 
 		this.places.fetch({
 			success: function(places) {
 				places.each(function(place){
 					new FullView({model: place});
+
 		
-					var latitude = place.get('latitude')
-					var longitude = place.get('longitude')
-		
-					L.mapbox.markerLayer({
-				    type: 'Feature',
-				    geometry: {
-				        type: 'Point',
-				        coordinates: [longitude , latitude]
-				    },
-				    properties: {
-				        title: place.get('placeName'),
-				        description: place.get('address'),
-				        'marker-size': 'medium',
-				        'marker-color': '#076469'
-				    }
-				}).addTo(map);
+				// 	var latitude = place.get('latitude')
+				// 	var longitude = place.get('longitude')
+	
+				// 	L.mapbox.markerLayer({
+				//     type: 'Feature',
+				//     geometry: {
+				//         type: 'Point',
+				//         coordinates: [longitude , latitude]
+				//     },
+				//     properties: {
+				//         title: place.get('placeName'),
+				//         description: place.get('address'),
+				//         'marker-size': 'medium',
+				//         'marker-color': '#076469'
+				//     }
+				// }).addTo(map);
 
 				});
+				var things = $('.container')
+   				things.isotope({
+      				itemSelector : '.full-view'
+    			});
 			}
 		});
+
 	},
 
 	showPlace: function(id){

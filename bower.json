@@ -7,7 +7,9 @@
     "backbone": "~1.1.0",
     "underscore": "~1.5.2",
     "leaflet": "~0.6.4",
-    "chosen": "~1.0.0"
+    "chosen": "~1.0.0",
+    "isotope": "~1.5.25",
+    "coffee-script": "~1.6.3"
   },
   "devDependencies": {}
 }
