@@ -54,9 +54,17 @@ AppRouter = Backbone.Router.extend({
 
 				});
 				var things = $('.container')
-   				things.isotope({
-      				itemSelector : '.full-view'
-    			});
+				if(!things.hasClass('isotope')) {
+					things.isotope({
+						itemSelector: '.full-view',
+				});
+
+                } else {
+                    things.isotope('destroy');
+                    things.isotope({
+                        itemSelector: '.full-view',
+                    });
+                }
 			}
 		});
 
