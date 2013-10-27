@@ -173,6 +173,7 @@ footer {
 	margin: 0 auto;
 	margin-top: 30px;
 	height: 75px;
+	padding-top: 20px;
 }
 
 .bottom-head {
@@ -522,7 +523,7 @@ footer {
 
 	#check {
 		position: absolute;
-		left: 352px;
+		left: 405px;
 		top: 108px;
 
 		img {
@@ -568,6 +569,7 @@ footer {
 	border-radius: 5px;
 	padding-left: 20px;
 	margin-right: 30px;
+	margin-top: 20px;
 
 	#number-one {
 		display: inline-block;
@@ -591,6 +593,7 @@ footer {
 	width: 370px;
 	background: #3bbec0;
 	border-radius: 5px;
+	margin-top: 20px;
 
 	#number-two {
 		font-size: 50px;
@@ -634,6 +637,9 @@ footer {
 	margin-top: 20px;
 	background: #EBC85E;
 	padding-left: 20px;	
+	width: 795px;
+	border-radius: 5px;
+	padding-bottom: 20px;
 
 	#number-three {
 		display: inline-block;
@@ -648,11 +654,10 @@ footer {
 		width: 375px;
 
 		#name {
-			border: 3px dotted #F89350;
+			border: 3px dotted #B3B3B3;
 			width: 300px;
 			height: 23px;
 			border-radius: 5px;
-			background: #FFF79E;
 			outline: none;
 			padding-left: 5px;
 			margin-bottom: 15px;
@@ -672,10 +677,9 @@ footer {
 		}
 
 		textarea {
-			border: 3px dotted #F89350;
-			width: 450px;
+			border: 3px dotted #B3B3B3;
+			width: 350px;
 			border-radius: 5px;
-			background: #FFF79E;
 			outline: none;
 			padding-left: 5px;
 			height: 89px;

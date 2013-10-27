@@ -30,7 +30,7 @@ AppRouter = Backbone.Router.extend({
 				for (var i=0; i<results.length; i++) {
 					new BottomView({model: results[i]});
 				}
-				$('.footer').append('<footer> <div class="footer-container">&copy Alison Miller</div></footer>')
+				$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 			},
 
 			error: function(results, error){
@@ -44,6 +44,8 @@ AppRouter = Backbone.Router.extend({
 		$('.container').empty();
 		$('.full').empty();
 		$('.footer').empty();
+		var headerTemplate = _.template($('#header-template').text());
+		$('.full').append(headerTemplate());
 		new SearchView();
 
 		this.places.fetch({
@@ -66,13 +68,15 @@ AppRouter = Backbone.Router.extend({
                 }
 			}
 		});
-
+		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 	},
 
 	showPlace: function(id){
 		$('.container').empty();
 		$('.full').empty();
 		$('.footer').empty();
+		var headerTemplate = _.template($('#header-template').text());
+		$('.full').append(headerTemplate());
 
 		var that = this
 		this.places.fetch({
@@ -122,13 +126,16 @@ AppRouter = Backbone.Router.extend({
 				}
 				});
 			}
-		});		
+		});	
+		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 	},
 
 	addPlace: function() {
 		$('.container').empty();
 		$('.full').empty();
 		new AddView();
+		var headerTemplate = _.template($('#header-template').text());
+		$('.full').append(headerTemplate());
         $('.select').chosen({max_selected_options: 9});
 
         $('#image-preview').hide();

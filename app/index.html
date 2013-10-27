@@ -39,6 +39,22 @@
         <div class="footer"> </div>
        
 <!-- TEMPLATES begin -->
+        <!-- header template -->
+        <script type="text/template" id="header-template">
+            <header>
+                <div class="header-container">
+                    <a href="#"><span>goLocal</span></a>
+                    <div class="nav">
+                        <ul>
+                            <a href="#"><li>Home</li></a>
+                            <a href="#/places"><li>Search</li></a>
+                            <a href="#/addplace"><li>Add a local spot</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+        </script>
+
         <!-- template for Home View -->
         <script type="text/template" id="bottom-template">
              <% if (place.get('placePhoto')) { %>
