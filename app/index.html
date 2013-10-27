@@ -13,8 +13,9 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-        <link href='http://fonts.googleapis.com/css?family=Mouse+Memoirs' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="chosen/chosen.css">
         <link rel="stylesheet" href="styles/isotope-styles.css">
 
@@ -49,19 +50,7 @@
             </div>
         </header>
         <div class="full"></div>
-        <div class="container"> 
-
-
-
-        </div>
-
-
-      <!--   <footer>
-            <div class="footer-container">
-                <span>&copy 2013 goLocal</span>
-                <span>Created by Alison Miller</span>
-            </div>
-        </footer> -->
+        <div class="container"> </div>
        
 <!-- TEMPLATES begin -->
         <!-- template for Home View -->
@@ -76,7 +65,14 @@
 
         <!-- template for Home View -->
         <script type="text/template" id="search-template">
-            <input id="search"> <button>Search</button> 
+            <div id="city"> 
+                <span> Sort by city</span>
+            </div>
+            <input id="city-name" placeholder="City name"> 
+            <div id="search-button">Search</div> 
+            <div id="search-icon"> 
+                <img src="images/search-icon.png">
+            </div>
         </script>
 
         <!-- template for Full View -->
@@ -92,18 +88,29 @@
                     <% } %>
 
                         <div id="thumbnail-content">
-                            <ul>
-                                <li><a id="activate"><%=place.get('placeName')%></a><li>     
-                                <li><a id="activate"><%=place.get('address')%></a><li>     
-                            </ul>
-                        </div>
+                            <% if (place.get('likes')) { %>
+                            <div id="heart">
+                                <img src="images/heart.png">
+                                <span><%=place.get('likes')%><span>
+                            </div>
+                            <% } else { %> 
+                                <div id="heart">
+                                    <img src="images/heart.png">
+                                    <span>0<span>
+                                </div>
+                            <% } %>
 
-          
+                            <ul>
+                                <li id="title"><a id="activate"><%=place.get('placeName')%></a><li>     
+                                <li id="subhead"><a id="activate"><%=place.get('address')%></a><li>     
+                            </ul>
+                        </div>        
         </script> 
 
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
             <div id='top-page'>
+
                  <% if (placeToShow.get('placePhoto')) { %>
                         <div class="main-image">
                             <img src="<%=placeToShow.get('placePhoto').url() %>"/>
@@ -117,22 +124,22 @@
                 <a href='#'> <span id="edit">Suggest an edit</span></a> 
 
                 <h1><%= place.get('placeName')%></h1>
+                <p id="address-view"><%= place.get('address')%></p>
 
                 <div class='text'>
-                    <p><%= place.get('address')%></p>
-                    <p id="description"><b>Description:</b> <%= place.get('comments')%></p>
-                    <p><b>What people have found:</b> <%= place.get('products')%></p>  
+                    
+                    <p id="description"><span>Description:</span> <%= place.get('comments')%></p> 
                 </div>
                 <div id='likes'> 
+                    <p><span>Produce offered:</span> <%= place.get('products')%></p> 
+                    <img src="images/heart.png">
                     <% if (place.get('likes') !== undefined) { %>
-                        <p> <%= place.get('likes') %> people like this</p>
+                        <span id="likes-span"> <%= place.get('likes') %> people like this</span>
                     <% } else { %>
                         <p> </p>
-                    <% } %>                         
-                    <img src="images/thumbs-up.png">
-                    <span>Like it</span>
-                    <img src="images/thumbs-down.png">
-                    <span>Dislike it</span>
+                    <% } %> 
+                    <div id="like-button">Like it</div>                        
+                    
                 </div>
             </div>
 
@@ -140,8 +147,11 @@
 
             <div id='create-comment'>
                 <textarea id="new-comment" placeholder="Been here before? Add a comment..."></textarea>
-                <button id="submit-comment"> Submit </button>
+                <div id="submit-comment"> Post Comment </div>
                 <div id="message"> </div>
+                <div id="arrow"> 
+                    <img src="images/arrow.png">
+                </div>
             </div>
 
             <div id='break'> </div>
@@ -155,98 +165,24 @@
             <h1>Share your local find</h1>
             <div id="box-one">
                 <div id="number-one">1</div>
-                <div class='number-one-border'></div>
-                <h2>What did you find?</h2>
+                <h2>Upload a photo</h2>
                 <div id="inside">
-                <ul>
-                    <li>Name of place</li>
-                    <input id="name" placeholder="Name of place">
-                    <li>Write a short description</li>
-                    <textarea id="comments" placeholder="What are some pros and cons?"> </textarea>
-                    <li id='chosen-select'>What type of produce did you find?</li>
-                     <select data-placeholder="Fruits & Veggies" class="select" multiple style="width:250px; height: 20px;"> 
-                        <option value="apples">Apples</option> 
-                        <option value="apricots">Apricots</option> 
-                        <option value="artichokes">Artichokes</option> 
-                        <option value="asparagus">Asparagus</option> 
-                        <option value="avocados">Avocados</option>
-                        <option value="bananas">Bananas</option> 
-                        <option value="beans">Beans</option> 
-                        <option value="beetroot">Beetroot</option> 
-                        <option value="blackberries">Blackberries</option>
-                        <option value="blueberries">Blueberries</option> 
-                        <option value="bok choy">Bok Choy</option> 
-                        <option value="broccoli">Broccoli</option>
-                        <option value="brussel sprouts">Brussel Sprouts</option> 
-                        <option value="butternut">Butternut</option> 
-                        <option value="cabbage">Cabbage</option> 
-                        <option value="carrots">Carrots</option> 
-                        <option value="cauliflower">Cauliflower</option> 
-                        <option value="celery">Celery</option> 
-                        <option value="cherries">Cherries</option>
-                        <option value="chilli peppers">Chilli Peppers</option>
-                        <option value="coconut">Coconut</option>
-                        <option value="corn">Corn</option>
-                        <option value="cranberries">Cranberries</option>
-                        <option value="cucumbers">Cucumbers</option>
-                        <option value="dates">Dates</option>
-                        <option value="eggplants">Eggplants</option>
-                        <option value="endive">Endive</option>
-                        <option value="figs">Figs</option>
-                        <option value="garlic">Garlic</option>
-                        <option value="ginger root">Ginger Root</option>
-                        <option value="grapefruit">Grapefruit</option>
-                        <option value="grapes">Grapes</option>
-                        <option value="guavas">Guavas</option>
-                        <option value="herbs">Herbs</option>
-                        <option value="honeydew melons">Honeydew Melons</option>
-                        <option value="horseradish">Horseradish</option>
-                        <option value="kiwis">Kiwi</option>
-                        <option value="kumquats">Kumquats</option>
-                        <option value="leeks">Leeks</option>
-                        <option value="lemons">Lemons</option>
-                        <option value="lettuce">Lettuce</option>
-                        <option value="limes">Limes</option>
-                        <option value="mangoes">Mangoes</option>
-                        <option value="mushrooms">Mushrooms</option>
-                        <option value="nectarines">Nectarines</option>
-                        <option value="nuts">Nuts</option>
-                        <option value="okra">Okra</option>
-                        <option value="onions">Onions</option>
-                        <option value="oranges">Oranges</option>
-                        <option value="parsnips">Parsnips</option>
-                        <option value="papayas">Papayas</option>
-                        <option value="peaches">Peaches</option>
-                        <option value="pears">Pears</option>
-                        <option value="peas">Peas</option>
-                        <option value="sweet peppers">Sweet Peppers</option>
-                        <option value="persimmons">Persimmons</option>
-                        <option value="pineapples">Pineapples</option>
-                        <option value="plums">Plums</option>
-                        <option value="potatoes">Potatoes</option>
-                        <option value="pumpkins">Pumpkins</option>
-                        <option value="radishes">Radishes</option>
-                        <option value="rhubarb">Rhubarb</option>
-                        <option value="raspberries">Raspberries</option>
-                        <option value="spinach">Spinach</option>
-                        <option value="sprouts">Sprouts</option>
-                        <option value="star fruit">Star Fruit</option>
-                        <option value="strawberries">Strawberries</option>
-                        <option value="sweet potatoes">Sweet Potatoes</option>
-                        <option value="tangerines">Tangerines</option>
-                        <option value="tomatoes">Tomatoes</option>
-                        <option value="turnips">Turnips</option>
-                        <option value="watermelons">Watermelons</option>
-                    </select>
-                </ul>
+                    <div class="file-input-wrapper">
+                      <div class="button-file-input">Upload file</div>
+                      <input type="file" name="file" id="photo-upload"/>
+                    </div>
+                    <div id="upload-image-div">
+                        <div id="check">
+                            <img src="images/check-mark.png">
+                        </div>
+                        <img id="image-preview" src="#" alt="your image" />
+                    </div>
                 </div>
             </div>
 
-
-            <div id="box-three">
+            <div id="box-two">
+                <div id="number-two">2</div>
                 <h2>Mark the location</h2>
-                <div id="number-three">3</div>
-                <div class='number-three-border'></div>
                 <div id="inside">
                     <input type="checkbox" id="location">
                     <span>I am here now, find me!</span> 
@@ -254,27 +190,100 @@
                         <span>Or, add the address:</span>
                         <input type="text" id="address-location" placeholder="Street Address, City, Zip code">
                     </div>
-
                 </div>
             </div>
 
-            <div id="box-two">
-                <h2>Upload a photo</h2>
-
-                <div id="number-two">2</div>
-                <div class='number-two-border'></div>
-                
+            <div id="box-three">
+                <div id="number-three">3</div>
+                <h2>What did you find?</h2>
                 <div id="inside">
-
-                <input type="text" class="file-input-textbox" readonly="readonly" value='No file selected'>
-                <div class="file-input-div">
-                    <input type="button" value="Browse" class="file-input-button" />
-                    <input type="file" name="uploaded_file" id="photo-upload"/>
-                </div>
-                   
+                    <div id="box-three-left"
+                        <ul>
+                            <li>Name of place</li>
+                            <input id="name" placeholder="Place">
+                            <li id='chosen-select'>What type of produce did you find?</li>
+                             <select data-placeholder="Fruits & Veggies" class="select" multiple style="width:250px; height: 20px;"> 
+                                <option value="apples">Apples</option> 
+                                <option value="apricots">Apricots</option> 
+                                <option value="artichokes">Artichokes</option> 
+                                <option value="asparagus">Asparagus</option> 
+                                <option value="avocados">Avocados</option>
+                                <option value="bananas">Bananas</option> 
+                                <option value="beans">Beans</option> 
+                                <option value="beetroot">Beetroot</option> 
+                                <option value="blackberries">Blackberries</option>
+                                <option value="blueberries">Blueberries</option> 
+                                <option value="bok choy">Bok Choy</option> 
+                                <option value="broccoli">Broccoli</option>
+                                <option value="brussel sprouts">Brussel Sprouts</option> 
+                                <option value="butternut">Butternut</option> 
+                                <option value="cabbage">Cabbage</option> 
+                                <option value="carrots">Carrots</option> 
+                                <option value="cauliflower">Cauliflower</option> 
+                                <option value="celery">Celery</option> 
+                                <option value="cherries">Cherries</option>
+                                <option value="chilli peppers">Chilli Peppers</option>
+                                <option value="coconut">Coconut</option>
+                                <option value="corn">Corn</option>
+                                <option value="cranberries">Cranberries</option>
+                                <option value="cucumbers">Cucumbers</option>
+                                <option value="dates">Dates</option>
+                                <option value="eggplants">Eggplants</option>
+                                <option value="endive">Endive</option>
+                                <option value="figs">Figs</option>
+                                <option value="garlic">Garlic</option>
+                                <option value="ginger root">Ginger Root</option>
+                                <option value="grapefruit">Grapefruit</option>
+                                <option value="grapes">Grapes</option>
+                                <option value="guavas">Guavas</option>
+                                <option value="herbs">Herbs</option>
+                                <option value="honeydew melons">Honeydew Melons</option>
+                                <option value="horseradish">Horseradish</option>
+                                <option value="kiwis">Kiwi</option>
+                                <option value="kumquats">Kumquats</option>
+                                <option value="leeks">Leeks</option>
+                                <option value="lemons">Lemons</option>
+                                <option value="lettuce">Lettuce</option>
+                                <option value="limes">Limes</option>
+                                <option value="mangoes">Mangoes</option>
+                                <option value="mushrooms">Mushrooms</option>
+                                <option value="nectarines">Nectarines</option>
+                                <option value="nuts">Nuts</option>
+                                <option value="okra">Okra</option>
+                                <option value="onions">Onions</option>
+                                <option value="oranges">Oranges</option>
+                                <option value="parsnips">Parsnips</option>
+                                <option value="papayas">Papayas</option>
+                                <option value="peaches">Peaches</option>
+                                <option value="pears">Pears</option>
+                                <option value="peas">Peas</option>
+                                <option value="sweet peppers">Sweet Peppers</option>
+                                <option value="persimmons">Persimmons</option>
+                                <option value="pineapples">Pineapples</option>
+                                <option value="plums">Plums</option>
+                                <option value="potatoes">Potatoes</option>
+                                <option value="pumpkins">Pumpkins</option>
+                                <option value="radishes">Radishes</option>
+                                <option value="rhubarb">Rhubarb</option>
+                                <option value="raspberries">Raspberries</option>
+                                <option value="spinach">Spinach</option>
+                                <option value="sprouts">Sprouts</option>
+                                <option value="star fruit">Star Fruit</option>
+                                <option value="strawberries">Strawberries</option>
+                                <option value="sweet potatoes">Sweet Potatoes</option>
+                                <option value="tangerines">Tangerines</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option value="turnips">Turnips</option>
+                                <option value="watermelons">Watermelons</option>
+                            </select>
+                        </ul>
+                    </div>
+                    <div id="box-three-right">
+                        <p>Description</p>
+                        <textarea id="comments" placeholder="Write a brief description on the place you found."> </textarea>
+                    </div>
                 </div>
             </div>
-
             <div id="save-button">
                 <button id="save"> Save </button>
             </div>
@@ -290,7 +299,6 @@
         <script src="bower_components/moment/moment.js"></script>
         <script src='chosen/chosen.jquery.js'></script>
         <script src='bower_components/isotope/jquery.isotope.min.js'></script>
-
 
         <!-- endbower -->
         <!-- endbuild -->

@@ -25,43 +25,22 @@ AppRouter = Backbone.Router.extend({
 		$('.container').empty();
 		$('.full').empty();
 		new SearchView();
-		$('.container').append('<div id="map"> </div>')
-
-		// var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1');
 
 		this.places.fetch({
 			success: function(places) {
 				places.each(function(place){
 					new FullView({model: place});
-
-		
-				// 	var latitude = place.get('latitude')
-				// 	var longitude = place.get('longitude')
-	
-				// 	L.mapbox.markerLayer({
-				//     type: 'Feature',
-				//     geometry: {
-				//         type: 'Point',
-				//         coordinates: [longitude , latitude]
-				//     },
-				//     properties: {
-				//         title: place.get('placeName'),
-				//         description: place.get('address'),
-				//         'marker-size': 'medium',
-				//         'marker-color': '#076469'
-				//     }
-				// }).addTo(map);
-
 				});
-				var things = $('.container')
-				if(!things.hasClass('isotope')) {
-					things.isotope({
+
+				var container = $('.container')
+				if(!container.hasClass('isotope')) {
+					container.isotope({
 						itemSelector: '.full-view',
 				});
 
                 } else {
-                    things.isotope('destroy');
-                    things.isotope({
+                    container.isotope('destroy');
+                    container.isotope({
                         itemSelector: '.full-view',
                     });
                 }
@@ -99,7 +78,7 @@ AppRouter = Backbone.Router.extend({
 				        title: placeToShow.get('placeName'),
 				        description: placeToShow.get('address'),
 				        'marker-size': 'medium',
-				        'marker-color': '#076469'
+				        'marker-color': '#156B6C'
 				    }
 				}).addTo(map);
 
@@ -107,16 +86,14 @@ AppRouter = Backbone.Router.extend({
 			console.log(query);
 
 			query.equalTo('parent', placeToShow);
-			// maybe limit comments and add option to view more comments? 
-			// query.limit(10); 
-			query.ascending('createdAt');
+			query.descending('createdAt');
 
 			query.find({
 				success: function(results) {
 					console.log(results.length)
-					$('#comment-header').append('<h2>' + (results.length) + ' Comments' + '</h2>')
+					$('#comment-header').append('<h2> Latest Comments </h2>')
 					for (var i=0; i < results.length; i++) {
-						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
+						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<img src="images/clock-2.png">' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
 					}
 				},
 				error: function (results, error) {

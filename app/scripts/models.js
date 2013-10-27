@@ -14,11 +14,23 @@ var CommentCollection = Parse.Collection.extend({
 
 
 $(document).ready(function() {
-  $('#photo-upload').change(function(){
-
-        var fileInputVal = $(this).val();
-        fileInputVal = fileInputVal.replace("C:\\fakepath\\", "");
-        $(this).parent().prev().val(fileInputVal);
-
+    $('#image-preview').hide();
+    $('#check').hide();
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#photo-upload").change(function(){
+        $('#check').show();
+        $('#image-preview').show();
+        readURL(this);
     });
 });

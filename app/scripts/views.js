@@ -44,7 +44,7 @@ SearchView = Backbone.View.extend({
 	className: 'search-view',
 
 	events: {
-		'click #search': "search", 
+		'click #search-button': "search", 
 	},
 
 	initialize: function() {
@@ -58,6 +58,21 @@ SearchView = Backbone.View.extend({
 
 	search: function(){
 		var city = $('#city-name').val();
+
+		var query = new Parse.Query(PlaceClass);
+
+		query.equalTo('city', city)
+
+		query.find({
+			success: function(results){
+				console.log(results);
+			},
+
+			error: function(results, error){
+				console.log(error.description);
+			}
+		});
+
 	}
 });
 
@@ -100,7 +115,7 @@ IndividualView = Backbone.View.extend({
 				success: function(results){
 					console.log(moreComments.createdAt);
 					$('#new-comment').val('');
-					$('#comments-box').append('<div id="individual-comment">' + '<p>' + moreComments.attributes.content + '</p>' + '<span>' +  moment(moreComments.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' +'</div>')
+					$('#comments-box').append('<div id="individual-comment">' + '<p>' + moreComments.attributes.content + '</p>' + '<img src="images/clock-2.png">' + '<span>' +  moment(moreComments.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' +'</div>')
 				},
 				error: function(results, error){
 					console.log(error.description)
@@ -154,11 +169,13 @@ AddView = Backbone.View.extend({
 		var comments	= $('#comments').val();
 		var products 	= $('.select').val();
 
+		console.log(fileUploadControl.files)
 		if (fileUploadControl.files.length > 0) {
 			var file = fileUploadControl.files[0];
 			var name = 'photo.jpg';
 
 			var parseFile = new Parse.File(name, file);
+			console.log(parseFile)
 
 			parseFile.save().then(function(){
 				console.log(parseFile.url());
@@ -191,8 +208,10 @@ AddView = Backbone.View.extend({
 				    if (status == google.maps.GeocoderStatus.OK) {
 				      if (results[0]) {
 				        var fullAddress = results[0].formatted_address
+				        var city = results[0].address_components[2].long_name
 				        var address = (fullAddress.replace(', USA', ''))
 				        place.set('address', address)
+				        place.set('city', city)
 				      } else {
 				        alert('No results found');
 				      }
