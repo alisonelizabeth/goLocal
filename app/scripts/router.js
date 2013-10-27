@@ -17,13 +17,33 @@ AppRouter = Backbone.Router.extend({
 	home: function() {
 		$('.container').empty();
 		$('.full').empty();
+		$('.footer').empty();
 		console.log('i am home')
 		new HomeView();
+
+		$('.container').append('<h2 class="bottom-head"> Recent finds</h2>')
+		query = new Parse.Query(PlaceClass);
+		query.limit(3)
+
+		query.find({
+			success:function(results){
+				for (var i=0; i<results.length; i++) {
+					new BottomView({model: results[i]});
+				}
+				$('.footer').append('<footer> <div class="footer-container">&copy Alison Miller</div></footer>')
+			},
+
+			error: function(results, error){
+				console.log(error.description)
+			}
+		});
+
 	},
 
 	showPlaces: function() {
 		$('.container').empty();
 		$('.full').empty();
+		$('.footer').empty();
 		new SearchView();
 
 		this.places.fetch({
@@ -52,6 +72,7 @@ AppRouter = Backbone.Router.extend({
 	showPlace: function(id){
 		$('.container').empty();
 		$('.full').empty();
+		$('.footer').empty();
 
 		var that = this
 		this.places.fetch({
@@ -109,6 +130,24 @@ AppRouter = Backbone.Router.extend({
 		$('.full').empty();
 		new AddView();
         $('.select').chosen({max_selected_options: 9});
+
+        $('#image-preview').hide();
+	    $('#check').hide();
+	      function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            
+	            reader.onload = function (e) {
+	                $('#image-preview').attr('src', e.target.result);
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+	    $("#photo-upload").change(function(){
+	        $('#check').show();
+	        $('#image-preview').show();
+	        readURL(this);
+	    });
 	},
 
 	editPlace: function(){

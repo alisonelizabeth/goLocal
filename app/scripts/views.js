@@ -1,4 +1,5 @@
 // HomeView: Home page view
+// this should be moved to router, just need template 
 HomeView = Backbone.View.extend({
 	homeTemplate: _.template($('#home-template').text()),
 
@@ -12,7 +13,30 @@ HomeView = Backbone.View.extend({
 	render: function(){
 		this.$el.append(this.homeTemplate());
 	}
-})
+});
+
+BottomView = Backbone.View.extend({
+	bottomTemplate: _.template($('#bottom-template').text()),
+
+	className: 'bottom-view',
+
+	events: {
+		'click #activate': 'activate'
+	},
+
+	initialize: function(){
+		$('.container').append(this.el);
+		this.render();
+	},
+
+	render: function(){
+		this.$el.append(this.bottomTemplate({place: this.model}) );
+	},
+
+	activate: function(){
+		this.$el.find('#activate').attr('href', "#/places/" + this.model.id);
+	}
+});
 
 // FullView: Shows complete listing of local spots 
 FullView = Backbone.View.extend({

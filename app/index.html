@@ -34,36 +34,68 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        <header>
-            <div class="header-container">
-               <!--  <img src="images/veggies.png"> -->
-                <a href="#"><span>goLocal</span></a>
-
-                <div class="nav">
-                    <ul>
-                        <a href="#"><li>Home</li></a>
-                        <a href="#"><li>About</li></a>
-                        <a href="#"><li>Search</li></a>
-                    </ul>
-                </div>
-            </div>
-        </header>
         <div class="full"></div>
         <div class="container"> </div>
+        <div class="footer"> </div>
        
 <!-- TEMPLATES begin -->
         <!-- template for Home View -->
+        <script type="text/template" id="bottom-template">
+             <% if (place.get('placePhoto')) { %>
+                        <div class="thumbnail">
+                            <img src="<%=place.get('placePhoto').url() %>"/>
+                        </div>
+                    <% } else { %> 
+                        <div class="thumbnail">
+                            <img src="images/placeholder.jpg"/>
+                        </div>
+                    <% } %>
+
+                        <div id="thumbnail-content">
+                            <% if (place.get('likes')) { %>
+                            <div id="heart">
+                                <img src="images/heart.png">
+                                <span><%=place.get('likes')%><span>
+                            </div>
+                            <% } else { %> 
+                                <div id="heart">
+                                    <img src="images/heart.png">
+                                    <span>0<span>
+                                </div>
+                            <% } %>
+
+                            <ul>
+                                <li id="title"><a id="activate"><%=place.get('placeName')%></a><li>     
+                                <li id="subhead"><a id="activate"><%=place.get('address')%></a><li>     
+                            </ul>
+                        </div>
+        </script>
+
         <script type="text/template" id="home-template">
-            
+            <header>
+                <div class="header-container">
+                    <a href="#"><span>goLocal</span></a>
+                    <div class="nav">
+                        <ul>
+                            <a href="#"><li>Home</li></a>
+                            <a href="#/places"><li>Search</li></a>
+                            <a href="#/addplace"><li>Add a local spot</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <div class="home-view-layer"> </div>
             <div class="container-home">
-                <div class="home-view-layer"> </div>
                 <h1>Share your favorite spots for local produce</h1>
+                <div id="home-buttons">
+                    <a href="#/places"><div id="home-button-view">Search spots</div></a>
+                    <a href="#/addplace"><div id="home-button-add">Add a spot</div></a>
+                </div>
             </div>
 
         </script>
 
-        <!-- template for Home View -->
+        <!-- template for Search View -->
         <script type="text/template" id="search-template">
             <div id="city"> 
                 <span> Sort by city</span>
@@ -169,8 +201,8 @@
                 <div id="inside">
                     <div class="file-input-wrapper">
                       <div class="button-file-input">Upload file</div>
-                      <input type="file" name="file" id="photo-upload"/>
-                    </div>
+                      <input type="file" name="file" id="photo-upload"/> 
+                    </div> 
                     <div id="upload-image-div">
                         <div id="check">
                             <img src="images/check-mark.png">
@@ -187,7 +219,7 @@
                     <input type="checkbox" id="location">
                     <span>I am here now, find me!</span> 
                     <div id="input-address">
-                        <span>Or, add the address:</span>
+                        <p>Or, add the address</p>
                         <input type="text" id="address-location" placeholder="Street Address, City, Zip code">
                     </div>
                 </div>
@@ -287,8 +319,6 @@
             <div id="save-button">
                 <button id="save"> Save </button>
             </div>
-
-
         </script>
 
         <!-- build:js scripts/vendor.js -->

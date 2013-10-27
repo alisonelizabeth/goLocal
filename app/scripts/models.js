@@ -11,26 +11,3 @@ var PlaceCollection = Parse.Collection.extend({
 var CommentCollection = Parse.Collection.extend({
 	model: Comment
 });
-
-
-$(document).ready(function() {
-    $('#image-preview').hide();
-    $('#check').hide();
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            
-            reader.onload = function (e) {
-                $('#image-preview').attr('src', e.target.result);
-            }
-            
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
-    $("#photo-upload").change(function(){
-        $('#check').show();
-        $('#image-preview').show();
-        readURL(this);
-    });
-});

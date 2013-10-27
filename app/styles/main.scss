@@ -63,19 +63,21 @@ header {
 	
 	span {
 		vertical-align: middle;
-		font-family: $heading-font;
+		font-family: $secondary-font;
+		font-weight: 700;
 		font-size: 40px;
 		color: whiteSmoke;
 	}
 
 	.nav {
 		float: right;
+		margin-top: 12px;
 
 		li{
 			display: inline;
 			margin-right: 30px;
 			font-family: $secondary-font;
-			color: #666E0D;
+			color: white;
 		}
 	}
 }
@@ -88,17 +90,6 @@ header {
 	right: 50px;
 }
 
-/* home-view styles */
-/*.home-view-layer {
-	position: absolute;
-	top: 0;
-	background: rgb(255, 255, 255);
-	opacity: 0.5;
-	height: 100%;
-	width: 940px;
-	z-index: 1;
-}
-*/
 .home-view {
 	background: url(/images/mural.jpg) no-repeat center center;
 	position: relative;
@@ -108,101 +99,166 @@ header {
   	background-size: cover;
   	height: 443px;
 
-/*  	#home-body {
+  	.home-view-layer {
   		position: absolute;
-  		overflow: auto;
-  		height: 100%;
-  		background: #C3DEE4;
-  		opacity: 0.7;
-  		margin-left: 150px;
-		width: 940px;
+		top: 0;
+		width: 100%;
+		height: 443px;
+		background: white;
+		opacity: 0.6;
+  	}
 
-  	}*/
+  	.container-home {
+		width: 940px;
+		margin: 0 auto;
+		padding-top: 75px;
+		position: relative;
+
+		h1 {
+			text-align: center;
+			font-family: $heading-font;
+			font-size: 50px;
+			margin-top: 60px;
+			color: #183823;
+		}
+
+		#home-buttons {
+			color: white;
+			font-size: 15px;
+			font-weight: 300;
+			width: 300px;
+			margin: 10px auto;
+
+			a {
+				color: white;
+			}
+
+			#home-button-add {
+				display: inline-block;
+				background: #F89350;
+				padding: 10px 12px;
+				border-radius: 8px;
+				margin-right: 15px;
+				border: 1px solid #d88200;
+			}
+
+			#home-button-add:hover{
+				background: #FF8B3D;
+				font-weight: 400;
+			}
+
+			#home-button-view {
+				display: inline-block;
+				background: #F89350;
+				padding: 10px 12px;
+				border-radius: 8px;
+				border: 1px solid #d88200;
+			}
+
+			#home-button-view:hover{
+				background: #FF8B3D;
+				font-weight: 400;
+			}
+		}	
+	}
 }
 
-.container-home {
+/*home-bottom-view styles */
+footer {
+	background: #1E6A8B;
+}
+
+.footer-container {
 	width: 940px;
 	margin: 0 auto;
-	padding-top: 75px;
+	margin-top: 30px;
+	height: 75px;
+}
+
+.bottom-head {
+	text-align: center;
+	margin: 10px 0 0 0;
+}
+
+.bottom-view {
+	display: inline-block;
+	margin-right: 20px;
 }
 
 /*full-view styles*/
-
 .full-view {
 	margin-top: 40px;
 	margin-right: 20px;
 
-	.thumbnail {
-		margin-top: 20px;
-		width: 290px;
-		height: auto;
-
-		img {
-			width: 290px;
-			border-radius: 5px 5px 0 0;
-			border: 1px solid rgb(213, 213, 213);
-			box-shadow: 1px 1px 5px #D3D3D3;
-
-		}
-	}
-
-	#thumbnail-likes {
-		display: inline-block;
-		margin-top: 5px;
-		height: 12px;
-		width: 42px;
-		text-align: center;
-		background: #466AFA;
-		border-radius: 5px;
-		padding: 12px;
-		color: white;
-	}
-
-	#thumbnail-content{
-		display: inline-block;
-		background: white;
-		width: 285px;
-		padding: 12px 0 12px 5px;
-		border-radius: 0 0 5px 5px;
-		border: 1px solid rgb(213, 213, 213);
-		box-shadow: 1px 1px 5px #D3D3D3;
-
-		ul {
-			margin: 0;
-			padding: 0;
-
-			#title {
-				font-size: 20px;
-				font-family: $heading-font;
-				color: #363636;
-			}
-
-			#subhead {
-				font-family: $secondary-font;
-				font-size: 12px;
-				color: #353535;
-			}
-		}
-
-		#heart {
-			float: right;
-			margin-top: -10px;
-			padding-right: 5px;
-
-			img {
-				width: 18px;
-			}
-
-			span {
-				color: #CECCCC;
-				font-family: $secondary-font;
-				font-size: 14px;
-			}
-		}
-	}
-
 }
 
+.thumbnail {
+	margin-top: 20px;
+	width: 290px;
+	height: auto;
+
+	img {
+		width: 290px;
+		border-radius: 5px 5px 0 0;
+		border: 1px solid rgb(213, 213, 213);
+		box-shadow: 1px 1px 5px #D3D3D3;
+	}
+}
+
+#thumbnail-likes {
+	display: inline-block;
+	margin-top: 5px;
+	height: 12px;
+	width: 42px;
+	text-align: center;
+	background: #466AFA;
+	border-radius: 5px;
+	padding: 12px;
+	color: white;
+}
+
+#thumbnail-content{
+	display: inline-block;
+	background: white;
+	width: 285px;
+	padding: 12px 0 12px 5px;
+	border-radius: 0 0 5px 5px;
+	border: 1px solid rgb(213, 213, 213);
+	box-shadow: 1px 1px 5px #D3D3D3;
+
+	ul {
+		margin: 0;
+		padding: 0;
+
+		#title {
+			font-size: 20px;
+			font-family: $heading-font;
+			color: #363636;
+		}
+
+		#subhead {
+			font-family: $secondary-font;
+			font-size: 12px;
+			color: #353535;
+		}
+		}
+
+	#heart {
+		float: right;
+		margin-top: -10px;
+		padding-right: 5px;
+
+		img {
+			width: 18px;
+		}
+
+		span {
+			color: #CECCCC;
+			font-family: $secondary-font;
+			font-size: 14px;
+		}
+	}
+}
 
 /*individual view styles*/
 .main-image {
@@ -272,7 +328,6 @@ header {
 		}
 	}
 }
-
 
 .icon {
 	display: inline-block;
@@ -419,7 +474,6 @@ header {
 
 /*add view styles*/
 .add-view {
-	padding: 0 25px;
 	font-family: $secondary-font;
 	background: white;
 	padding-bottom: 50px;
@@ -456,6 +510,7 @@ header {
 
 	#image-preview {
 		width: 200px;
+		max-height: 190px;
 		border: 1px solid #E6E3E3;
 		padding: 5px;
 		border-radius: 5px;
@@ -506,8 +561,13 @@ header {
 
 #box-one {
 	display: inline-block;
-	width: 400px;
-	height: 280px;
+	width: 370px;
+	height: 260px;
+	margin-left: 60px;
+	background: #E87352;
+	border-radius: 5px;
+	padding-left: 20px;
+	margin-right: 30px;
 
 	#number-one {
 		display: inline-block;
@@ -526,7 +586,11 @@ header {
 
 #box-two {
 	display: inline-block;
-	height: 280px;
+	height: 260px;
+	padding-left: 20px;
+	width: 370px;
+	background: #3bbec0;
+	border-radius: 5px;
 
 	#number-two {
 		font-size: 50px;
@@ -546,23 +610,30 @@ header {
 	}
 
 	#address-location {
-		border: 3px dotted #F89350;
-		width: 300px;
-		height: 23px;
+		border: 3px dotted #B3B3B3;
+		width: 335px;
+		height: 30px;
 		border-radius: 5px;
-		background: #FFF79E;
 		outline: none;
 		padding-left: 5px;
-		margin-top: -3px;
 	}
 
 	#input-address {
 		margin-top: 12px;
+
+		p {
+			margin: 0 0 5px 0;
+			font-weight: 300;
+		}
 	}
 }
 
 #box-three {
 	display: inline-block;
+	margin-left: 60px;
+	margin-top: 20px;
+	background: #EBC85E;
+	padding-left: 20px;	
 
 	#number-three {
 		display: inline-block;
