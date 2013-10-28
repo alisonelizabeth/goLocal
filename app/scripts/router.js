@@ -15,13 +15,19 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	home: function() {
-		$('.container').empty();
+		var container = $('.container')
+		container.empty();
+		
+		if (container.hasClass('isotope')) {
+			container.isotope('destroy');
+		};
+
 		$('.full').empty();
 		$('.footer').empty();
 		console.log('i am home')
 		new HomeView();
 
-		$('.container').append('<h2 class="bottom-head"> Recent finds</h2>')
+		container.append('<h2 class="bottom-head"> Recent finds</h2>')
 		query = new Parse.Query(PlaceClass);
 		query.limit(3)
 
@@ -66,13 +72,19 @@ AppRouter = Backbone.Router.extend({
                         itemSelector: '.full-view',
                     });
                 }
+           	$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 			}
 		});
-		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 	},
 
 	showPlace: function(id){
-		$('.container').empty();
+		var container = $('.container')
+		container.empty();
+		
+		if (container.hasClass('isotope')) {
+			container.isotope('destroy');
+		};
+
 		$('.full').empty();
 		$('.footer').empty();
 		var headerTemplate = _.template($('#header-template').text());
@@ -125,13 +137,19 @@ AppRouter = Backbone.Router.extend({
 					console.log(error.description);
 				}
 				});
+			$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 			}
 		});	
-		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 	},
 
 	addPlace: function() {
-		$('.container').empty();
+		var container = $('.container')
+		container.empty();
+		
+		if (container.hasClass('isotope')) {
+			container.isotope('destroy');
+		};
+
 		$('.full').empty();
 		new AddView();
 		var headerTemplate = _.template($('#header-template').text());
