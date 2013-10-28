@@ -190,7 +190,7 @@ AddView = Backbone.View.extend({
 
 		var type 		= $('#type').val();
 		var placeName 	= $('#name').val();
-		var comments	= $('#comments').val();
+		var description	= $('#description').val();
 		var products 	= $('.select').val();
 
 		console.log(fileUploadControl.files)
@@ -267,8 +267,7 @@ AddView = Backbone.View.extend({
 
 		place.set('placeType', type);
 		place.set('placeName', placeName);
-		// should change comments to description here
-		place.set('comments', comments);
+		place.set('description', description);
 		place.set('likes', undefined);
 		place.set('products', products);
 
@@ -280,11 +279,15 @@ AddView = Backbone.View.extend({
 			success: function(results) {
 				console.log(results);
 				$('#name').val('');
-				$('#comments').val('');
+				$('#description').val('');
 				$('.select').val('').trigger('chosen:updated');
 				$('#location').attr('checked', false);
 				$('.file-input-textbox').val('No file selected');
-				// after save, should take you back to Full view, or add modal popup
+				$('.modal').addClass('modal-active');
+				$('.close-button').click(function() {
+					$('.modal').removeClass('modal-active');
+					router.navigate("#", {trigger:true});
+				});
 			},
 
 			error: function(results, error) {

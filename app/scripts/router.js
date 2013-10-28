@@ -24,7 +24,7 @@ AppRouter = Backbone.Router.extend({
 
 		$('.full').empty();
 		$('.footer').empty();
-		console.log('i am home')
+		console.log('i am home');
 		new HomeView();
 
 		container.append('<h2 class="bottom-head"> Recent finds</h2>')
@@ -50,8 +50,10 @@ AppRouter = Backbone.Router.extend({
 		$('.container').empty();
 		$('.full').empty();
 		$('.footer').empty();
+
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
+
 		new SearchView();
 
 		this.places.fetch({
@@ -79,14 +81,14 @@ AppRouter = Backbone.Router.extend({
 
 	showPlace: function(id){
 		var container = $('.container')
+		$('.full').empty();
+		$('.footer').empty();
 		container.empty();
 		
 		if (container.hasClass('isotope')) {
 			container.isotope('destroy');
 		};
 
-		$('.full').empty();
-		$('.footer').empty();
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
 

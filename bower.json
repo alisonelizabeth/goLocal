@@ -9,7 +9,8 @@
     "leaflet": "~0.6.4",
     "chosen": "~1.0.0",
     "isotope": "~1.5.25",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "Avgrund": "~0.1.0"
   },
   "devDependencies": {}
 }

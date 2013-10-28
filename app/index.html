@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="styles/isotope-styles.css">
 
 
-
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
@@ -34,9 +33,18 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <div class="modal">
+        <div class="modal-box">
+            <h2>Your save was successful</h2>
+            <div class="close-button">Ok</div>
+        </div>
+        </div>
+
         <div class="full"></div>
         <div class="container"> </div>
         <div class="footer"> </div>
+
+
        
 <!-- TEMPLATES begin -->
         <!-- header template -->
@@ -176,7 +184,7 @@
 
                 <div class='text'>
                     
-                    <p id="description"><span>Description:</span> <%= place.get('comments')%></p> 
+                    <p id="description"><span>Description:</span> <%= place.get('description')%></p> 
                 </div>
                 <div id='likes'> 
                     <p><span>Produce offered:</span> <%= place.get('products')%></p> 
@@ -187,7 +195,6 @@
                         <p> </p>
                     <% } %> 
                     <div id="like-button">Like it</div>                        
-                    
                 </div>
             </div>
 
@@ -328,7 +335,7 @@
                     </div>
                     <div id="box-three-right">
                         <p>Description</p>
-                        <textarea id="comments" placeholder="Write a brief description on the place you found."> </textarea>
+                        <textarea id="description" placeholder="Write a brief description on the place you found."> </textarea>
                     </div>
                 </div>
             </div>
