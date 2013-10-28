@@ -63,17 +63,17 @@ AppRouter = Backbone.Router.extend({
 				});
 
 				var container = $('.container')
-				if(!container.hasClass('isotope')) {
-					container.isotope({
-						itemSelector: '.full-view',
+				
+				container.isotope({
+					itemSelector: '.full-view',
 				});
 
-                } else {
-                    container.isotope('destroy');
-                    container.isotope({
-                        itemSelector: '.full-view',
-                    });
-                }
+				function reLayoutIsotope() {
+					container.isotope('reLayout');
+				}
+
+				setInterval(reLayoutIsotope, 250);
+				
            	$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 			}
 		});
