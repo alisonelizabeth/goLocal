@@ -90,6 +90,41 @@ SearchView = Backbone.View.extend({
 		query.find({
 			success: function(results){
 				console.log(results);
+				$('.container').empty();
+				new SearchView();
+
+				if (results.length > 0 ) {
+				
+					for (var i=0; i<results.length; i++) {
+						new FullView({model: results[i]});
+					}
+
+					var container = $('.container');
+					var images = $("img");
+
+					if(!container.hasClass('isotope')) {
+	                    container.imagesLoaded(function () {
+					        container.isotope({
+					            itemSelector: '.full-view'
+					        });
+					        images.load(function () {
+					            container.isotope('reLayout');
+					        }); 
+				   		});
+	                } else {
+	                    container.isotope('destroy');
+	                    container.imagesLoaded(function () {
+					        container.isotope({
+					            itemSelector: '.full-view'
+					        });
+					        images.load(function () {
+					            container.isotope('reLayout');
+					        }); 
+				    	});
+	                }
+	            } else {
+	            	$('.container').append('<p id="no-results"> Sorry, there are no results for that city.</p>')
+	            }
 			},
 
 			error: function(results, error){

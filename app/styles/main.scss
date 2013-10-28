@@ -366,7 +366,23 @@ footer {
 	#likes-span {
 		font-weight: 400;
 	}
+
+	#like-button {
+		background: #EBC85E;
+		width: 70px;
+		padding: 5px;
+		border-radius: 5px;
+		cursor: pointer;
+		border: 1px solid rgb(201, 185, 3);
+
+		span {
+			font-weight: 400;
+			color: white;
+		}
+	}
 }
+
+
 
 #break {
 	height: 20px;
@@ -687,6 +703,62 @@ footer {
 	}
 }
 
+/*modal styles in addView */
+.modal {
+  background: rgba(0,0,0,0.0); 
+  z-index:2;
+  top: 0; 
+  left: 0;
+  bottom:0;
+  right:0;
+  height: 0;
+  overflow:hidden;
+}
+
+.modal-active {
+  position: fixed;
+  height: auto;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+
+	.modal-box {
+	  text-align: center;
+	  padding: 10px;
+	  opacity: 0;
+	  height: 150px;
+	  width: 300px;
+	  border-radius: 4px;
+	  border: 1px #CECECE solid;
+	  margin: 200px auto 0;
+	  box-shadow: inset 1px 1px 3px #cecece;
+	  background: white;
+	  -webkit-transition: all .5s ease;
+
+  	  	h2 {
+	  		width: 200px;
+			margin: 15px auto;
+			font-family: $secondary-font;
+	  		font-weight: 400;
+  		}
+
+  		.close-button {
+  			background: #F89350;
+			padding: 8px 10px;
+			border-radius: 8px;
+			margin-right: 15px;
+			border: 1px solid #d88200;
+			color: white;
+			font-weight: 300;
+			width: 50px;
+			margin: 10px auto;
+  		}
+	}
+}
+
+.modal-active .modal-box {
+  opacity: 1;
+}
+
 /*search view */
 .search-view{
 	margin: 10px 200px;
@@ -738,65 +810,14 @@ footer {
 	}
 }
 
+#no-results {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 60px;
+}
+
 #search {
 	height: 25px;
 	width: 300px;
 	border-radius: 5px;
-}
-
-
-/*modal test */
-.modal {
-  background: rgba(0,0,0,0.0); 
-  z-index:2;
-  top: 0; 
-  left: 0;
-  bottom:0;
-  right:0;
-  height: 0;
-  overflow:hidden;
-}
-
-.modal-active {
-  position: fixed;
-  height: auto;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
-
-	.modal-box {
-	  text-align: center;
-	  padding: 10px;
-	  opacity: 0;
-	  height: 150px;
-	  width: 300px;
-	  border-radius: 4px;
-	  border: 1px #CECECE solid;
-	  margin: 200px auto 0;
-	  box-shadow: inset 1px 1px 3px #cecece;
-	  background: white;
-	  -webkit-transition: all .5s ease;
-	  
-  	  	h2 {
-	  		width: 200px;
-			margin: 15px auto;
-			font-family: $secondary-font;
-	  		font-weight: 400;
-  		}
-
-  		.close-button {
-  			background: #F89350;
-			padding: 8px 10px;
-			border-radius: 8px;
-			margin-right: 15px;
-			border: 1px solid #d88200;
-			color: white;
-			font-weight: 300;
-			width: 50px;
-			margin: 10px auto;
-  		}
-	}
-}
-
-.modal-active .modal-box {
-  opacity: 1;
 }

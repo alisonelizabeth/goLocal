@@ -187,14 +187,11 @@
                     <p id="description"><span>Description:</span> <%= place.get('description')%></p> 
                 </div>
                 <div id='likes'> 
-                    <p><span>Produce offered:</span> <%= place.get('products')%></p> 
-                    <img src="images/heart.png">
-                    <% if (place.get('likes') !== undefined) { %>
-                        <span id="likes-span"> <%= place.get('likes') %> people like this</span>
-                    <% } else { %>
-                        <p> </p>
-                    <% } %> 
-                    <div id="like-button">Like it</div>                        
+                    <p><span>Produce offered:</span> <%= place.get('products')%></p>  
+                    <div id="like-button">
+                        <img src="images/heart.png">
+                        <span>Like it</span>
+                    </div>                       
                 </div>
             </div>
 

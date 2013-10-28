@@ -63,17 +63,17 @@ AppRouter = Backbone.Router.extend({
 				});
 
 				var container = $('.container')
-				
-				container.isotope({
-					itemSelector: '.full-view',
-				});
+    			var images = $("img");
 
-				function reLayoutIsotope() {
-					container.isotope('reLayout');
-				}
+			    container.imagesLoaded(function () {
+			        container.isotope({
+			            itemSelector: '.full-view'
+			        });
+			        images.load(function () {
+			            container.isotope('reLayout');
+			        }); 
+			    });
 
-				setInterval(reLayoutIsotope, 250);
-				
            	$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 			}
 		});
@@ -117,7 +117,7 @@ AppRouter = Backbone.Router.extend({
 				        title: placeToShow.get('placeName'),
 				        description: placeToShow.get('address'),
 				        'marker-size': 'medium',
-				        'marker-color': '#156B6C'
+				        'marker-color': '#1E6A8B'
 				    }
 				}).addTo(map);
 
