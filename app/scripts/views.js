@@ -15,6 +15,7 @@ HomeView = Backbone.View.extend({
 	}
 });
 
+// BottomView: Bottom view of the home page; shows recent finds 
 BottomView = Backbone.View.extend({
 	bottomTemplate: _.template($('#bottom-template').text()),
 
@@ -62,6 +63,7 @@ FullView = Backbone.View.extend({
 	}
 });
 
+// SearchView: Activates search toolbar on places route 
 SearchView = Backbone.View.extend({
 	searchTemplate: _.template($('#search-template').text()),
 
@@ -82,56 +84,7 @@ SearchView = Backbone.View.extend({
 
 	search: function(){
 		var city = $('#city-name').val();
-
-		var query = new Parse.Query(PlaceClass);
-
-		query.equalTo('city', city)
-
-		query.find({
-			success: function(results){
-				console.log(results);
-				$('.container').empty();
-				new SearchView();
-
-				if (results.length > 0 ) {
-				
-					for (var i=0; i<results.length; i++) {
-						new FullView({model: results[i]});
-					}
-
-					var container = $('.container');
-					var images = $("img");
-
-					if(!container.hasClass('isotope')) {
-	                    container.imagesLoaded(function () {
-					        container.isotope({
-					            itemSelector: '.full-view'
-					        });
-					        images.load(function () {
-					            container.isotope('reLayout');
-					        }); 
-				   		});
-	                } else {
-	                    container.isotope('destroy');
-	                    container.imagesLoaded(function () {
-					        container.isotope({
-					            itemSelector: '.full-view'
-					        });
-					        images.load(function () {
-					            container.isotope('reLayout');
-					        }); 
-				    	});
-	                }
-	            } else {
-	            	$('.container').append('<p id="no-results"> Sorry, there are no results for that city.</p>')
-	            }
-			},
-
-			error: function(results, error){
-				console.log(error.description);
-			}
-		});
-
+		this.$el.find('#search-button').attr('href', '#/places/search')
 	}
 });
 
@@ -169,7 +122,10 @@ IndividualView = Backbone.View.extend({
 
 		router.comments.add(moreComments);
 		console.log(moreComments);
-		if (this.validateForm($('#new-comment')))
+		// need to fix this... 
+		$('#comment-header').append('<h2> Latest Comments </h2>')
+
+		if (validateForm($('#new-comment')))
 			moreComments.save(null, {
 				success: function(results){
 					console.log(moreComments.createdAt);
@@ -180,19 +136,6 @@ IndividualView = Backbone.View.extend({
 					console.log(error.description)
 				}
 			});
-	},
-
-	validateForm: function(input) {
-		var valid = true;
-		input.removeClass('warning');
-		$('#message').removeClass('popup-message')
-
-		if (input.val() === '') {
-			input.addClass('warning');
-			$('#message').addClass('popup-message').html('<span>Oops, please fill out the form.</span>')
-			valid = false;
-		}
-		return valid
 	},
 });
 

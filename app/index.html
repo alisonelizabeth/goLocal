@@ -125,7 +125,7 @@
                 <span> Sort by city</span>
             </div>
             <input id="city-name" placeholder="City name"> 
-            <div id="search-button">Search</div> 
+            <a id="search-button"><div>Search</div></a> 
             <div id="search-icon"> 
                 <img src="images/search-icon.png">
             </div>
@@ -177,8 +177,6 @@
                         </div>
                     <% } %>
 
-                <a href='#'> <span id="edit">Suggest an edit</span></a> 
-
                 <h1><%= place.get('placeName')%></h1>
                 <p id="address-view"><%= place.get('address')%></p>
 
@@ -187,7 +185,7 @@
                     <p id="description"><span>Description:</span> <%= place.get('description')%></p> 
                 </div>
                 <div id='likes'> 
-                    <p><span>Produce offered:</span> <%= place.get('products')%></p>  
+                    <p id="description"><span>Produce offered:</span> <%= place.get('products').join(', ')%></p>  
                     <div id="like-button">
                         <img src="images/heart.png">
                         <span>Like it</span>
@@ -216,7 +214,7 @@
         <script type="text/template" id="add-template">
             <h1>Share your local find</h1>
             <div id="box-one">
-                <div id="number-one">1</div>
+                <div id="number-one">1.</div>
                 <h2>Upload a photo</h2>
                 <div id="inside">
                     <div class="file-input-wrapper">
@@ -225,7 +223,7 @@
                     </div> 
                     <div id="upload-image-div">
                         <div id="check">
-                            <img src="images/check-mark.png">
+                            <img src="images/check.png">
                         </div>
                         <img id="image-preview" src="#" alt="your image" />
                     </div>
@@ -233,7 +231,7 @@
             </div>
 
             <div id="box-two">
-                <div id="number-two">2</div>
+                <div id="number-two">2.</div>
                 <h2>Mark the location</h2>
                 <div id="inside">
                     <input type="checkbox" id="location">
@@ -246,7 +244,7 @@
             </div>
 
             <div id="box-three">
-                <div id="number-three">3</div>
+                <div id="number-three">3.</div>
                 <h2>What did you find?</h2>
                 <div id="inside">
                     <div id="box-three-left"
@@ -254,7 +252,7 @@
                             <li>Name of place</li>
                             <input id="name" placeholder="Place">
                             <li id='chosen-select'>What type of produce did you find?</li>
-                             <select data-placeholder="Fruits & Veggies" class="select" multiple style="width:250px; height: 20px;"> 
+                             <select data-placeholder="Pick produce items" class="select" multiple style="width:250px; height: 20px;"> 
                                 <option value="apples">Apples</option> 
                                 <option value="apricots">Apricots</option> 
                                 <option value="artichokes">Artichokes</option> 
@@ -336,9 +334,7 @@
                     </div>
                 </div>
             </div>
-            <div id="save-button">
-                <button id="save"> Save </button>
-            </div>
+            <div id="save" class="arrow_box">OK</div>
         </script>
 
         <!-- build:js scripts/vendor.js -->

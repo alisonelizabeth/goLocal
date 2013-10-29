@@ -8,10 +8,10 @@ AppRouter = Backbone.Router.extend({
 
 	routes: {
 		""					: "home",
-		"places"			: "showPlaces",
-		"places/:id"		: "showPlace",
+		"places"			: "showPlaces",		
 		"addplace"			: "addPlace",
-		"places/:id/edit"	: "editPlace",
+		"places/search"		: "searchCity",
+		"places/:id"		: "showPlace",
 	},
 
 	home: function() {
@@ -62,17 +62,7 @@ AppRouter = Backbone.Router.extend({
 					new FullView({model: place});
 				});
 
-				var container = $('.container')
-    			var images = $("img");
-
-			    container.imagesLoaded(function () {
-			        container.isotope({
-			            itemSelector: '.full-view'
-			        });
-			        images.load(function () {
-			            container.isotope('reLayout');
-			        }); 
-			    });
+				isotopeFix();
 
            	$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 			}
@@ -126,11 +116,14 @@ AppRouter = Backbone.Router.extend({
 
 			query.equalTo('parent', placeToShow);
 			query.descending('createdAt');
+			console.log(placeToShow.get('products'))
 
 			query.find({
 				success: function(results) {
 					console.log(results.length)
-					$('#comment-header').append('<h2> Latest Comments </h2>')
+					if (results.length > 0) {
+						$('#comment-header').append('<h2> Latest Comments </h2>')
+					}
 					for (var i=0; i < results.length; i++) {
 						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<img src="images/clock-2.png">' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
 					}
@@ -153,9 +146,12 @@ AppRouter = Backbone.Router.extend({
 		};
 
 		$('.full').empty();
+		$('.footer').empty();
 		new AddView();
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
+		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
+
         $('.select').chosen({max_selected_options: 9});
 
         $('#image-preview').hide();
@@ -177,10 +173,37 @@ AppRouter = Backbone.Router.extend({
 	    });
 	},
 
-	editPlace: function(){
-		$('.full').empty();
-		$('.container').text('testing... Edit page')
-	},
+	searchCity: function(){
+		console.log('searching...')
+
+		var city = $('#city-name').val();
+
+		var query = new Parse.Query(PlaceClass);
+
+		query.equalTo('city', city)
+
+		query.find({
+			success: function(results){
+				console.log(results);
+				$('.container').empty();
+				new SearchView();
+
+				if (results.length > 0 ) {
+					for (var i=0; i<results.length; i++) {
+						new FullView({model: results[i]});
+					}
+					isotopeFix();
+
+	            } else {
+	            	$('.container').append('<p id="no-results"> Sorry, there are no results for that city.</p>')
+	            }
+			},
+
+			error: function(results, error){
+				console.log(error.description);
+			}
+		});
+	}
 });
 
 var router = new AppRouter();
