@@ -13,10 +13,12 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-        <link href='http://fonts.googleapis.com/css?family=Mouse+Memoirs' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="bower_components/chosen/chosen.css">
-
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Bigelow+Rules' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="chosen/chosen.css">
+        <link rel="stylesheet" href="styles/isotope-styles.css">
 
 
         <!-- endbuild -->
@@ -24,6 +26,7 @@
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
         <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
        
         <!-- endbuild -->
     </head>
@@ -31,176 +34,326 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        <header>
-            <div class="header-container">
-                <img src="images/veggies.png">
-                <a href="#"><span>goLocal</span></a>
+        <div class="modal">
+        <div class="modal-box">
+            <h2>Your save was successful</h2>
+            <div class="close-button">Ok</div>
+        </div>
+        </div>
 
-                <div class="nav">
-                    <ul>
-                        <a href="#"><li>Home</li></a>
-                        <a href="#"><li>About</li></a>
-                        <a href="#"><li>Search</li></a>
-                    </ul>
+        <div class="modal-error">
+        <div class="modal-box-error">
+            <h2>Oops, some of the required fields are missing. Please fill out this form before submitting.</h2>
+            <div class="close-button-error">Ok</div>
+        </div>
+        </div>
+
+
+        <div class="full"></div>
+        <div class="container"> </div>
+        <div class="footer"> </div>
+
+
+       
+<!-- TEMPLATES begin -->
+        <!-- header template -->
+        <script type="text/template" id="header-template">
+            <header>
+                <div class="header-container">
+                    <a href="#"><span>goLocal</span></a>
+                    <div class="nav">
+                        <ul>
+                            <a href="#"><li>Home</li></a>
+                            <a href="#/places"><li>Search</li></a>
+                            <a href="#/addplace"><li>Add a local spot</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+        </script>
+
+        <!-- template for Home View -->
+        <script type="text/template" id="bottom-template">
+             <% if (place.get('placePhoto')) { %>
+                        <div class="thumbnail">
+                            <img src="<%=place.get('placePhoto').url() %>"/>
+                        </div>
+                    <% } else { %> 
+                        <div class="thumbnail">
+                            <img src="images/placeholder.jpg"/>
+                        </div>
+                    <% } %>
+
+                        <div id="thumbnail-content">
+                            <% if (place.get('likes')) { %>
+                            <div id="heart">
+                                <img src="images/heart.png">
+                                <span><%=place.get('likes')%><span>
+                            </div>
+                            <% } else { %> 
+                                <div id="heart">
+                                    <img src="images/heart.png">
+                                    <span>0<span>
+                                </div>
+                            <% } %>
+
+                            <ul>
+                                <li id="title"><a id="activate"><%=place.get('placeName')%></a><li>     
+                                <li id="subhead"><a id="activate"><%=place.get('address')%></a><li>     
+                            </ul>
+                        </div>
+        </script>
+
+        <script type="text/template" id="home-template">
+            <header>
+                <div class="header-container">
+                    <a href="#"><span>goLocal</span></a>
+                    <div class="nav">
+                        <ul>
+                            <a href="#"><li>Home</li></a>
+                            <a href="#/places"><li>Search</li></a>
+                            <a href="#/addplace"><li>Add a local spot</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <div class="home-view-layer"> </div>
+            <div class="container-home">
+                <h1>Share your favorite spots for local produce</h1>
+                <div id="home-buttons">
+                    <a href="#/places"><div id="home-button-view">Search spots</div></a>
+                    <a href="#/addplace"><div id="home-button-add">Add a spot</div></a>
                 </div>
             </div>
-        </header>
-        <div class="container"> </div>
 
-       <!--  <footer>
-            <div class="footer-container">
-                <span>&copy 2013 goLocal</span>
-                <span>Created by Alison Miller</span>
+        </script>
+
+        <!-- template for Search View -->
+        <script type="text/template" id="search-template">
+            <div id="city"> 
+                <span> Sort by city</span>
             </div>
-        </footer> -->
-       
-       <!--  <footer></footer> -->
+            <input id="city-name" placeholder="City name"> 
+            <a id="search-button"><div>Search</div></a> 
+            <div id="search-icon"> 
+                <img src="images/search-icon.png">
+            </div>
+        </script>
 
         <!-- template for Full View -->
         <script type="text/template" id="grid-template">
-            <ul>
-                <li><%= place.get('placeType')%></li>
-                <li><a id="activate"><%=place.get('placeName')%></a><li>     
-            </ul>
+             <% if (place.get('placePhoto')) { %>
+                        <div class="thumbnail">
+                            <img src="<%=place.get('placePhoto').url() %>"/>
+                        </div>
+                    <% } else { %> 
+                        <div class="thumbnail">
+                            <img src="images/placeholder.jpg"/>
+                        </div>
+                    <% } %>
+
+                        <div id="thumbnail-content">
+                            <% if (place.get('likes')) { %>
+                            <div id="heart">
+                                <img src="images/heart.png">
+                                <span><%=place.get('likes')%><span>
+                            </div>
+                            <% } else { %> 
+                                <div id="heart">
+                                    <img src="images/heart.png">
+                                    <span>0<span>
+                                </div>
+                            <% } %>
+
+                            <ul>
+                                <li id="title"><a id="activate"><%=place.get('placeName')%></a><li>     
+                                <li id="subhead"><a id="activate"><%=place.get('address')%></a><li>     
+                            </ul>
+                        </div>        
         </script> 
 
         <!-- template for Individual View -->
         <script type="text/template" id="single-template">
-            <div id='top-page'</div>
-                <a href='#'> <span id="edit">Suggest an edit</span></a> 
+            <div id='top-page'>
 
-                <h1><%= place.get('placeName')%></h1>
+                 <% if (placeToShow.get('placePhoto')) { %>
+                        <div class="main-image">
+                            <img src="<%=placeToShow.get('placePhoto').url() %>"/>
+                        </div>
+                    <% } else { %> 
+                        <div class="main-image">
+                            <img src="images/placeholder.jpg"/>
+                        </div>
+                    <% } %>
 
-                <div class="icon">
-                    <img src="images/produce.png">
+                <div id="individual-head">    
+                    <h1><%= place.get('placeName')%></h1>
                 </div>
+                <div id="like-button" title="I like this place!" >
+                    <img src="images/heart.png">
+                </div>
+
+                <div id="get-directions">
+                    <form action="http://maps.google.com/maps" method="get" target="_blank">
+                       <input type="hidden" name="daddr" value="<%= place.get('address')%>"/>
+                       <input type="submit" id="get-directions-input" value="Get directions" />
+                    </form>
+                </div>
+                 
+                <p id="address-view"><%= place.get('address')%></p>
+
                 <div class='text'>
-                    <p><b><%= place.get('placeType')%></b></p>
-                    <p>123 Main St., Greenville, S.C.</p>
+                    <p id="description"><span>Description:</span> <%= place.get('description')%></p> 
                 </div>
-                <div id='likes'>
-                    <img src="images/thumbs-up.png">
-                    <span>Like it</span>
+
+                <div id='likes'> 
+                    <p id="description"><span>Produce offered:</span> <%= place.get('products').join(', ')%></p>                       
                 </div>
-                    <p><%= place.get('likes')%> people like this</p>
             </div>
 
             <div id='break'> </div>
 
             <div id='create-comment'>
                 <textarea id="new-comment" placeholder="Been here before? Add a comment..."></textarea>
-                <button id="submit-comment"> Submit </button>
+                <div id="submit-comment"> Post Comment </div>
+                <div id="message"> </div>
+                <div id="arrow"> 
+                    <img src="images/arrow.png">
+                </div>
             </div>
 
             <div id='break'> </div>
 
             <div id="comment-header"> </div>
-            <div id='comments-box'>
-                <div id="individual-comment">
-                    <p><%= place.get('comments')%></p>
-                    <span> <%= moment(place.createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() %></span>
-                </div>
-            </div>
+            <div id='comments-box'> </div>
         </script> 
 
         <!-- template for Add Place View -->
         <script type="text/template" id="add-template">
             <h1>Share your local find</h1>
-            <ul>
-                <li>What did you find?</li>
-                    <select id="type"> 
-                        <option>Produce stand </option>
-                        <option>Farmers market </option>
-                        <option>Farm </option>
-                        <option>Grocery store/co-op </option>
-                    </select> 
-                <li>Name</li>
-                <input id="name" placeholder="Name of place">
-                <li>Upload a photo</li>
-                <input type="file" id="photo-upload" placeholder="Upload a photo">
-                <li> Get my location</li>
-                <input type="checkbox" id="location">
+            <div id="box-one">
+                <div id="number-one">1.</div>
+                <h2>Upload a photo</h2>
+                <div id="inside">
+                    <div class="file-input-wrapper">
+                      <div class="button-file-input">Upload file</div>
+                      <input type="file" name="file" id="photo-upload"/> 
+                    </div> 
+                    <div id="upload-image-div">
+                        <div id="check">
+                            <img src="images/check.png">
+                        </div>
+                        <img id="image-placeholder" src="images/placeholder.png" alt="your image" />
+                        <img id="image-preview" src="#" alt="your image" />
+                    </div>
+                </div>
+            </div>
 
-                <li>Add Comments</li><textarea id="comments" placeholder="What are some pros and cons?"> </textarea>               
-            </ul>
+            <div id="box-two">
+                <div id="number-two">2.</div>
+                <h2>Mark the location</h2>
+                <div id="inside">
+                    <input type="checkbox" id="location">
+                    <span>I am here now, find me!</span> 
+                    <div id="input-address">
+                        <p>Or, add the address</p>
+                        <input type="text" id="address-location" placeholder="Street Address, City, Zip code">
+                    </div>
+                </div>
+            </div>
 
-            <select class="select" multiple> 
-                <option value="apples">Apples</option> 
-                <option value="apricots">Apricots</option> 
-                <option value="artichokes">Artichokes</option> 
-                <option value="asparagus">Asparagus</option> 
-                <option value="avocados">Avocados</option>
-                <option value="bananas">Bananas</option> 
-                <option value="beans">Beans</option> 
-                <option value="beetroot">Beetroot</option> 
-                <option value="blackberries">Blackberries</option>
-                <option value="blueberries">Blueberries</option> 
-                <option value="bok choy">Bok Choy</option> 
-                <option value="broccoli">Broccoli</option>
-                <option value="brussel sprouts">Brussel Sprouts</option> 
-                <option value="butternut">Butternut</option> 
-                <option value="cabbage">Cabbage</option> 
-                <option value="carrots">Carrots</option> 
-                <option value="cauliflower">Cauliflower</option> 
-                <option value="celery">Celery</option> 
-                <option value="cherries">Cherries</option>
-                <option value="chilli peppers">Chilli Peppers</option>
-                <option value="coconut">Coconut</option>
-                <option value="corn">Corn</option>
-                <option value="cranberries">Cranberries</option>
-                <option value="cucumbers">Cucumbers</option>
-                <option value="dates">Dates</option>
-                <option value="eggplants">Eggplants</option>
-                <option value="endive">Endive</option>
-                <option value="figs">Figs</option>
-                <option value="garlic">Garlic</option>
-                <option value="ginger root">Ginger Root</option>
-                <option value="grapefruit">Grapefruit</option>
-                <option value="grapes">Grapes</option>
-                <option value="guavas">Guavas</option>
-                <option value="herbs">Herbs</option>
-                <option value="honeydew melons">Honeydew Melons</option>
-                <option value="horseradish">Horseradish</option>
-                <option value="kiwis">Kiwi</option>
-                <option value="kumquats">Kumquats</option>
-                <option value="leeks">Leeks</option>
-                <option value="lemons">Lemons</option>
-                <option value="lettuce">Lettuce</option>
-                <option value="limes">Limes</option>
-                <option value="mangoes">Mangoes</option>
-                <option value="mushrooms">Mushrooms</option>
-                <option value="nectarines">Nectarines</option>
-                <option value="nuts">Nuts</option>
-                <option value="okra">Okra</option>
-                <option value="onions">Onions</option>
-                <option value="oranges">Oranges</option>
-                <option value="parsnips">Parsnips</option>
-                <option value="papayas">Papayas</option>
-                <option value="peaches">Peaches</option>
-                <option value="pears">Pears</option>
-                <option value="peas">Peas</option>
-                <option value="sweet peppers">Sweet Peppers</option>
-                <option value="persimmons">Persimmons</option>
-                <option value="pineapples">Pineapples</option>
-                <option value="plums">Plums</option>
-                <option value="potatoes">Potatoes</option>
-                <option value="pumpkins">Pumpkins</option>
-                <option value="radishes">Radishes</option>
-                <option value="rhubarb">Rhubarb</option>
-                <option value="raspberries">Raspberries</option>
-                <option value="spinach">Spinach</option>
-                <option value="sprouts">Sprouts</option>
-                <option value="star fruit">Star Fruit</option>
-                <option value="strawberries">Strawberries</option>
-                <option value="sweet potatoes">Sweet Potatoes</option>
-                <option value="tangerines">Tangerines</option>
-                <option value="tomatoes">Tomatoes</option>
-                <option value="turnips">Turnips</option>
-                <option value="watermelons">Watermelons</option>
-            </select>
-
-            <button id="save"> Save </button>
+            <div id="box-three">
+                <div id="number-three">3.</div>
+                <h2>What did you find?</h2>
+                <div id="inside">
+                    <div id="box-three-left"
+                        <ul>
+                            <li>Name of place</li>
+                            <input id="name" placeholder="Place">
+                            <li id='chosen-select'>What type of produce did you find?</li>
+                             <select data-placeholder="Pick produce items" class="select" multiple style="width:250px; height: 20px;"> 
+                                <option value="apples">Apples</option> 
+                                <option value="apricots">Apricots</option> 
+                                <option value="artichokes">Artichokes</option> 
+                                <option value="asparagus">Asparagus</option> 
+                                <option value="avocados">Avocados</option>
+                                <option value="bananas">Bananas</option> 
+                                <option value="beans">Beans</option> 
+                                <option value="beetroot">Beetroot</option> 
+                                <option value="blackberries">Blackberries</option>
+                                <option value="blueberries">Blueberries</option> 
+                                <option value="bok choy">Bok Choy</option> 
+                                <option value="broccoli">Broccoli</option>
+                                <option value="brussel sprouts">Brussel Sprouts</option> 
+                                <option value="butternut">Butternut</option> 
+                                <option value="cabbage">Cabbage</option> 
+                                <option value="carrots">Carrots</option> 
+                                <option value="cauliflower">Cauliflower</option> 
+                                <option value="celery">Celery</option> 
+                                <option value="cherries">Cherries</option>
+                                <option value="chilli peppers">Chilli Peppers</option>
+                                <option value="coconut">Coconut</option>
+                                <option value="corn">Corn</option>
+                                <option value="cranberries">Cranberries</option>
+                                <option value="cucumbers">Cucumbers</option>
+                                <option value="dates">Dates</option>
+                                <option value="eggplants">Eggplants</option>
+                                <option value="endive">Endive</option>
+                                <option value="figs">Figs</option>
+                                <option value="garlic">Garlic</option>
+                                <option value="ginger root">Ginger Root</option>
+                                <option value="grapefruit">Grapefruit</option>
+                                <option value="grapes">Grapes</option>
+                                <option value="guavas">Guavas</option>
+                                <option value="herbs">Herbs</option>
+                                <option value="honeydew melons">Honeydew Melons</option>
+                                <option value="horseradish">Horseradish</option>
+                                <option value="kiwis">Kiwi</option>
+                                <option value="kumquats">Kumquats</option>
+                                <option value="leeks">Leeks</option>
+                                <option value="lemons">Lemons</option>
+                                <option value="lettuce">Lettuce</option>
+                                <option value="limes">Limes</option>
+                                <option value="mangoes">Mangoes</option>
+                                <option value="mushrooms">Mushrooms</option>
+                                <option value="nectarines">Nectarines</option>
+                                <option value="nuts">Nuts</option>
+                                <option value="okra">Okra</option>
+                                <option value="onions">Onions</option>
+                                <option value="oranges">Oranges</option>
+                                <option value="parsnips">Parsnips</option>
+                                <option value="papayas">Papayas</option>
+                                <option value="peaches">Peaches</option>
+                                <option value="pears">Pears</option>
+                                <option value="peas">Peas</option>
+                                <option value="sweet peppers">Sweet Peppers</option>
+                                <option value="persimmons">Persimmons</option>
+                                <option value="pineapples">Pineapples</option>
+                                <option value="plums">Plums</option>
+                                <option value="potatoes">Potatoes</option>
+                                <option value="pumpkins">Pumpkins</option>
+                                <option value="radishes">Radishes</option>
+                                <option value="rhubarb">Rhubarb</option>
+                                <option value="raspberries">Raspberries</option>
+                                <option value="spinach">Spinach</option>
+                                <option value="sprouts">Sprouts</option>
+                                <option value="star fruit">Star Fruit</option>
+                                <option value="strawberries">Strawberries</option>
+                                <option value="sweet potatoes">Sweet Potatoes</option>
+                                <option value="tangerines">Tangerines</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option value="turnips">Turnips</option>
+                                <option value="watermelons">Watermelons</option>
+                            </select>
+                        </ul>
+                    </div>
+                    <div id="box-three-right">
+                        <p>Description</p>
+                        <textarea id="description" placeholder="Write a brief description on the place you found."> </textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="save" class="arrow_box">SAVE</div>
         </script>
 
         <!-- build:js scripts/vendor.js -->
@@ -209,8 +362,8 @@
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/moment/moment.js"></script>
-        <script src='bower_components/chosen/chosen.jquery.js'></script>
-
+        <script src='chosen/chosen.jquery.js'></script>
+        <script src='bower_components/isotope/jquery.isotope.min.js'></script>
 
         <!-- endbower -->
         <!-- endbuild -->
@@ -226,9 +379,11 @@
         </script>
 
         <!-- build:js scripts/main.js -->
+        <script src="scripts/utility.js"></script>
         <script src="scripts/views.js"></script>
         <script src="scripts/models.js"></script>
         <script src="scripts/router.js"></script>
+
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/coffee.js -->

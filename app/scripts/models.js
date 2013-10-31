@@ -10,4 +10,4 @@ var PlaceCollection = Parse.Collection.extend({
 
 var CommentCollection = Parse.Collection.extend({
 	model: Comment
-})
+});
