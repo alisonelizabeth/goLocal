@@ -250,7 +250,7 @@ AddView = Backbone.View.extend({
 		collection.add(place);
 		console.log(collection);
 
-		if (validateCompleteForm());
+		if (validateCompleteForm())
 			place.save(null, {
 				success: function(results) {
 					console.log('it saved');

@@ -480,7 +480,7 @@ footer {
 }
 
 .warning {
-	background: red;
+	background: #FFE3B0;
 }
 
 #create-comment:after, .arrow_box:before {
@@ -514,6 +514,10 @@ footer {
 	font-family: $secondary-font;
 	padding-bottom: 10px;
 	color: #363636;
+
+	.red-warning {
+		background: rgb(177, 156, 0);
+	}
 
 	.file-input-wrapper {
 	    width: 130px;
@@ -1024,6 +1028,7 @@ footer {
 	}
 }
 
+/*fix containers*/
 /*Phone*/
 @media screen and (max-width:767px){ 
 	.bottom-view {
@@ -1083,9 +1088,4 @@ footer {
 		left: 320px;
 		top: 118px;
 	}
-}
-
-/*fix containers*/
-.red-warning {
-	background: rgb(177, 156, 0);
 }
