@@ -228,12 +228,14 @@ AddView = Backbone.View.extend({
 			place.set('address', address)
 
 			geo.geocode({'address':address},function(results, status){
-			    if (status == google.maps.GeocoderStatus.OK) {              
+			    if (status == google.maps.GeocoderStatus.OK) {  
+			    	var city = results[0].address_components[2].long_name          
 			        var latitude = results[0].geometry.location.lb;
 			        var longitude = results[0].geometry.location.mb;
 			        console.log(latitude, longitude);
 			        place.set('latitude', latitude);
 			        place.set('longitude', longitude);
+			        place.set('city', city);
 
 			    } else {
 			        alert("Geocode was not successful for the following reason: " + status);
