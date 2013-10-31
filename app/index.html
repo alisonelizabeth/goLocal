@@ -16,6 +16,7 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Bigelow+Rules' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="chosen/chosen.css">
         <link rel="stylesheet" href="styles/isotope-styles.css">
 
@@ -39,6 +40,14 @@
             <div class="close-button">Ok</div>
         </div>
         </div>
+
+        <div class="modal-error">
+        <div class="modal-box-error">
+            <h2>Oops, some of the required fields are missing. Please fill out this form before submitting.</h2>
+            <div class="close-button-error">Ok</div>
+        </div>
+        </div>
+
 
         <div class="full"></div>
         <div class="container"> </div>
@@ -177,19 +186,28 @@
                         </div>
                     <% } %>
 
-                <h1><%= place.get('placeName')%></h1>
+                <div id="individual-head">    
+                    <h1><%= place.get('placeName')%></h1>
+                </div>
+                <div id="like-button" title="I like this place!" >
+                    <img src="images/heart.png">
+                </div>
+
+                <div id="get-directions">
+                    <form action="http://maps.google.com/maps" method="get" target="_blank">
+                       <input type="hidden" name="daddr" value="<%= place.get('address')%>"/>
+                       <input type="submit" id="get-directions-input" value="Get directions" />
+                    </form>
+                </div>
+                 
                 <p id="address-view"><%= place.get('address')%></p>
 
                 <div class='text'>
-                    
                     <p id="description"><span>Description:</span> <%= place.get('description')%></p> 
                 </div>
+
                 <div id='likes'> 
-                    <p id="description"><span>Produce offered:</span> <%= place.get('products').join(', ')%></p>  
-                    <div id="like-button">
-                        <img src="images/heart.png">
-                        <span>Like it</span>
-                    </div>                       
+                    <p id="description"><span>Produce offered:</span> <%= place.get('products').join(', ')%></p>                       
                 </div>
             </div>
 
@@ -225,6 +243,7 @@
                         <div id="check">
                             <img src="images/check.png">
                         </div>
+                        <img id="image-placeholder" src="images/placeholder.png" alt="your image" />
                         <img id="image-preview" src="#" alt="your image" />
                     </div>
                 </div>
@@ -334,7 +353,7 @@
                     </div>
                 </div>
             </div>
-            <div id="save" class="arrow_box">OK</div>
+            <div id="save" class="arrow_box">SAVE</div>
         </script>
 
         <!-- build:js scripts/vendor.js -->
@@ -360,9 +379,11 @@
         </script>
 
         <!-- build:js scripts/main.js -->
+        <script src="scripts/utility.js"></script>
         <script src="scripts/views.js"></script>
         <script src="scripts/models.js"></script>
         <script src="scripts/router.js"></script>
+
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/coffee.js -->

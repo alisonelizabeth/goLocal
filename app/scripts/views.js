@@ -95,7 +95,7 @@ IndividualView = Backbone.View.extend({
 	className: 'single-view',
 
 	events: {
-		'click #likes'			: 'likeIt', 
+		'click #like-button'	: 'likeIt', 
 		'click #submit-comment'	: 'addComment',
 	},
 
@@ -122,8 +122,6 @@ IndividualView = Backbone.View.extend({
 
 		router.comments.add(moreComments);
 		console.log(moreComments);
-		// need to fix this... 
-		$('#comment-header').append('<h2> Latest Comments </h2>')
 
 		if (validateForm($('#new-comment')))
 			moreComments.save(null, {
@@ -166,12 +164,12 @@ AddView = Backbone.View.extend({
 
 		var fileUploadControl = $('#photo-upload')[0];
 
-		var type 		= $('#type').val();
 		var placeName 	= $('#name').val();
 		var description	= $('#description').val();
 		var products 	= $('.select').val();
 
 		console.log(fileUploadControl.files)
+
 		if (fileUploadControl.files.length > 0) {
 			var file = fileUploadControl.files[0];
 			var name = 'photo.jpg';
@@ -243,34 +241,34 @@ AddView = Backbone.View.extend({
 			});
 		}
 
-		place.set('placeType', type);
+		place.set('products', products);
+		place.set('likes', undefined);
 		place.set('placeName', placeName);
 		place.set('description', description);
-		place.set('likes', undefined);
-		place.set('products', products);
 
 		collection = router.places;
 		collection.add(place);
 		console.log(collection);
 
-		place.save(null, {
-			success: function(results) {
-				console.log(results);
-				$('#name').val('');
-				$('#description').val('');
-				$('.select').val('').trigger('chosen:updated');
-				$('#location').attr('checked', false);
-				$('.file-input-textbox').val('No file selected');
-				$('.modal').addClass('modal-active');
-				$('.close-button').click(function() {
-					$('.modal').removeClass('modal-active');
-					router.navigate("#", {trigger:true});
-				});
-			},
+		if (validateCompleteForm());
+			place.save(null, {
+				success: function(results) {
+					console.log('it saved');
+					$('#name').val('');
+					$('#description').val('');
+					$('.select').val('').trigger('chosen:updated');
+					$('#location').attr('checked', false);
+					$('.modal').addClass('modal-active');
+					$('.close-button').click(function() {
+						$('.modal').removeClass('modal-active');
+						router.navigate("#", {trigger:true});
+					});
+				},
 
-			error: function(results, error) {
-				console.log(error.description);
-			}
-		});
+				error: function(results, error) {
+					console.log(error.description);
+				}
+			});
+
 	},
 });

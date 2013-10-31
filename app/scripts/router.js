@@ -15,19 +15,16 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	home: function() {
-		var container = $('.container')
-		container.empty();
-		
-		if (container.hasClass('isotope')) {
-			container.isotope('destroy');
-		};
-
+		$('.container').empty();
 		$('.full').empty();
 		$('.footer').empty();
 		console.log('i am home');
+
+		destroyIsotope();
+
 		new HomeView();
 
-		container.append('<h2 class="bottom-head"> Recent finds</h2>')
+		$('.container').append('<h2 class="bottom-head"> Recent finds</h2>')
 		query = new Parse.Query(PlaceClass);
 		query.limit(3)
 
@@ -70,14 +67,11 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	showPlace: function(id){
-		var container = $('.container')
+		$('.container').empty();
 		$('.full').empty();
 		$('.footer').empty();
-		container.empty();
 		
-		if (container.hasClass('isotope')) {
-			container.isotope('destroy');
-		};
+		destroyIsotope();
 
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
@@ -116,14 +110,12 @@ AppRouter = Backbone.Router.extend({
 
 			query.equalTo('parent', placeToShow);
 			query.descending('createdAt');
-			console.log(placeToShow.get('products'))
 
 			query.find({
 				success: function(results) {
 					console.log(results.length)
-					if (results.length > 0) {
-						$('#comment-header').append('<h2> Latest Comments </h2>')
-					}
+					$('#comment-header').append('<h2> Latest Comments </h2>');
+
 					for (var i=0; i < results.length; i++) {
 						$('#comments-box').append('<div id="individual-comment">' + '<p>' + results[i].attributes.content + '</p>' + '<img src="images/clock-2.png">' + '<span>' +  moment(results[i].createdAt, "ddd MMM DD YYYY HH:mm:ss").fromNow() + '</span>' + '</div>')
 					}
@@ -138,35 +130,37 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	addPlace: function() {
-		var container = $('.container')
-		container.empty();
-		
-		if (container.hasClass('isotope')) {
-			container.isotope('destroy');
-		};
-
+		$('.container').empty();
 		$('.full').empty();
 		$('.footer').empty();
+
+		destroyIsotope();
+
 		new AddView();
+
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
 		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
 
         $('.select').chosen({max_selected_options: 9});
 
+        clickLocation();
+
+        $('#image-placeholder').show();
         $('#image-preview').hide();
 	    $('#check').hide();
 	      function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
 	            
-	            reader.onload = function (e) {
+	            reader.onload = function(e) {
 	                $('#image-preview').attr('src', e.target.result);
 	            }
 	            reader.readAsDataURL(input.files[0]);
 	        }
 	    }
 	    $("#photo-upload").change(function(){
+	    	$('#image-placeholder').hide();
 	        $('#check').show();
 	        $('#image-preview').show();
 	        readURL(this);
@@ -195,7 +189,7 @@ AppRouter = Backbone.Router.extend({
 					isotopeFix();
 
 	            } else {
-	            	$('.container').append('<p id="no-results"> Sorry, there are no results for that city.</p>')
+	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back</a> </div> ')
 	            }
 			},
 
