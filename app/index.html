@@ -16,7 +16,6 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Bigelow+Rules' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="chosen/chosen.css">
         <link rel="stylesheet" href="styles/isotope-styles.css">
 
@@ -72,6 +71,17 @@
             </header>
         </script>
 
+        <script type="text/template" id="footer-template">
+            <footer> 
+                <div class="footer-container">
+                    <span>&copy 2013 goLocal. All Rights Reserved.</span>
+                    <br>
+                    <span id="photo-attribute">Home page image courtesy of <a href="http://www.flickr.com/photos/mcbarnicle/">SMcGarnigle</a></span>
+                </div>
+            </footer>
+        </script>
+
+
         <!-- template for Home View -->
         <script type="text/template" id="bottom-template">
              <% if (place.get('placePhoto')) { %>
@@ -86,12 +96,12 @@
 
                         <div id="thumbnail-content">
                             <% if (place.get('likes')) { %>
-                            <div id="heart">
+                            <div id="heart" title="<%=place.get('likes')%> people like this place">
                                 <img src="images/heart.png">
                                 <span><%=place.get('likes')%><span>
                             </div>
                             <% } else { %> 
-                                <div id="heart">
+                                <div id="heart" title="0 people like this place">
                                     <img src="images/heart.png">
                                     <span>0<span>
                                 </div>
@@ -99,7 +109,7 @@
 
                             <ul>
                                 <li id="title"><a id="activate"><%=place.get('placeName')%></a><li>     
-                                <li id="subhead"><a id="activate"><%=place.get('address')%></a><li>     
+                                <li id="subhead"><%=place.get('address')%><li>     
                             </ul>
                         </div>
         </script>
@@ -154,12 +164,12 @@
 
                         <div id="thumbnail-content">
                             <% if (place.get('likes')) { %>
-                            <div id="heart">
+                            <div id="heart" title="<%=place.get('likes')%> people like this place">
                                 <img src="images/heart.png">
                                 <span><%=place.get('likes')%><span>
                             </div>
                             <% } else { %> 
-                                <div id="heart">
+                                <div id="heart" title="0 people like this place">
                                     <img src="images/heart.png">
                                     <span>0<span>
                                 </div>
@@ -167,7 +177,7 @@
 
                             <ul>
                                 <li id="title"><a id="activate"><%=place.get('placeName')%></a><li>     
-                                <li id="subhead"><a id="activate"><%=place.get('address')%></a><li>     
+                                <li id="subhead"><%=place.get('address')%><li>     
                             </ul>
                         </div>        
         </script> 

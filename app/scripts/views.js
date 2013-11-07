@@ -84,7 +84,7 @@ SearchView = Backbone.View.extend({
 
 	search: function(){
 		var city = $('#city-name').val();
-		this.$el.find('#search-button').attr('href', '#/places/search')
+		this.$el.find('#search-button').attr('href', '#/places/results')
 	}
 });
 
@@ -184,6 +184,7 @@ AddView = Backbone.View.extend({
 			}); 
 		}	else {
 			console.log('Error occured.');
+			// ?set placeholder image here instead of in the template, or through error  
 		}
 
 		if ($('#location').is(':checked')) {
@@ -210,6 +211,7 @@ AddView = Backbone.View.extend({
 				        var fullAddress = results[0].formatted_address
 				        var city = results[0].address_components[2].long_name
 				        var address = (fullAddress.replace(', USA', ''))
+				        console.log(address)
 				        place.set('address', address)
 				        place.set('city', city)
 				      } else {

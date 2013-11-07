@@ -34,7 +34,7 @@ function destroyIsotope() {
     };
 }
 
-// simple validation function 
+// simple validation function for comments 
 function validateForm(input) {
   var valid = true;
   input.removeClass('warning');
@@ -88,5 +88,3 @@ function clickLocation() {
   });
 
 }
-
-
