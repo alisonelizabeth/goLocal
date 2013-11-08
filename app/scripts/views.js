@@ -139,12 +139,17 @@ IndividualView = Backbone.View.extend({
 
 // AddView: Add place to Parse database 
 var geocoder 
+var geoLatitude
+var geoLongitude
+var geoCity
+var geoAddress
 AddView = Backbone.View.extend({
 	addTemplate: _.template($('#add-template').text()),
 
 	className: 'add-view',
 
 	events: {
+		'click #location'	:'getLocation',
 		'click #save'		:'save',
 	},
 
@@ -157,6 +162,37 @@ AddView = Backbone.View.extend({
 
 	render: function() {
 		this.$el.append(this.addTemplate());
+	},
+
+	getLocation: function() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		} else {
+			console.log('Geolocation is not supported by this browser.');
+		}
+		
+		function showPosition(position) {
+			geoLatitude = parseFloat(position.coords.latitude);
+			geoLongitude = parseFloat(position.coords.longitude); 
+			console.log(geoLatitude + ' and ' + geoLongitude);
+				
+		  	var latlng = new google.maps.LatLng(geoLatitude, geoLongitude);
+		  	geocoder.geocode({'latLng': latlng}, function(results, status) {
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      if (results[0]) {
+			      	console.log(results[0])
+			        var fullAddress = results[0].formatted_address
+			        geoCity = results[0].address_components[2].long_name
+			        geoAddress = (fullAddress.replace(', USA', ''))
+			        console.log(geoAddress)
+			      } else {
+			        alert('No results found');
+			      }
+			    } else {
+			      alert('Geocoder failed due to: ' + status);
+			    }
+		  	});
+			}
 	},
 
 	save: function() {
@@ -177,6 +213,7 @@ AddView = Backbone.View.extend({
 			var parseFile = new Parse.File(name, file);
 			console.log(parseFile)
 
+			if (validateCompleteForm())
 			parseFile.save().then(function(){
 				console.log(parseFile.url());
 				place.set('placePhoto', parseFile);
@@ -184,44 +221,6 @@ AddView = Backbone.View.extend({
 			}); 
 		}	else {
 			console.log('Error occured.');
-			// ?set placeholder image here instead of in the template, or through error  
-		}
-
-		if ($('#location').is(':checked')) {
-			console.log('its checked')
-
-			if (navigator.geolocation) {
-    			navigator.geolocation.getCurrentPosition(showPosition);
-    		} else {
-    			console.log('Geolocation is not supported by this browser.');
-    		}
-  		
-			function showPosition(position) {
-	  			var latitude = parseFloat(position.coords.latitude);
-	  			var longitude = parseFloat(position.coords.longitude); 
-	  			console.log(latitude + ' and ' + longitude);
-	  			
-	  			place.set('latitude', latitude);
-	  			place.set('longitude', longitude);
-
-			  	var latlng = new google.maps.LatLng(latitude, longitude);
-			  	geocoder.geocode({'latLng': latlng}, function(results, status) {
-				    if (status == google.maps.GeocoderStatus.OK) {
-				      if (results[0]) {
-				        var fullAddress = results[0].formatted_address
-				        var city = results[0].address_components[2].long_name
-				        var address = (fullAddress.replace(', USA', ''))
-				        console.log(address)
-				        place.set('address', address)
-				        place.set('city', city)
-				      } else {
-				        alert('No results found');
-				      }
-				    } else {
-				      alert('Geocoder failed due to: ' + status);
-				    }
-			  	});
-	  		}
 		}
 
 		if ($('#address-location').val() !== '' ) {
@@ -230,10 +229,11 @@ AddView = Backbone.View.extend({
 			place.set('address', address)
 
 			geo.geocode({'address':address},function(results, status){
-			    if (status == google.maps.GeocoderStatus.OK) {  
+			    if (status == google.maps.GeocoderStatus.OK) {
+			    	console.log(results[0])  
 			    	var city = results[0].address_components[2].long_name          
-			        var latitude = results[0].geometry.location.lb;
-			        var longitude = results[0].geometry.location.mb;
+			        var latitude = results[0].geometry.location.nb;
+			        var longitude = results[0].geometry.location.ob;
 			        console.log(latitude, longitude);
 			        place.set('latitude', latitude);
 			        place.set('longitude', longitude);
@@ -245,6 +245,13 @@ AddView = Backbone.View.extend({
 			});
 		}
 
+		if (($('#location').is(':checked'))) {
+			place.set('latitude', geoLatitude);
+	  		place.set('longitude', geoLongitude);
+	  		place.set('address', geoAddress)
+			place.set('city', geoCity)
+		}
+
 		place.set('products', products);
 		place.set('likes', undefined);
 		place.set('placeName', placeName);
@@ -254,7 +261,7 @@ AddView = Backbone.View.extend({
 		collection.add(place);
 		console.log(collection);
 
-		if (validateCompleteForm())
+		if (validateCompleteForm()) {
 			place.save(null, {
 				success: function(results) {
 					console.log('it saved');
@@ -273,6 +280,8 @@ AddView = Backbone.View.extend({
 					console.log(error.description);
 				}
 			});
-
+		} else {
+			console.log('error')
+		}	
 	},
 });

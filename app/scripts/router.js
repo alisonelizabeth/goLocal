@@ -12,8 +12,6 @@ AppRouter = Backbone.Router.extend({
 		"addplace"			: "addPlace",
 		"places/results"	: "searchCity",
 		"places/:id"		: "showPlace",
-
-
 	},
 
 	home: function() {
