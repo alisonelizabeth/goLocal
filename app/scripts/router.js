@@ -10,7 +10,7 @@ AppRouter = Backbone.Router.extend({
 		""					: "home",
 		"places"			: "showPlaces",		
 		"addplace"			: "addPlace",
-		"places/search"		: "searchCity",
+		"places/results"	: "searchCity",
 		"places/:id"		: "showPlace",
 	},
 
@@ -19,6 +19,8 @@ AppRouter = Backbone.Router.extend({
 		$('.full').empty();
 		$('.footer').empty();
 		console.log('i am home');
+
+		var footerTemplate = _.template($('#footer-template').text());
 
 		destroyIsotope();
 
@@ -33,8 +35,8 @@ AppRouter = Backbone.Router.extend({
 				for (var i=0; i<results.length; i++) {
 					new BottomView({model: results[i]});
 				}
-				$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
-			},
+				$('.footer').append(footerTemplate());
+		},
 
 			error: function(results, error){
 				console.log(error.description)
@@ -51,6 +53,8 @@ AppRouter = Backbone.Router.extend({
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
 
+		var footerTemplate = _.template($('#footer-template').text());
+
 		new SearchView();
 
 		this.places.fetch({
@@ -61,7 +65,7 @@ AppRouter = Backbone.Router.extend({
 
 				isotopeFix();
 
-           	$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
+           	$('.footer').append(footerTemplate())
 			}
 		});
 	},
@@ -75,6 +79,8 @@ AppRouter = Backbone.Router.extend({
 
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
+
+		var footerTemplate = _.template($('#footer-template').text());
 
 		var that = this
 		this.places.fetch({
@@ -124,7 +130,7 @@ AppRouter = Backbone.Router.extend({
 					console.log(error.description);
 				}
 				});
-			$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
+			$('.footer').append(footerTemplate());
 			}
 		});	
 	},
@@ -140,7 +146,9 @@ AppRouter = Backbone.Router.extend({
 
 		var headerTemplate = _.template($('#header-template').text());
 		$('.full').append(headerTemplate());
-		$('.footer').append('<footer> <div class="footer-container">&copy 2013 goLocal. All Rights Reserved.</div></footer>')
+
+		var footerTemplate = _.template($('#footer-template').text());
+		$('.footer').append(footerTemplate());
 
         $('.select').chosen({max_selected_options: 9});
 
@@ -168,12 +176,10 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	searchCity: function(){
-		console.log('searching...')
-
 		var city = $('#city-name').val();
+		console.log(city)
 
 		var query = new Parse.Query(PlaceClass);
-
 		query.equalTo('city', city)
 
 		query.find({
@@ -189,7 +195,8 @@ AppRouter = Backbone.Router.extend({
 					isotopeFix();
 
 	            } else {
-	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back</a> </div> ')
+	            	console.log('no results')
+	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back</a> </div> ');
 	            }
 			},
 

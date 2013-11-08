@@ -168,9 +168,22 @@ footer {
 	width: 940px;
 	margin: 0 auto;
 	margin-top: 30px;
-	height: 75px;
-	padding-top: 20px;
+	padding: 40px 0;
 	color: white;
+
+	#photo-attribute {
+		font-size: 10px;
+		font-weight: 300;
+		font-style: italic;
+
+		a {
+			color: white;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .bottom-head {
@@ -226,6 +239,11 @@ footer {
 	border: 1px solid rgb(213, 213, 213);
 	box-shadow: 1px 1px 5px #D3D3D3;
 
+	#activate:hover {
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
 	ul {
 		margin: 0;
 		padding: 0;
@@ -257,6 +275,10 @@ footer {
 			font-family: $secondary-font;
 			font-size: 14px;
 		}
+	}
+
+	#heart:hover {
+		cursor: default;
 	}
 }
 
@@ -1087,5 +1109,26 @@ footer {
 	.add-view #check {
 		left: 320px;
 		top: 118px;
+	}
+
+	.footer-container {
+		width:300px;
+	}
+
+	.nav {
+		display: none;
+	}
+
+	.header-container {
+		width: 300px;
+	}
+
+	.container {
+		width: 400px;
+	}
+
+	body {
+		width: 400px;
+		margin: 0 auto;
 	}
 }

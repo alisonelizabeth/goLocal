@@ -34,7 +34,7 @@ function destroyIsotope() {
     };
 }
 
-// simple validation function 
+// simple validation function for comments 
 function validateForm(input) {
   var valid = true;
   input.removeClass('warning');
@@ -50,12 +50,15 @@ function validateForm(input) {
 
 // validation for AddView 
 function validateCompleteForm() {
- 
-  var name = $('input#name')
   var valid = true;
-  var description = $('textarea#description')  
 
-  if ((name.val() === '') || (description.val === '')) {
+  var name        = $('input#name')
+  var description = $('textarea#description')  
+  var checkbox    = $('#location')
+  var address     = $('#address-location')
+  var photo       = $('#photo-upload')
+
+  if ((photo.val() === '') || (name.val() === '') || ( (!checkbox.is(':checked')) && (address.val() === '') ) || (description.val === '' )) {
     console.log('its false')
     valid = false 
     $('.modal-error').addClass('modal-active-error');
@@ -67,7 +70,7 @@ function validateCompleteForm() {
     description.addClass('red-warning')
   }
   return valid 
-  }
+}
 
 // make sure user is only allowed to add one address type
 function clickLocation() {  
@@ -88,5 +91,3 @@ function clickLocation() {
   });
 
 }
-
-
