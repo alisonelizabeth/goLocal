@@ -1,5 +1,4 @@
 // HomeView: Home page view
-// this should be moved to router, just need template 
 HomeView = Backbone.View.extend({
 	homeTemplate: _.template($('#home-template').text()),
 

@@ -69,7 +69,7 @@ header {
 		float: right;
 		margin-top: 12px;
 
-		li{
+		li {
 			display: inline;
 			margin-right: 30px;
 			font-family: $secondary-font;
@@ -1294,3 +1294,190 @@ footer {
 	}
 } 
 /*end of iPad media query*/
+
+@media (max-width: 767px) {
+	/*home page styles*/
+	header .header-container {
+		width: 350px;
+		margin-left: 10px;
+		margin: 0 auto;
+
+		a {
+			margin-left: 100px;
+		}
+	}
+
+	header span {
+		font-size: 35px;
+	}
+
+	header .nav {
+		display: none;
+	}
+
+	.home-view {
+		height: 350px;
+	}
+
+	.home-view .container-home {
+		width: 350px;
+		padding-top: 0;
+	}
+
+	.home-view .container-home h1 {
+		font-size: 32px;
+	}
+
+	.home-view .home-view-layer {
+		height: 350px;
+	}
+
+	.container {
+		width: 350px;
+		margin: 0 auto;
+	}
+
+	.bottom-view {
+		margin-left: 30px;
+	}
+
+	.bottom-view .thumbnail img {
+		width: 275px;
+	}
+
+	.bottom-view #thumbnail-content {
+		width: 270px;
+	}
+
+	.home-view .header-container .header-logo {
+		margin: 0 auto;
+	}
+
+	.header-logo {
+		margin: 0 auto;
+	}
+
+	.home-view .container-home #home-buttons #home-button-view {
+		padding: 7px 5px;
+		font-size: 11px;
+	}
+
+	.home-view .container-home #home-buttons #home-button-add {
+		padding: 7px 5px;
+		font-size: 11px;
+	}
+
+	.home-view .container-home #home-buttons {
+		margin-left: 90px;
+	}
+
+	.bottom-head {
+		font-size: 20px;
+	}
+
+	.footer-container {
+		width: 275px;
+		font-size: 13px;
+	}
+
+	#photo-attribute {
+		font-size: 8px;
+	}
+
+	/*full-view styles */
+	.full-view {
+		margin-left: 30px;
+	}
+
+	.full-view .thumbnail img {
+		width: 275px;
+	}
+
+	.full-view #thumbnail-content {
+		width: 270px;
+	}
+
+	.search-view #city {
+		font-size: 15px;
+		margin-left: 8px;
+	}
+
+	.search-view #city-name {
+		width: 160px;
+		height: 25px;
+	}
+
+	.search-view #search-button  {
+		padding: 5px 20px 5px 8px;
+	}
+
+	.search-view #search-icon img {
+		right: 23px;
+		width: 8px;
+	}
+
+	#thumbnail-content ul #title  {
+		font-size: 17px;
+	}
+
+	.full-view #thumbnail-content #subhead {
+		font-size: 11px;
+	}
+
+	/* add-view*/
+	#box-one {
+		display: block;
+		margin: 15px auto;
+		width: 300px;
+	}
+
+	#image-placeholder {
+		width: 120px;
+		margin-left: 10px;
+	}
+
+	.add-view .button-file-input {
+		font-size: 11px;
+		margin-left: 40px;
+		padding: 7px 12px;
+	}
+
+	#box-two #address-location {
+		width: 250px;
+	}
+
+	#box-two {
+		display: block;
+		margin: 0 auto;
+		width: 300px;
+		margin-bottom: 15px;
+	}
+
+	#box-three {
+		display: block;
+		margin: 0 auto;
+		width: 300px;
+		height: 350px;
+	}
+
+	#box-three #box-three-left #name {
+		width: 250px;
+	}
+
+	#box-three #box-three-right textarea {
+		width: 250px;
+	}
+
+	#box-three #box-three-left {
+		width: 250px;
+	}
+
+	#box-three #box-three-right {
+		margin-left: 25px;
+		margin-top: 10px;
+	}
+
+	.arrow_box {
+		margin-left: 220px;
+	}
+}
