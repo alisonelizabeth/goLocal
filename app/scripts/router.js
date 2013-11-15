@@ -7,11 +7,11 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	routes: {
-		""					: "home",
-		"places"			: "showPlaces",		
-		"addplace"			: "addPlace",
-		"places/results"	: "searchCity",
-		"places/:id"		: "showPlace",
+		""						: "home",
+		"places"				: "showPlaces",		
+		"addplace"				: "addPlace",
+		"places/results/:city"	: "searchCity",
+		"places/:id"			: "showPlace",
 	},
 
 	home: function() {
@@ -175,7 +175,7 @@ AppRouter = Backbone.Router.extend({
 	    });
 	},
 
-	searchCity: function(){
+	searchCity: function(city){
 		var city = $('#city-name').val();
 		console.log(city)
 
@@ -187,8 +187,8 @@ AppRouter = Backbone.Router.extend({
 				console.log(results);
 				$('.container').empty();
 				new SearchView();
-
 				if (results.length > 0 ) {
+					$('.container').append('<a href="#/places"> Go back </div></a>')
 					for (var i=0; i<results.length; i++) {
 						new FullView({model: results[i]});
 					}
@@ -196,7 +196,7 @@ AppRouter = Backbone.Router.extend({
 
 	            } else {
 	            	console.log('no results')
-	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back</a> </div> ');
+	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
 	            }
 			},
 
