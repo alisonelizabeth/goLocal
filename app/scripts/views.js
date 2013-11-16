@@ -83,7 +83,9 @@ SearchView = Backbone.View.extend({
 
 	search: function(){
 		var city = $('#city-name').val();
-		this.$el.find('#search-button').attr('href', '#/places/results/' + city)
+		if (city !== '') {
+			this.$el.find('#search-button').attr('href', '#/places/results/' + city)
+		} 
 	}
 });
 
@@ -182,7 +184,7 @@ AddView = Backbone.View.extend({
 			      if (results[0]) {
 			      	console.log(results[0])
 			        var fullAddress = results[0].formatted_address
-			        geoCity = results[0].address_components[2].long_name
+			        geoCity = results[0].address_components[2].long_name.toLowerCase();
 			        geoAddress = (fullAddress.replace(', USA', ''))
 			        console.log(geoAddress)
 			      } else {
@@ -231,9 +233,9 @@ AddView = Backbone.View.extend({
 			geo.geocode({'address':address},function(results, status){
 			    if (status == google.maps.GeocoderStatus.OK) {
 			    	console.log(results[0])  
-			    	var city = results[0].address_components[2].long_name          
-			        var latitude = results[0].geometry.location.nb;
-			        var longitude = results[0].geometry.location.ob;
+			    	var city = results[0].address_components[2].long_name.toLowerCase();          
+			        var latitude = results[0].geometry.location.ob;
+			        var longitude = results[0].geometry.location.pb;
 			        console.log(latitude, longitude);
 			        place.set('latitude', latitude);
 			        place.set('longitude', longitude);

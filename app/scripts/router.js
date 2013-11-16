@@ -176,35 +176,64 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	searchCity: function(city){
-		var city = $('#city-name').val();
+		var city 	= $('#city-name').val().toLowerCase();
 		console.log(city)
+		var cityURL = window.location.hash.split(/\//)[3];
 
-		var query = new Parse.Query(PlaceClass);
-		query.equalTo('city', city)
+		if (city !== '' && cityURL !== '') {
+			console.log('input')
+			var query = new Parse.Query(PlaceClass);
+			query.equalTo('city', city)
 
-		query.find({
-			success: function(results){
-				console.log(results);
-				$('.container').empty();
-				new SearchView();
-				if (results.length > 0 ) {
-					$('.container').append('<a href="#/places"> Go back </div></a>')
-					for (var i=0; i<results.length; i++) {
-						new FullView({model: results[i]});
-					}
-					isotopeFix();
+			query.find({
+				success: function(results){
+					console.log(results);
+					$('.container').empty();
+					new SearchView();
+					if (results.length > 0 ) {
+						for (var i=0; i<results.length; i++) {
+							new FullView({model: results[i]});
+						}
+						isotopeFix();
 
-	            } else {
-	            	console.log('no results')
-	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
-	            }
-			},
+		            } else {
+		            	console.log('no results')
+		            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
+		            }
+				},
 
-			error: function(results, error){
-				console.log(error.description);
-			}
-		});
-	}
+				error: function(results, error){
+					console.log(error.description);
+				}
+			});
+		} else if (cityURL !== '') {
+			console.log('url')
+			var query = new Parse.Query(PlaceClass);
+			query.equalTo('city', cityURL)
+
+			query.find({
+				success: function(results){
+					console.log(results);
+					$('.container').empty();
+					new SearchView();
+					if (results.length > 0 ) {
+						for (var i=0; i<results.length; i++) {
+							new FullView({model: results[i]});
+						}
+						isotopeFix();
+
+		            } else {
+		            	console.log('no results')
+		            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
+		            }
+				},
+
+				error: function(results, error){
+					console.log(error.description);
+				}
+			});
+		} 
+	} 
 });
 
 var router = new AppRouter();
