@@ -82,13 +82,12 @@ SearchView = Backbone.View.extend({
 	},
 
 	search: function(){
-		var city = $('#city-name').val();
+		var city = $('#city-name').val().toLowerCase();
 		if (city !== '') {
 			this.$el.find('#search-button').attr('href', '#/places/results/' + city)
 		} 
 	}
 });
-
 
 // IndividualView: Shows individual local place 
 IndividualView = Backbone.View.extend({
