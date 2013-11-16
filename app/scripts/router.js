@@ -7,11 +7,11 @@ AppRouter = Backbone.Router.extend({
 	},
 
 	routes: {
-		""					: "home",
-		"places"			: "showPlaces",		
-		"addplace"			: "addPlace",
-		"places/results"	: "searchCity",
-		"places/:id"		: "showPlace",
+		""						: "home",
+		"places"				: "showPlaces",		
+		"addplace"				: "addPlace",
+		"places/results/:city"	: "searchCity",
+		"places/:id"			: "showPlace",
 	},
 
 	home: function() {
@@ -175,36 +175,65 @@ AppRouter = Backbone.Router.extend({
 	    });
 	},
 
-	searchCity: function(){
-		var city = $('#city-name').val();
+	searchCity: function(city){
+		var city 	= $('#city-name').val().toLowerCase();
 		console.log(city)
+		var cityURL = window.location.hash.split(/\//)[3];
 
-		var query = new Parse.Query(PlaceClass);
-		query.equalTo('city', city)
+		if (city !== '' && cityURL !== '') {
+			console.log('input')
+			var query = new Parse.Query(PlaceClass);
+			query.equalTo('city', city)
 
-		query.find({
-			success: function(results){
-				console.log(results);
-				$('.container').empty();
-				new SearchView();
+			query.find({
+				success: function(results){
+					console.log(results);
+					$('.container').empty();
+					new SearchView();
+					if (results.length > 0 ) {
+						for (var i=0; i<results.length; i++) {
+							new FullView({model: results[i]});
+						}
+						isotopeFix();
 
-				if (results.length > 0 ) {
-					for (var i=0; i<results.length; i++) {
-						new FullView({model: results[i]});
-					}
-					isotopeFix();
+		            } else {
+		            	console.log('no results')
+		            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
+		            }
+				},
 
-	            } else {
-	            	console.log('no results')
-	            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back</a> </div> ');
-	            }
-			},
+				error: function(results, error){
+					console.log(error.description);
+				}
+			});
+		} else if (cityURL !== '') {
+			console.log('url')
+			var query = new Parse.Query(PlaceClass);
+			query.equalTo('city', cityURL)
 
-			error: function(results, error){
-				console.log(error.description);
-			}
-		});
-	}
+			query.find({
+				success: function(results){
+					console.log(results);
+					$('.container').empty();
+					new SearchView();
+					if (results.length > 0 ) {
+						for (var i=0; i<results.length; i++) {
+							new FullView({model: results[i]});
+						}
+						isotopeFix();
+
+		            } else {
+		            	console.log('no results')
+		            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
+		            }
+				},
+
+				error: function(results, error){
+					console.log(error.description);
+				}
+			});
+		} 
+	} 
 });
 
 var router = new AppRouter();
