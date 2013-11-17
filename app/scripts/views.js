@@ -167,15 +167,19 @@ AddView = Backbone.View.extend({
 
 	getLocation: function() {
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
+			navigator.geolocation.getCurrentPosition(showPosition, error)
 		} else {
-			console.log('Geolocation is not supported by this browser.');
+			alert('Geolocation is not supported by this browser.');
 		}
 		
 		function showPosition(position) {
+			console.log('user approved geolocation')
 			geoLatitude = parseFloat(position.coords.latitude);
 			geoLongitude = parseFloat(position.coords.longitude); 
 			console.log(geoLatitude + ' and ' + geoLongitude);
+			if (geoLatitude === undefined) {
+				console.log('undefined')
+			}
 				
 		  	var latlng = new google.maps.LatLng(geoLatitude, geoLongitude);
 		  	geocoder.geocode({'latLng': latlng}, function(results, status) {
@@ -193,7 +197,15 @@ AddView = Backbone.View.extend({
 			      alert('Geocoder failed due to: ' + status);
 			    }
 		  	});
-			}
+		}
+
+		function error(error) {
+			console.log('user denied geolocation')
+	        alert(error.code);
+	        if (error.code == 1) {
+	            console.log('user said no')
+	        }
+    	}
 	},
 
 	save: function() {
@@ -249,8 +261,11 @@ AddView = Backbone.View.extend({
 		if (($('#location').is(':checked'))) {
 			place.set('latitude', geoLatitude);
 	  		place.set('longitude', geoLongitude);
+	  		console.log(geoLatitude)
 	  		place.set('address', geoAddress)
 			place.set('city', geoCity)
+		} else {
+			console.log('error')
 		}
 
 		place.set('products', products);
@@ -262,7 +277,9 @@ AddView = Backbone.View.extend({
 		collection.add(place);
 		console.log(collection);
 
-		if (validateCompleteForm()) {
+		if (checkGeoLocation()) 
+		console.log('validate')
+		if (validateCompleteForm()) 
 			place.save(null, {
 				success: function(results) {
 					console.log('it saved');
@@ -281,8 +298,5 @@ AddView = Backbone.View.extend({
 					console.log(error.description);
 				}
 			});
-		} else {
-			console.log('error')
-		}	
 	},
 });

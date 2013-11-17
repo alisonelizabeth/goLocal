@@ -58,21 +58,24 @@ function validateCompleteForm() {
   var address     = $('#address-location')
   var photo       = $('#photo-upload')
 
-  if ((photo.val() === '') || (name.val() === '') || ( (!checkbox.is(':checked')) && (address.val() === '') ) || (description.val === '' )) {
+  if ((photo.val() === '') || (name.val() === '') || ( (!checkbox.is(':checked')) && (address.val() === '') ) || (description.val === ' ' )) {
     console.log('its false')
     valid = false 
     $('.modal-error').addClass('modal-active-error');
         $('.close-button-error').click(function() {
           $('.modal-error').removeClass('modal-active-error');
-          console.log('add class')
     });
-    name.addClass('red-warning')
-    description.addClass('red-warning')
+    if (name.val() === '') {
+      name.addClass('red-warning')
+    }
+    if (description.val() === ' ') {
+      description.addClass('red-warning')
+    }
   }
   return valid 
 }
 
-// make sure user is only allowed to add one address type
+// make sure user is only allowed to add one address type on AddView
 function clickLocation() {  
   $('#location').click(function(){
     var location = $('#location')
@@ -89,5 +92,20 @@ function clickLocation() {
       address.css('background', 'white')
     }
   });
+}
 
+// check if geoLocation is working on AddView
+function checkGeoLocation() {
+  var valid = true; 
+  var address = $('#address-location').val();
+
+  if (((geoLatitude === undefined) || (geoLongitude === undefined)) && address === '' ) {
+    console.log('no geolocation')
+    valid = false
+    $('.modal-error-geo').addClass('modal-active-error-geo');
+        $('.close-button-error-geo').click(function() {
+          $('.modal-error-geo').removeClass('modal-active-error-geo');
+    });
+  } 
+  return valid 
 }
