@@ -58,7 +58,10 @@ function validateCompleteForm() {
   var address     = $('#address-location')
   var photo       = $('#photo-upload')
 
-  if ((photo.val() === '') || (name.val() === '') || ( (!checkbox.is(':checked')) && (address.val() === '') ) || (description.val === ' ' )) {
+  name.removeClass('red-warning')
+  description.removeClass('red-warning')
+
+  if ((photo.val() === '') || (name.val() === '') || ( (!checkbox.is(':checked')) && (address.val() === '') ) || (description.val() === ' ' )) {
     console.log('its false')
     valid = false 
     $('.modal-error').addClass('modal-active-error');

@@ -222,12 +222,15 @@
                 <div class='text'>
                     <p id="description"><span>Description:</span> <%= place.get('description')%></p> 
                 </div>
-
                 <div id='likes'> 
-                    <p id="description"><span>Produce offered:</span> <%= place.get('products').join(', ')%></p>                       
+                    <p id="description"><span>Produce offered:</span> 
+                        <% if (place.get('likes')) { %>
+                        <%= place.get('products').join(', ')%></p>    
+                        <% } else { %>
+                        Information not provided.
+                        <% } %>             
                 </div>
             </div>
-
             <div id='break'> </div>
 
             <div id='create-comment'>
