@@ -29,6 +29,7 @@ AppRouter = Backbone.Router.extend({
 		$('.container').append('<h2 class="bottom-head"> Recent finds</h2>')
 		query = new Parse.Query(PlaceClass);
 		query.limit(3)
+		query.descending('createdAt')
 
 		query.find({
 			success:function(results){
