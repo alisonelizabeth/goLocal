@@ -224,10 +224,10 @@
                 </div>
                 <div id='likes'> 
                     <p id="description"><span>Produce offered:</span> 
-                        <% if (place.get('likes')) { %>
-                        <%= place.get('products').join(', ')%></p>    
+                        <%if (place.get('likes')) { %>
+                            <%= place.get('products').join(', ')%></p>    
                         <% } else { %>
-                        Information not provided.
+                            Information not provided.
                         <% } %>             
                 </div>
             </div>
