@@ -10,24 +10,15 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
-        <link href="http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css" rel="stylesheet">
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,300" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="styles/chosen.css">
-        <link rel="stylesheet" href="styles/isotope-styles.css">
-
-
-        <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
+        <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+        <script src="scripts/vendor/modernizr.js"></script>
         <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
-        <script src="http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js"></script>
+        <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-       
-        <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -97,19 +88,19 @@
                         </div>
                     <% } else { %> 
                         <div class="thumbnail">
-                            <img src="images/placeholder.jpg"/>
+                            <img src="images/41c8d1c0.placeholder.jpg"/>
                         </div>
                     <% } %>
 
                         <div id="thumbnail-content">
                             <% if (place.get('likes')) { %>
                             <div id="heart" title="<%=place.get('likes')%> people like this place">
-                                <img src="images/heart.png">
+                                <img src="images/49bd649d.heart.png">
                                 <span><%=place.get('likes')%><span>
                             </div>
                             <% } else { %> 
                                 <div id="heart" title="0 people like this place">
-                                    <img src="images/heart.png">
+                                    <img src="images/49bd649d.heart.png">
                                     <span>0<span>
                                 </div>
                             <% } %>
@@ -153,7 +144,7 @@
             <input id="city-name" placeholder="City name"> 
             <a id="search-button"><div>Search</div></a> 
             <div id="search-icon"> 
-                <img src="images/search-icon.png">
+                <img src="images/0622fffb.search-icon.png">
             </div>
         </script>
 
@@ -165,19 +156,19 @@
                         </div>
                     <% } else { %> 
                         <div class="thumbnail">
-                            <img src="images/placeholder.jpg"/>
+                            <img src="images/41c8d1c0.placeholder.jpg"/>
                         </div>
                     <% } %>
 
                         <div id="thumbnail-content">
                             <% if (place.get('likes')) { %>
                             <div id="heart" title="<%=place.get('likes')%> people like this place">
-                                <img src="images/heart.png">
+                                <img src="images/49bd649d.heart.png">
                                 <span><%=place.get('likes')%><span>
                             </div>
                             <% } else { %> 
                                 <div id="heart" title="0 people like this place">
-                                    <img src="images/heart.png">
+                                    <img src="images/49bd649d.heart.png">
                                     <span>0<span>
                                 </div>
                             <% } %>
@@ -199,7 +190,7 @@
                         </div>
                     <% } else { %> 
                         <div class="main-image">
-                            <img src="images/placeholder.jpg"/>
+                            <img src="images/41c8d1c0.placeholder.jpg"/>
                         </div>
                     <% } %>
 
@@ -207,7 +198,7 @@
                     <h1><%= place.get('placeName')%></h1>
                 </div>
                 <div id="like-button" title="I like this place!" >
-                    <img src="images/heart.png">
+                    <img src="images/49bd649d.heart.png">
                 </div>
 
                 <div id="get-directions">
@@ -224,10 +215,10 @@
                 </div>
                 <div id='likes'> 
                     <p id="description"><span>Produce offered:</span> 
-                        <%if (place.get('likes')) { %>
-                            <%= place.get('products').join(', ')%></p>    
+                        <% if (place.get('likes')) { %>
+                        <%= place.get('products').join(', ')%></p>    
                         <% } else { %>
-                            Information not provided.
+                        Information not provided.
                         <% } %>             
                 </div>
             </div>
@@ -238,7 +229,7 @@
                 <div id="submit-comment"> Post </div>
                 <div id="message"> </div>
                 <div id="arrow"> 
-                    <img src="images/arrow.png">
+                    <img src="images/ce5e7379.arrow.png">
                 </div>
             </div>
 
@@ -261,9 +252,9 @@
                     </div> 
                     <div id="upload-image-div">
                         <div id="check">
-                            <img src="images/check.png">
+                            <img src="images/c5d3cd59.check.png">
                         </div>
-                        <img id="image-placeholder" src="images/placeholder.png" alt="your image" />
+                        <img id="image-placeholder" src="images/5ba79314.placeholder.png" alt="your image" />
                         <img id="image-preview" src="#" alt="your image" />
                     </div>
                 </div>
@@ -378,16 +369,7 @@
             <div id="save" class="arrow_box">SAVE</div>
         </script>
 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/backbone/backbone.js"></script>
-        <script src="bower_components/moment/moment.js"></script>
-        <script src="bower_components/isotope/jquery.isotope.min.js"></script>
-
-        <!-- endbower -->
-        <!-- endbuild -->
+        <script src="scripts/133a7954.vendor.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -399,16 +381,6 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <!-- build:js scripts/main.js -->
-        <script src="scripts/chosen.jquery.js"></script>
-        <script src="scripts/utility.js"></script>
-        <script src="scripts/views.js"></script>
-        <script src="scripts/models.js"></script>
-        <script src="scripts/router.js"></script>
-
-        <!-- endbuild -->
-
-        <!-- build:js(.tmp) scripts/coffee.js -->
-        <!-- endbuild -->
+        <script src="scripts/main.js"></script>
 </body>
 </html>
