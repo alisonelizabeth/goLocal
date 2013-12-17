@@ -226,7 +226,7 @@ AddView = Backbone.View.extend({
 			var parseFile = new Parse.File(name, file);
 			console.log(parseFile)
 
-			if (validateCompleteForm())
+			if (validateCompleteForm() && checkGeoLocation())
 			parseFile.save().then(function(){
 				console.log(parseFile.url());
 				place.set('placePhoto', parseFile);
@@ -277,9 +277,7 @@ AddView = Backbone.View.extend({
 		collection.add(place);
 		console.log(collection);
 
-		if (checkGeoLocation()) 
-		console.log('validate')
-		if (validateCompleteForm()) 
+		if (checkGeoLocation() && validateCompleteForm()) { 
 			place.save(null, {
 				success: function(results) {
 					console.log('it saved');
@@ -298,5 +296,6 @@ AddView = Backbone.View.extend({
 					console.log(error.description);
 				}
 			});
+		}
 	},
 });

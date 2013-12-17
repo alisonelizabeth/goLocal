@@ -110,5 +110,6 @@ function checkGeoLocation() {
           $('.modal-error-geo').removeClass('modal-active-error-geo');
     });
   } 
-  return valid 
+  return valid
+  console.log(valid) 
 }
