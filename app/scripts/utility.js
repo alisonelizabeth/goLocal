@@ -1,38 +1,38 @@
 // utility functions 
-// fixes isotope image rendering issue 
-function isotopeFix(){
-  var container = $('.container')
-  var images = $("img");
+// // fixes isotope image rendering issue 
+// function isotopeFix(){
+//   var container = $('.container')
+//   var images = $("img");
 
-  if(!container.hasClass('isotope')) {
-    container.imagesLoaded(function () {
-      container.isotope({
-        itemSelector: '.full-view'
-      });
-        images.load(function () {
-          container.isotope('reLayout');
-      }); 
-    });
-  } else {
-    container.isotope('destroy');
-    container.imagesLoaded(function () {
-      container.isotope({
-          itemSelector: '.full-view'
-      });
-      images.load(function () {
-          container.isotope('reLayout');
-      }); 
-    });
-  }
-}
+//   if(!container.hasClass('isotope')) {
+//     container.imagesLoaded(function () {
+//       container.isotope({
+//         itemSelector: '.full-view'
+//       });
+//         images.load(function () {
+//           container.isotope('reLayout');
+//       }); 
+//     });
+//   } else {
+//     container.isotope('destroy');
+//     container.imagesLoaded(function () {
+//       container.isotope({
+//           itemSelector: '.full-view'
+//       });
+//       images.load(function () {
+//           container.isotope('reLayout');
+//       }); 
+//     });
+//   }
+// }
 
 // removes isotope from views not using it 
-function destroyIsotope() {
-  var container = $('.container')
-  if (container.hasClass('isotope')) {
-      container.isotope('destroy');
-    };
-}
+// function destroyIsotope() {
+//   var container = $('.container')
+//   if (container.hasClass('isotope')) {
+//       container.isotope('destroy');
+//     };
+// }
 
 // simple validation function for comments 
 function validateForm(input) {
@@ -79,23 +79,23 @@ function validateCompleteForm() {
 }
 
 // make sure user is only allowed to add one address type on AddView
-function clickLocation() {  
-  $('#location').click(function(){
-    var location = $('#location')
-    var address = $('#address-location')
+// function clickLocation() {  
+//   $('#location').click(function(){
+//     var location = $('#location')
+//     var address = $('#address-location')
 
-    if ($('#location').is(':checked')) {
-      console.log('yes, lets geolocate')
-      address.attr('disabled', true);
-      address.css('background', 'rgb(0, 89, 97)');
-      address.val('');
+//     if ($('#location').is(':checked')) {
+//       console.log('yes, lets geolocate')
+//       address.attr('disabled', true);
+//       address.css('background', 'rgb(0, 89, 97)');
+//       address.val('');
       
-    } else {
-      address.attr('disabled', false)
-      address.css('background', 'white')
-    }
-  });
-}
+//     } else {
+//       address.attr('disabled', false)
+//       address.css('background', 'white')
+//     }
+//   });
+// }
 
 // check if geoLocation is working on AddView
 function checkGeoLocation() {

@@ -1,93 +1,93 @@
 // HomeView: Home page view
-HomeView = Backbone.View.extend({
-	homeTemplate: _.template($('#home-template').text()),
+// HomeView = Backbone.View.extend({
+// 	homeTemplate: _.template($('#home-template').text()),
 
-	className: 'home-view',
+// 	className: 'home-view',
 
-	initialize: function(){
-		$('.full').append(this.el);
-		this.render();
-	},
+// 	initialize: function(){
+// 		$('.full').append(this.el);
+// 		this.render();
+// 	},
 
-	render: function(){
-		this.$el.append(this.homeTemplate());
-	}
-});
+// 	render: function(){
+// 		this.$el.append(this.homeTemplate());
+// 	}
+// });
 
 // BottomView: Bottom view of the home page; shows recent finds 
-BottomView = Backbone.View.extend({
-	bottomTemplate: _.template($('#bottom-template').text()),
+// BottomView = Backbone.View.extend({
+// 	bottomTemplate: _.template($('#bottom-template').text()),
 
-	className: 'bottom-view',
+// 	className: 'bottom-view',
 
-	events: {
-		'click #activate': 'activate'
-	},
+// 	events: {
+// 		'click #activate': 'activate'
+// 	},
 
-	initialize: function(){
-		$('.container').append(this.el);
-		this.render();
-	},
+// 	initialize: function(){
+// 		$('.container').append(this.el);
+// 		this.render();
+// 	},
 
-	render: function(){
-		this.$el.append(this.bottomTemplate({place: this.model}) );
-	},
+// 	render: function(){
+// 		this.$el.append(this.bottomTemplate({place: this.model}) );
+// 	},
 
-	activate: function(){
-		this.$el.find('#activate').attr('href', "#/places/" + this.model.id);
-	}
-});
+// 	activate: function(){
+// 		this.$el.find('#activate').attr('href', "#/places/" + this.model.id);
+// 	}
+// });
 
 // FullView: Shows complete listing of local spots 
-FullView = Backbone.View.extend({
-	gridTemplate: _.template($('#grid-template').text()),
+// FullView = Backbone.View.extend({
+// 	gridTemplate: _.template($('#grid-template').text()),
 
-	className: 'full-view',
+// 	className: 'full-view',
 
-	events: {
-		'click #activate': 'activate'
-	},
+// 	events: {
+// 		'click #activate': 'activate'
+// 	},
 
-	initialize: function() {
-		$('.container').append(this.el);
-		this.render();
-	},
+// 	initialize: function() {
+// 		$('.container').append(this.el);
+// 		this.render();
+// 	},
 
-	render: function() {
-		this.$el.append(this.gridTemplate({place: this.model}) );
-	},
+// 	render: function() {
+// 		this.$el.append(this.gridTemplate({place: this.model}) );
+// 	},
 
-	activate: function(){
-		this.$el.find('#activate').attr('href', "#/places/" + this.model.id);
-	}
-});
+// 	activate: function(){
+// 		this.$el.find('#activate').attr('href', "#/places/" + this.model.id);
+// 	}
+// });
 
 // SearchView: Activates search toolbar on places route 
-SearchView = Backbone.View.extend({
-	searchTemplate: _.template($('#search-template').text()),
+// SearchView = Backbone.View.extend({
+// 	searchTemplate: _.template($('#search-template').text()),
 
-	className: 'search-view',
+// 	className: 'search-view',
 
-	events: {
-		'click #search-button': "search", 
-	},
+// 	events: {
+// 		'click #search-button': "search", 
+// 	},
 
-	initialize: function() {
-		$('.container').append(this.el);
-		this.render();
-	},
+// 	initialize: function() {
+// 		$('.container').append(this.el);
+// 		this.render();
+// 	},
 
-	render: function() {
-		this.$el.append(this.searchTemplate() );
-	},
+// 	render: function() {
+// 		this.$el.append(this.searchTemplate() );
+// 	},
 
-	search: function(){
-		var city = $('#city-name').val().toLowerCase();
-		if (city !== '') {
-			this.$el.find('#search-button').attr('href', '#/places/results/' + city)
-		} 
-	}
-});
+// 	search: function(){
+// 		var city = $('#city-name').val().toLowerCase();
+// 		if (city !== '') {
+// 			this.$el.find('#search-button').attr('href', '#/places/results/' + city)
+// 		} 
+// 	}
+// });
 
 // IndividualView: Shows individual local place 
 IndividualView = Backbone.View.extend({

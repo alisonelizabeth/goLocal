@@ -19,15 +19,7 @@
         <link rel="stylesheet" href="styles/chosen.css">
         <link rel="stylesheet" href="styles/isotope-styles.css">
 
-
-        <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
-        <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
-        <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-       
-        <!-- endbuild -->
+        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -380,11 +372,7 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/backbone/backbone.js"></script>
-        <script src="bower_components/moment/moment.js"></script>
-        <script src='bower_components/isotope/jquery.isotope.min.js'></script>
+
 
         <!-- endbower -->
         <!-- endbuild -->
@@ -399,12 +387,13 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <!-- build:js scripts/main.js -->
+        <!-- build:js scripts/main.js 
         <script src="scripts/chosen.jquery.js"></script>
         <script src="scripts/utility.js"></script>
         <script src="scripts/views.js"></script>
         <script src="scripts/models.js"></script>
-        <script src="scripts/router.js"></script>
+        <script src="scripts/testing.js"></script>
+        <script src="scripts/router.js"></script>-->
 
         <!-- endbuild -->
 
