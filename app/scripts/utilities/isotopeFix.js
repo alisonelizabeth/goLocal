@@ -2,8 +2,7 @@ define([
     'underscore',
     'jquery',
     'isotope'
-], function(_, $, Isotope) {
-    // fixes isotope image rendering issue 
+], function(_, $, isotope) {
 	var isotopeFix = function(){
 	  var container = $('.container')
 	  var images = $('img');

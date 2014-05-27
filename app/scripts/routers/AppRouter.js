@@ -14,12 +14,12 @@ define([
     'views/SearchView',
     'views/FullView',
     'views/IndividualView',
-    'views/AddView'
-    // 'utilities/isotopeFix',
+    'views/AddView',
+    'utilities/isotopeFix'
     // 'utilities/destroyIsotope',
     // 'utilities/clickLocation',
     // 'utilities/destroyIsotope'
-], function($, Backbone, Parse, Isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView) {
+], function($, Backbone, Parse, isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix) {
 
     AppRouter = Backbone.Router.extend({
 

@@ -1,5 +1,3 @@
-'use strict';
-
 require.config({
     shim: {
         underscore: {
@@ -37,13 +35,10 @@ require(['parse'], function(Parse) {
 require([
     'backbone',
     'routers/AppRouter'
-    // 'views/App'
 ], function(Backbone, AppRouter) {
-    // Backbone.history.start();
 
-    // new AppRouter();
-    // new AppView();
     var router = new AppRouter();
     Backbone.history.start();
+    
 });
 
