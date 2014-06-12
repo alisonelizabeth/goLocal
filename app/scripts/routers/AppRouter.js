@@ -17,8 +17,9 @@ define([
     'views/AddView',
     'utilities/isotopeFix',
     'utilities/destroyIsotope',
-    'utilities/clickLocation'
-], function($, Backbone, Parse, isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix, destroyIsotope, clickLocation) {
+    'utilities/clickLocation',
+    'utilities/emptyContainers'
+], function($, Backbone, Parse, isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix, destroyIsotope, clickLocation, emptyContainers) {
 
     AppRouter = Backbone.Router.extend({
 
@@ -35,10 +36,8 @@ define([
 		},
 
 		home: function() {
-			$('.container').empty();
-			$('.full').empty();
-			$('.footer').empty();
-
+			emptyContainers();
+			
 			var footerTemplate = _.template($('#footer-template').text());
 
 			destroyIsotope();
@@ -66,9 +65,7 @@ define([
 		},
 
 		showPlaces: function() {
-			$('.container').empty();
-			$('.full').empty();
-			$('.footer').empty();
+			emptyContainers();
 
 			var headerTemplate = _.template($('#header-template').text());
 			$('.full').append(headerTemplate());
@@ -92,10 +89,7 @@ define([
 		,
 
 		showPlace: function(id){
-			$('.container').empty();
-			$('.full').empty();
-			$('.footer').empty();
-
+			emptyContainers();
 			destroyIsotope();
 
 			var headerTemplate = _.template($('#header-template').text());
@@ -155,9 +149,7 @@ define([
 		},
 
 		addPlace: function() {
-			$('.container').empty();
-			$('.full').empty();
-			$('.footer').empty();
+			emptyContainers();
 
 			destroyIsotope();
 

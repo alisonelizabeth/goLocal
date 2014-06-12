@@ -27,7 +27,8 @@ require.config({
         isotope: '../bower_components/isotope/jquery.isotope',
         mapbox: '//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox',
         googleMaps: '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false',
-        chosen: 'utilities/chosen.jquery'
+        chosen: 'utilities/chosen.jquery',
+        'async': '../bower_components/requirejs-plugins/src/async'
     }
 });
 

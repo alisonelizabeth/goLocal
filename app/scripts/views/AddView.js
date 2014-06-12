@@ -1,14 +1,12 @@
 define([
     'underscore',
     'backbone',
-    'googleMaps'
-], function(_, Backbone, google) {
-	// var geocoder 
-	// var geoLatitude
-	// var geoLongitude
-	// var geoCity
-	// var geoAddress
-
+    'models/PlaceModel',
+    'utilities/checkGeoLocation',
+    'utilities/validateCompleteForm',
+    'async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
+], function(_, Backbone, PlaceClass, checkGeoLocation, validateCompleteForm) {
+	
 	var AddView = Backbone.View.extend({
 		addTemplate: _.template($('#add-template').text()),
 
@@ -23,55 +21,55 @@ define([
 			$('.container').append(this.el);
 			this.render();
 			console.log('new addView');
-			// var geocoder = new google.maps.Geocoder();
+			geocoder = new google.maps.Geocoder();
 		},
 
 		render: function() {
 			this.$el.append(this.addTemplate());
 		},
 
-		// getLocation: function() {
-		// 	if (navigator.geolocation) {
-		// 		navigator.geolocation.getCurrentPosition(showPosition, error)
-		// 	} else {
-		// 		alert('Geolocation is not supported by this browser.');
-		// 	}
+		getLocation: function() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition, error)
+			} else {
+				alert('Geolocation is not supported by this browser.');
+			}
 			
-		// 	function showPosition(position) {
-		// 		console.log('user approved geolocation')
-		// 		var geoLatitude = parseFloat(position.coords.latitude);
-		// 		var geoLongitude = parseFloat(position.coords.longitude); 
-		// 		console.log(geoLatitude + ' and ' + geoLongitude);
-		// 		if (geoLatitude === undefined) {
-		// 			console.log('undefined')
-		// 		}
+			function showPosition(position) {
+				console.log('user approved geolocation')
+				geoLatitude = parseFloat(position.coords.latitude);
+				geoLongitude = parseFloat(position.coords.longitude); 
+				console.log(geoLatitude + ' and ' + geoLongitude);
+				if (geoLatitude === undefined) {
+					console.log('undefined')
+				}
 					
-		// 	  	var latlng = new google.maps.LatLng(geoLatitude, geoLongitude);
-		// 	  	geocoder.geocode({'latLng': latlng}, function(results, status) {
-		// 		    if (status == google.maps.GeocoderStatus.OK) {
-		// 		      if (results[0]) {
-		// 		      	console.log(results[0])
-		// 		        var fullAddress = results[0].formatted_address
-		// 		        var geoCity = results[0].address_components[2].long_name.toLowerCase();
-		// 		        var geoAddress = (fullAddress.replace(', USA', ''))
-		// 		        console.log(geoAddress)
-		// 		      } else {
-		// 		        alert('No results found');
-		// 		      }
-		// 		    } else {
-		// 		      alert('Geocoder failed due to: ' + status);
-		// 		    }
-		// 	  	});
-		// 	}
+			  	var latlng = new google.maps.LatLng(geoLatitude, geoLongitude);
+			  	geocoder.geocode({'latLng': latlng}, function(results, status) {
+				    if (status == google.maps.GeocoderStatus.OK) {
+				      if (results[0]) {
+				      	console.log(results[0])
+				        fullAddress = results[0].formatted_address
+				        geoCity = results[0].address_components[2].long_name.toLowerCase();
+				        geoAddress = (fullAddress.replace(', USA', ''))
+				        console.log(geoAddress)
+				      } else {
+				        alert('No results found');
+				      }
+				    } else {
+				      alert('Geocoder failed due to: ' + status);
+				    }
+			  	});
+			}
 
-		// 	function error(error) {
-		// 		console.log('user denied geolocation')
-		//         alert(error.code);
-		//         if (error.code == 1) {
-		//             console.log('user said no')
-		//         }
-	 //    	}
-		// },
+			function error(error) {
+				console.log('user denied geolocation')
+		        alert(error.code);
+		        if (error.code == 1) {
+		            console.log('user said no')
+		        }
+	    	}
+		},
 
 		save: function() {
 			var place = new PlaceClass();
