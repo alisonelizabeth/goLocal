@@ -13,6 +13,9 @@ require.config({
         parse: {
             deps: ['jquery', 'underscore'],
             exports: 'Parse'
+        },
+        isotope: {
+            deps: ['jquery']
         }
     },
     paths: {
@@ -24,7 +27,7 @@ require.config({
         isotope: '../bower_components/isotope/jquery.isotope',
         mapbox: '//api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox',
         googleMaps: '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false',
-        chosen: 'chosen.jquery'
+        chosen: 'utilities/chosen.jquery'
     }
 });
 
@@ -36,9 +39,7 @@ require([
     'backbone',
     'routers/AppRouter'
 ], function(Backbone, AppRouter) {
-
     var router = new AppRouter();
     Backbone.history.start();
-    
 });
 

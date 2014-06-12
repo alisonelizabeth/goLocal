@@ -2,7 +2,7 @@ define([
     'underscore',
     'jquery',
     'isotope'
-], function(_, $, Isotope) {
+], function(_, $, isotope) {
 
 	var destroyIsotope = function() {
 		var container = $('.container')

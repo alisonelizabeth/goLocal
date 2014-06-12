@@ -1,7 +1,10 @@
 define([
     'underscore',
-    'backbone'
-], function(_, Backbone) {
+    'backbone',
+    'collections/CommentCollection',
+    'models/CommentModel',
+    'utilities/validateForm'
+], function(_, Backbone, CommentCollection, Comment, validateForm) {
     var IndividualView = Backbone.View.extend({
 		singleTemplate: _.template($('#single-template').text()),
 
@@ -14,6 +17,7 @@ define([
 
 		initialize: function(){
 			$('.container').append(this.el);
+			this.comments = new CommentCollection();
 			this.render();
 		},
 
@@ -32,7 +36,8 @@ define([
 			moreComments.set('content', newComment);
 			moreComments.set('parent', this.model);
 
-			router.comments.add(moreComments);
+			this.comments.add(moreComments);
+			console.log(this.comments)
 
 			if (validateForm($('#new-comment')))
 				moreComments.save(null, {

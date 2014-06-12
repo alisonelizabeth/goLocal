@@ -15,17 +15,15 @@ define([
     'views/FullView',
     'views/IndividualView',
     'views/AddView',
-    'utilities/isotopeFix'
-    // 'utilities/destroyIsotope',
-    // 'utilities/clickLocation',
-    // 'utilities/destroyIsotope'
-], function($, Backbone, Parse, isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix) {
+    'utilities/isotopeFix',
+    'utilities/destroyIsotope',
+    'utilities/clickLocation'
+], function($, Backbone, Parse, isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix, destroyIsotope, clickLocation) {
 
     AppRouter = Backbone.Router.extend({
 
 		initialize: function(){
 			this.places = new PlaceCollection();
-			this.comments = new CommentCollection();
 		},
 
 		routes: {
@@ -43,7 +41,7 @@ define([
 
 			var footerTemplate = _.template($('#footer-template').text());
 
-			// destroyIsotope();
+			destroyIsotope();
 
 			new HomeView();
 
@@ -85,7 +83,7 @@ define([
 						new FullView({model: place});
 					});
 
-					// isotopeFix();
+					isotopeFix();
 
 	           	$('.footer').append(footerTemplate())
 				}
@@ -97,8 +95,8 @@ define([
 			$('.container').empty();
 			$('.full').empty();
 			$('.footer').empty();
-			
-			// destroyIsotope();
+
+			destroyIsotope();
 
 			var headerTemplate = _.template($('#header-template').text());
 			$('.full').append(headerTemplate());
@@ -161,7 +159,7 @@ define([
 			$('.full').empty();
 			$('.footer').empty();
 
-			// destroyIsotope();
+			destroyIsotope();
 
 			new AddView();
 
@@ -173,7 +171,7 @@ define([
 
 	        // $('.select').chosen({max_selected_options: 9});
 
-	        // clickLocation();
+	        clickLocation();
 
 	        $('#image-placeholder').show();
 	        $('#image-preview').hide();
@@ -181,7 +179,7 @@ define([
 		      function readURL(input) {
 		        if (input.files && input.files[0]) {
 		            var reader = new FileReader();
-		            
+
 		            reader.onload = function(e) {
 		                $('#image-preview').attr('src', e.target.result);
 		            }
@@ -212,7 +210,7 @@ define([
 							for (var i=0; i<results.length; i++) {
 								new FullView({model: results[i]});
 							}
-							// isotopeFix();
+							isotopeFix();
 
 			            } else {
 			            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
@@ -235,7 +233,7 @@ define([
 							for (var i=0; i<results.length; i++) {
 								new FullView({model: results[i]});
 							}
-							// isotopeFix();
+							isotopeFix();
 
 			            } else {
 			            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
