@@ -36,19 +36,16 @@ define([
 		},
 
 		home: function() {
-			emptyContainers();
-			
 			var footerTemplate = _.template($('#footer-template').text());
-
-			destroyIsotope();
-
-			new HomeView();
-
-			$('.container').append('<h2 class="bottom-head"> Recent finds</h2>')
 			var query = new Parse.Query(PlaceClass);
+
+			emptyContainers();
+			destroyIsotope();
+			new HomeView();
+			$('.container').append('<h2 class="bottom-head"> Recent finds</h2>')
+			
 			query.limit(3);
 			query.descending('createdAt');
-
 			query.find({
 				success:function(results){
 					for (var i=0; i<results.length; i++) {
@@ -56,7 +53,6 @@ define([
 					}
 					$('.footer').append(footerTemplate());
 			},
-
 				error: function(results, error){
 					console.log(error.description)
 				}
@@ -65,50 +61,42 @@ define([
 		},
 
 		showPlaces: function() {
-			emptyContainers();
-
 			var headerTemplate = _.template($('#header-template').text());
-			$('.full').append(headerTemplate());
-
 			var footerTemplate = _.template($('#footer-template').text());
 
+			emptyContainers();
+			$('.full').append(headerTemplate());
 			new SearchView();
 
 			this.places.fetch({
 				success: function(places) {
-					places.each(function(place){
+					places.each(function(place) {
 						new FullView({model: place});
 					});
-
 					isotopeFix();
-
-	           	$('.footer').append(footerTemplate())
+					$('.footer').append(footerTemplate())
 				}
 			});
-		}
-		,
+		},
 
 		showPlace: function(id){
+			var headerTemplate = _.template($('#header-template').text());
+			var footerTemplate = _.template($('#footer-template').text());
+			var that = this;
 			emptyContainers();
 			destroyIsotope();
-
-			var headerTemplate = _.template($('#header-template').text());
 			$('.full').append(headerTemplate());
 
-			var footerTemplate = _.template($('#footer-template').text());
-
-			var that = this
 			this.places.fetch({
 				success: function(){
 					placeToShow = that.places.get(id);
 
 					new IndividualView({model: placeToShow});
-
 					$('.container').append('<div id="map"> </div>');
-					var latitude = placeToShow.get('latitude')
-					var longitude = placeToShow.get('longitude')
-					var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1')
-					.setView([latitude, longitude], 15);    			
+
+					var latitude = placeToShow.get('latitude');
+					var longitude = placeToShow.get('longitude');
+					var map = L.mapbox.map('map', 'alisonelizabeth.map-s8zjw3c1').setView([latitude, longitude], 15);
 
 					L.mapbox.markerLayer({
 					    type: 'Feature',
@@ -125,14 +113,11 @@ define([
 					}).addTo(map);
 
 				var query = new Parse.Query(Comment);
-				console.log(query);
-
 				query.equalTo('parent', placeToShow);
 				query.descending('createdAt');
 
 				query.find({
 					success: function(results) {
-						console.log(results.length)
 						$('#comment-header').append('<h2> Latest Comments </h2>');
 
 						for (var i=0; i < results.length; i++) {
@@ -149,25 +134,19 @@ define([
 		},
 
 		addPlace: function() {
-			emptyContainers();
-
-			destroyIsotope();
-
-			new AddView();
-
 			var headerTemplate = _.template($('#header-template').text());
-			$('.full').append(headerTemplate());
-
 			var footerTemplate = _.template($('#footer-template').text());
+
+			emptyContainers();
+			destroyIsotope();
+			new AddView();
+			$('.full').append(headerTemplate());
 			$('.footer').append(footerTemplate());
-
+			clickLocation();
 	        // $('.select').chosen({max_selected_options: 9});
-
-	        clickLocation();
-
 	        $('#image-placeholder').show();
-	        $('#image-preview').hide();
-		    $('#check').hide();
+	        $('#image-preview, #check').hide();
+
 		      function readURL(input) {
 		        if (input.files && input.files[0]) {
 		            var reader = new FileReader();
@@ -180,8 +159,7 @@ define([
 		    }
 		    $("#photo-upload").change(function(){
 		    	$('#image-placeholder').hide();
-		        $('#check').show();
-		        $('#image-preview').show();
+		        $('#check, #image-preview').show();
 		        readURL(this);
 		    });
 		},
@@ -192,8 +170,8 @@ define([
 
 			if (city !== '' && cityURL !== '') {
 				var query = new Parse.Query(PlaceClass);
-				query.equalTo('city', city)
-
+				
+				query.equalTo('city', city);
 				query.find({
 					success: function(results){
 						$('.container').empty();
@@ -231,7 +209,6 @@ define([
 			            	$('.container').append('<div id="no-results"> <p>Sorry, there are no results for that city.</p> <a href="#/places"> Go back </div></a> ');
 			            }
 					},
-
 					error: function(results, error){
 						console.log(error.description);
 					}

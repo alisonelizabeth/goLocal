@@ -2,11 +2,13 @@ define([
     'underscore',
     'backbone',
     'models/PlaceModel',
+    'collections/PlaceCollection',
+    'routers/AppRouter',
     'utilities/checkGeoLocation',
     'utilities/validateCompleteForm',
     'async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
-], function(_, Backbone, PlaceClass, checkGeoLocation, validateCompleteForm) {
-	
+], function(_, Backbone, PlaceClass, PlaceCollection, AppRouter, checkGeoLocation, validateCompleteForm) {
+
 	var AddView = Backbone.View.extend({
 		addTemplate: _.template($('#add-template').text()),
 
@@ -20,8 +22,8 @@ define([
 		initialize: function() {
 			$('.container').append(this.el);
 			this.render();
-			console.log('new addView');
 			geocoder = new google.maps.Geocoder();
+			this.places = new PlaceCollection();
 		},
 
 		render: function() {
@@ -36,19 +38,13 @@ define([
 			}
 			
 			function showPosition(position) {
-				console.log('user approved geolocation')
 				geoLatitude = parseFloat(position.coords.latitude);
-				geoLongitude = parseFloat(position.coords.longitude); 
-				console.log(geoLatitude + ' and ' + geoLongitude);
-				if (geoLatitude === undefined) {
-					console.log('undefined')
-				}
-					
+				geoLongitude = parseFloat(position.coords.longitude);
 			  	var latlng = new google.maps.LatLng(geoLatitude, geoLongitude);
+
 			  	geocoder.geocode({'latLng': latlng}, function(results, status) {
 				    if (status == google.maps.GeocoderStatus.OK) {
 				      if (results[0]) {
-				      	console.log(results[0])
 				        fullAddress = results[0].formatted_address
 				        geoCity = results[0].address_components[2].long_name.toLowerCase();
 				        geoAddress = (fullAddress.replace(', USA', ''))
@@ -63,31 +59,21 @@ define([
 			}
 
 			function error(error) {
-				console.log('user denied geolocation')
 		        alert(error.code);
-		        if (error.code == 1) {
-		            console.log('user said no')
-		        }
 	    	}
 		},
 
 		save: function() {
 			var place = new PlaceClass();
-
 			var fileUploadControl = $('#photo-upload')[0];
-
-			var placeName 	= $('#name').val();
+			var placeName = $('#name').val();
 			var description	= $('#description').val();
-			var products 	= $('.select').val();
-
-			console.log(fileUploadControl.files)
+			var products = $('.select').val();
 
 			if (fileUploadControl.files.length > 0) {
 				var file = fileUploadControl.files[0];
 				var name = 'photo.jpg';
-
 				var parseFile = new Parse.File(name, file);
-				console.log(parseFile)
 
 				if (validateCompleteForm() && checkGeoLocation())
 				parseFile.save().then(function(){
@@ -95,7 +81,7 @@ define([
 					place.set('placePhoto', parseFile);
 					place.save();
 				}); 
-			}	else {
+			} else {
 				console.log('Error occured.');
 			}
 
@@ -106,11 +92,9 @@ define([
 
 				geo.geocode({'address':address},function(results, status){
 				    if (status == google.maps.GeocoderStatus.OK) {
-				    	console.log(results[0])  
 				    	var city = results[0].address_components[2].long_name.toLowerCase();          
 				        var latitude = results[0].geometry.location.ob;
 				        var longitude = results[0].geometry.location.pb;
-				        console.log(latitude, longitude);
 				        place.set('latitude', latitude);
 				        place.set('longitude', longitude);
 				        place.set('city', city);
@@ -124,7 +108,6 @@ define([
 			if (($('#location').is(':checked'))) {
 				place.set('latitude', geoLatitude);
 		  		place.set('longitude', geoLongitude);
-		  		console.log(geoLatitude)
 		  		place.set('address', geoAddress)
 				place.set('city', geoCity)
 			} else {
@@ -136,9 +119,7 @@ define([
 			place.set('placeName', placeName);
 			place.set('description', description);
 
-			collection = router.places;
-			collection.add(place);
-			console.log(collection);
+			this.places.add(place);
 
 			if (checkGeoLocation() && validateCompleteForm()) { 
 				place.save(null, {
@@ -151,7 +132,7 @@ define([
 						$('.modal').addClass('modal-active');
 						$('.close-button').click(function() {
 							$('.modal').removeClass('modal-active');
-							router.navigate("#", {trigger:true});
+							Backbone.history.navigate('#',{trigger:true});
 						});
 					},
 

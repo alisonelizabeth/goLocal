@@ -33,11 +33,10 @@ define([
 		addComment: function(){
 			var moreComments = new Comment();
 			var newComment = $('#new-comment').val();
+
 			moreComments.set('content', newComment);
 			moreComments.set('parent', this.model);
-
 			this.comments.add(moreComments);
-			console.log(this.comments)
 
 			if (validateForm($('#new-comment')))
 				moreComments.save(null, {

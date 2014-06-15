@@ -15,7 +15,6 @@ define([
 	    });
 	  } 
 	  return valid
-	  console.log(valid) 
 	}
 	return checkGeoLocation;
 });
