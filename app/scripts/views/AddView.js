@@ -1,13 +1,12 @@
 define([
     'underscore',
     'backbone',
+    // 'chosen',
     'models/PlaceModel',
     'collections/PlaceCollection',
     'routers/AppRouter',
-    'utilities/checkGeoLocation',
-    'utilities/validateCompleteForm',
     'async!http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
-], function(_, Backbone, PlaceClass, PlaceCollection, AppRouter, checkGeoLocation, validateCompleteForm) {
+], function(_, Backbone, PlaceClass, PlaceCollection, AppRouter) {
 
 	var AddView = Backbone.View.extend({
 		addTemplate: _.template($('#add-template').text()),
@@ -69,23 +68,21 @@ define([
 			var placeName = $('#name').val();
 			var description	= $('#description').val();
 			var products = $('.select').val();
+			var _this = this;
 
 			if (fileUploadControl.files.length > 0) {
 				var file = fileUploadControl.files[0];
 				var name = 'photo.jpg';
 				var parseFile = new Parse.File(name, file);
 
-				if (validateCompleteForm() && checkGeoLocation())
-				parseFile.save().then(function(){
-					console.log(parseFile.url());
-					place.set('placePhoto', parseFile);
-					place.save();
-				}); 
-			} else {
-				console.log('Error occured.');
+				if (_this.validateCompleteForm() && _this.checkGeoLocation())
+					parseFile.save().then(function(){
+						place.set('placePhoto', parseFile);
+						place.save();
+					}); 
 			}
 
-			if ($('#address-location').val() !== '' ) {
+			if ($('#address-location').val() !== '') {
 				var geo = new google.maps.Geocoder;
 				var address = $('#address-location').val();
 				place.set('address', address)
@@ -98,7 +95,6 @@ define([
 				        place.set('latitude', latitude);
 				        place.set('longitude', longitude);
 				        place.set('city', city);
-
 				    } else {
 				        alert("Geocode was not successful for the following reason: " + status);
 				    }
@@ -110,8 +106,6 @@ define([
 		  		place.set('longitude', geoLongitude);
 		  		place.set('address', geoAddress)
 				place.set('city', geoCity)
-			} else {
-				console.log('error')
 			}
 
 			place.set('products', products);
@@ -121,13 +115,11 @@ define([
 
 			this.places.add(place);
 
-			if (checkGeoLocation() && validateCompleteForm()) { 
+			if (_this.validateCompleteForm() && _this.checkGeoLocation()) { 
 				place.save(null, {
 					success: function(results) {
-						console.log('it saved');
-						$('#name').val('');
-						$('#description').val('');
-						$('.select').val('').trigger('chosen:updated');
+						$('#name, #description').val('');
+						// $('.select').val('').trigger('chosen:updated');
 						$('#location').attr('checked', false);
 						$('.modal').addClass('modal-active');
 						$('.close-button').click(function() {
@@ -135,12 +127,50 @@ define([
 							Backbone.history.navigate('#',{trigger:true});
 						});
 					},
-
 					error: function(results, error) {
 						console.log(error.description);
 					}
 				});
 			}
+		},
+		checkGeoLocation: function() {
+		  var valid = true; 
+		  var address = $('#address-location').val();
+
+		  if (((geoLatitude === undefined) || (geoLongitude === undefined)) && address === '' ) {
+		    valid = false
+		    $('.modal-error-geo').addClass('modal-active-error-geo');
+		    $('.close-button-error-geo').click(function() {
+		        $('.modal-error-geo').removeClass('modal-active-error-geo');
+		    });
+		  }
+		  return valid
+		},
+		validateCompleteForm: function() {
+		  var valid = true;
+		  var name = $('input#name');
+		  var description = $('textarea#description');
+		  var checkbox = $('#location');
+		  var address = $('#address-location');
+		  var photo = $('#photo-upload');
+
+		  name.removeClass('red-warning');
+		  description.removeClass('red-warning');
+
+		  if ((photo.val() === '') || (name.val() === '') || ( (!checkbox.is(':checked')) && (address.val() === '') ) || (description.val() === '' )) {
+		    valid = false;
+		    $('.modal-error').addClass('modal-active-error');
+		    $('.close-button-error').click(function() {
+		        $('.modal-error').removeClass('modal-active-error');
+		    });
+		    if (name.val() === '') {
+		      name.addClass('red-warning')
+		    }
+		    if (description.val() === '') {
+		      description.addClass('red-warning')
+		    }
+		  }
+		  return valid
 		}
 	});
     return AddView;

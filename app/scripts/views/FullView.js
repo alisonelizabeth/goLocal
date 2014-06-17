@@ -17,7 +17,7 @@ define([
 		},
 
 		render: function() {
-			this.$el.append(this.gridTemplate({place: this.model}) );
+			this.$el.append(this.gridTemplate({place: this.model}));
 		},
 
 		activate: function(){

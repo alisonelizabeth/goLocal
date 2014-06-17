@@ -2,10 +2,10 @@ define([
     'underscore',
     'backbone',
     'collections/CommentCollection',
-    'models/CommentModel',
-    'utilities/validateForm'
-], function(_, Backbone, CommentCollection, Comment, validateForm) {
+    'models/CommentModel'
+], function(_, Backbone, CommentCollection, Comment) {
     var IndividualView = Backbone.View.extend({
+		
 		singleTemplate: _.template($('#single-template').text()),
 
 		className: 'single-view',
@@ -33,12 +33,13 @@ define([
 		addComment: function(){
 			var moreComments = new Comment();
 			var newComment = $('#new-comment').val();
+			var _this = this;
 
 			moreComments.set('content', newComment);
 			moreComments.set('parent', this.model);
 			this.comments.add(moreComments);
 
-			if (validateForm($('#new-comment')))
+			if (_this.validateForm($('#new-comment')))
 				moreComments.save(null, {
 					success: function(results){
 						$('#new-comment').val('');
@@ -49,6 +50,18 @@ define([
 					}
 				});
 		},
+		validateForm: function(input) {
+		  var valid = true;
+		  input.removeClass('warning');
+		  $('#message').removeClass('popup-message').html('');
+
+		  if (input.val() === '') {
+		    input.addClass('warning');
+		    $('#message').addClass('popup-message').html('<span>Oops, please fill out the form.</span>')
+		    valid = false;
+		  }
+		  return valid
+		}
 	});
     return IndividualView;
 });

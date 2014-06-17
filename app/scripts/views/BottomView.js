@@ -17,7 +17,7 @@ define([
 		},
 
 		render: function(){
-			this.$el.append(this.bottomTemplate({place: this.model}) );
+			this.$el.append(this.bottomTemplate({place: this.model}));
 		},
 
 		activate: function(){

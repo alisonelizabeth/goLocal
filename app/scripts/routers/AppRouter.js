@@ -5,6 +5,7 @@ define([
     'isotope',
     'mapbox',
     'moment',
+    'chosen',
     'models/PlaceModel',
     'models/CommentModel',
     'collections/PlaceCollection',
@@ -19,7 +20,7 @@ define([
     'utilities/destroyIsotope',
     'utilities/clickLocation',
     'utilities/emptyContainers'
-], function($, Backbone, Parse, isotope, mapbox, moment, PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix, destroyIsotope, clickLocation, emptyContainers) {
+], function($, Backbone, Parse, isotope, mapbox, moment, chosen,PlaceClass, Comment, PlaceCollection, CommentCollection, HomeView, BottomView, SearchView, FullView, IndividualView, AddView, isotopeFix, destroyIsotope, clickLocation, emptyContainers) {
 
     AppRouter = Backbone.Router.extend({
 
